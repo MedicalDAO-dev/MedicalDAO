@@ -6,17 +6,22 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
 
 contract MockERC721 is ERC721, AccessControl {
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
+    uint256 currentTokenId;
 
     constructor() ERC721("MockERC721", "MTK") {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(MINTER_ROLE, msg.sender);
     }
 
-    function safeMint(
-        address to,
-        uint256 tokenId
-    ) public onlyRole(MINTER_ROLE) {
-        _safeMint(to, tokenId);
+    function mint() public onlyRole(MINTER_ROLE) returns (uint256) {
+        uint256 newTokenId = currentTokenId;
+        _safeMint(msg.sender, newTokenId);
+        ++currentTokenId;
+        return newTokenId;
+    }
+
+    function burn(uint256 tokenId) public onlyRole(MINTER_ROLE) {
+        _burn(tokenId);
     }
 
     function supportsInterface(
