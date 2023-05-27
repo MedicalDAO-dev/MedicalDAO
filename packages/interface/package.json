@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write '**/*.js' '**/*.ts' '**/*.tsx' '**/*.json' '**/*.yml' '**/*.sol' --ignore-path .gitignore && npm run lint"
+    "format": "prettier --write '**/*.js' '**/*.ts' '**/*.tsx' '**/*.json' --ignore-path .gitignore && npm run lint"
   },
   "dependencies": {
     "@types/node": "20.2.5",
