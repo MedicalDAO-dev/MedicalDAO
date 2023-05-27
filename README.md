@@ -21,4 +21,16 @@
 # Getting Started
 ## フロントエンド・バックエンド
 
+```bash
+cd packages/interface
+npm i
+npm run dev
+```
+
+
 ## コントラクト
+
+```bash
+cd packages/contracts
+npm i
+```
