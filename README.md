@@ -5,8 +5,9 @@
 - packages/interface -> フロントエンド
 - packages/contracts -> コントラクト
 # 環境
+- Node.js v16系
 - フロントエンド
-  - Next.js
+  - Next.js (v13)
 	  - TypeScript
 		- TailwindCSS
 - バックエンド
@@ -14,5 +15,10 @@
 	  - TypeScript
 - コントラクト
   - Hardhat
-	  - Solidity
+	  - Solidity (v0.8.18)
 	  - TypeScript
+
+# Getting Started
+## フロントエンド・バックエンド
+
+## コントラクト
