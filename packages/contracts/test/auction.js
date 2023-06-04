@@ -1,5 +1,6 @@
 // test/AuctionHouse.test.js
 
+const { ethers, upgrades } = require("hardhat");
 const { expect } = require("chai");
 
 describe("AuctionHouse contract", function () {
@@ -38,8 +39,7 @@ describe("AuctionHouse contract", function () {
     );
     await auctionHouseProxy.deployed();
 
-    // Initialize the AuctionHouse contract
-    await auctionHouse.initialize();
+    auctionHouse = AuctionHouse.attach(auctionHouseProxy.address);
   });
 
   it("should deploy", async function () {
