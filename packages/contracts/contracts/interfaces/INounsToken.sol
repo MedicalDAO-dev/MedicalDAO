@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0
 
-/// @title The Nouns DAO auction house proxy admin
+/// @title Interface for NounsToken
 
 /*********************************
  * ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ *
@@ -17,7 +17,26 @@
 
 pragma solidity ^0.8.6;
 
-import {ProxyAdmin} from "@openzeppelin/contracts/proxy/transparent/ProxyAdmin.sol";
+import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
-// prettier-ignore
-contract AuctionHouseProxyAdmin is ProxyAdmin {}
+interface INounsToken is IERC721 {
+    event NounCreated(uint256 indexed tokenId);
+
+    event NounBurned(uint256 indexed tokenId);
+
+    event NoundersDAOUpdated(address noundersDAO);
+
+    event MinterUpdated(address minter);
+
+    event MinterLocked();
+
+    function mint() external returns (uint256);
+
+    function burn(uint256 tokenId) external;
+
+    function setNoundersDAO(address noundersDAO) external;
+
+    function setMinter(address minter) external;
+
+    function lockMinter() external;
+}

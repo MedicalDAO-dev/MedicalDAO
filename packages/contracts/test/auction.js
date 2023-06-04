@@ -15,7 +15,7 @@ describe("AuctionHouse contract", function () {
     [owner, bidder1, bidder2] = await ethers.getSigners();
 
     // Deploy the NFT contract
-    const NFT = await ethers.getContractFactory("MockERC721");
+    const NFT = await ethers.getContractFactory("NounsToken");
     nft = await NFT.deploy();
     await nft.deployed();
 
