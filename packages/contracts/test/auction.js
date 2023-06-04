@@ -1,6 +1,5 @@
 // test/AuctionHouse.test.js
 
-const { ethers, upgrades } = require("hardhat");
 const { expect } = require("chai");
 
 describe("AuctionHouse contract", function () {
@@ -22,8 +21,11 @@ describe("AuctionHouse contract", function () {
 
     // Deploy the AuctionHouse contract
     const AuctionHouse = await ethers.getContractFactory("AuctionHouse");
-    auctionHouseProxy = await AuctionHouse.upgrades.deployProxy(
-      AuctionHouse,
+    auctionHouse = await AuctionHouse.deploy();
+    await auctionHouse.deployed();
+
+    const initializeData = ethers.utils.defaultAbiCoder.encode(
+      ["address", "address", "uint256", "uint256", "uint8", "uint256"],
       [
         nft.address,
         owner.address,
@@ -31,15 +33,46 @@ describe("AuctionHouse contract", function () {
         1000, // reservePrice
         10, // minBidIncrementPercentage
         3600, // duration
-      ],
-      {
-        kind: "transparent",
-        initializer: "initialize",
-      }
+      ]
     );
-    await auctionHouseProxy.deployed();
 
-    auctionHouse = AuctionHouse.attach(auctionHouseProxy.address);
+    // const AuctionHouseProxyAdmin = await ethers.getContractFactory(
+    //   "AuctionHouseProxyAdmin"
+    // );
+    // const auctionHouseProxyAdmin = await AuctionHouseProxyAdmin.deploy();
+    // await auctionHouseProxyAdmin.deployed();
+
+    // const AuctionHouseProxy = await ethers.getContractFactory(
+    //   "AuctionHouseProxy"
+    // );
+    // auctionHouseProxy = await AuctionHouseProxy.deploy(
+    //   auctionHouse.address,
+    //   auctionHouseProxyAdmin.address,
+    //   initializeData
+    // );
+    // await auctionHouseProxy.deployed();
+    // console.log("Deployed at:", auctionHouseProxy.address);
+
+    // // Deploy the AuctionHouse contract
+    // const AuctionHouse = await ethers.getContractFactory("AuctionHouse");
+    // auctionHouseProxy = await AuctionHouse.upgrades.deployProxy(
+    //   AuctionHouse,
+    //   [
+    //     nft.address,
+    //     owner.address,
+    //     60, // timeBuffer
+    //     1000, // reservePrice
+    //     10, // minBidIncrementPercentage
+    //     3600, // duration
+    //   ],
+    //   {
+    //     kind: "transparent",
+    //     initializer: "initialize",
+    //   }
+    // );
+    // await auctionHouseProxy.deployed();
+
+    // auctionHouse = AuctionHouse.attach(auctionHouseProxy.address);
   });
 
   it("should deploy", async function () {
