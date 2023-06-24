@@ -1,4 +1,3 @@
-import { Button } from "@/components/elements/Button";
 import { BidButton } from "@/features/auction/components/BidButton";
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
