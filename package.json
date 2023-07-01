@@ -16,5 +16,19 @@
   "bugs": {
     "url": "https://github.com/UnyteDAO/MedicalDAO/issues"
   },
-  "homepage": "https://github.com/UnyteDAO/MedicalDAO#readme"
+  "homepage": "https://github.com/UnyteDAO/MedicalDAO#readme",
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.1.1",
+    "@typescript-eslint/parser": "^5.60.1",
+    "eslint": "^8.44.0",
+    "eslint-config-next": "^13.4.7",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-import-resolver-typescript": "^3.5.5",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "prettier": "^2.8.8",
+    "prettier-plugin-solidity": "^1.1.3"
+  }
 }
