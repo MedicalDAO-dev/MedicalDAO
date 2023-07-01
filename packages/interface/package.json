@@ -5,9 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "format": "prettier --write '**/*.js' '**/*.ts' '**/*.tsx' '**/*.json' --ignore-path .gitignore && npm run lint"
+    "start": "next start"
   },
   "dependencies": {
     "@types/node": "20.2.5",

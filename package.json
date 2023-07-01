@@ -4,7 +4,8 @@
   "description": "# ディレクトリ構成 # 環境 - フロントエンド   - Next.js \t  - TypeScript - バックエンド   - Next.js \t  - TypeScript - コントラクト   - Hardhat \t  - Solidity \t  - TypeScript",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write '**/*.js' '**/*.ts' '**/*.tsx' '**/*.json' --ignore-path .gitignore"
   },
   "repository": {
     "type": "git",
