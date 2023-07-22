@@ -1,19 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0
 
-/// @title The Nouns ERC-721 token
-
-/*********************************
- * ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ *
- * ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ *
- * ░░░░░░█████████░░█████████░░░ *
- * ░░░░░░██░░░████░░██░░░████░░░ *
- * ░░██████░░░████████░░░████░░░ *
- * ░░██░░██░░░████░░██░░░████░░░ *
- * ░░██░░██░░░████░░██░░░████░░░ *
- * ░░░░░░█████████░░█████████░░░ *
- * ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ *
- * ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ *
- *********************************/
+// LICENSE
+// This is a modified version of NounsDAO's NounsToken.sol
+// NounsToken.sol source code Copyright NounsDAO licensed under the GPL-3.0 license.
+// With modifications by Medical DAO.
 
 pragma solidity ^0.8.6;
 
@@ -27,6 +17,9 @@ import {IProxyRegistry} from "./external/opensea/IProxyRegistry.sol";
 contract NounsToken is INounsToken, Ownable, ERC721Checkpointable {
     // The nounders DAO address (creators org)
     address public noundersDAO;
+
+    // The nounders DAO address 2 (creators org)
+    address public noundersDAO2;
 
     // An address who has permissions to mint Nouns
     address public minter;
@@ -76,10 +69,12 @@ contract NounsToken is INounsToken, Ownable, ERC721Checkpointable {
 
     constructor(
         address _noundersDAO,
+        address _noundersDAO2,
         address _minter,
         IProxyRegistry _proxyRegistry
     ) ERC721("Nouns", "NOUN") {
         noundersDAO = _noundersDAO;
+        noundersDAO2 = _noundersDAO2;
         minter = _minter;
         proxyRegistry = _proxyRegistry;
     }
@@ -124,6 +119,7 @@ contract NounsToken is INounsToken, Ownable, ERC721Checkpointable {
     function mint() public override onlyMinter returns (uint256) {
         if (_currentNounId <= 1820 && _currentNounId % 10 == 0) {
             _mintTo(noundersDAO, _currentNounId++);
+            _mintTo(noundersDAO2, _currentNounId++);
         }
         return _mintTo(minter, _currentNounId++);
     }
@@ -160,6 +156,18 @@ contract NounsToken is INounsToken, Ownable, ERC721Checkpointable {
         noundersDAO = _noundersDAO;
 
         emit NoundersDAOUpdated(_noundersDAO);
+    }
+
+    /**
+     * @notice Set the nounders DAO 2.
+     * @dev Only callable by the nounders DAO 2 when not locked.
+     */
+    function setNoundersDAO2(
+        address _noundersDAO2
+    ) external override onlyNoundersDAO {
+        noundersDAO2 = _noundersDAO2;
+
+        emit NoundersDAOUpdated2(_noundersDAO);
     }
 
     /**

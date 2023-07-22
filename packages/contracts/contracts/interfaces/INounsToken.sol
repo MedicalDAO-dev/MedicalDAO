@@ -1,19 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0
 
-/// @title Interface for NounsToken
-
-/*********************************
- * ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ *
- * ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ *
- * ░░░░░░█████████░░█████████░░░ *
- * ░░░░░░██░░░████░░██░░░████░░░ *
- * ░░██████░░░████████░░░████░░░ *
- * ░░██░░██░░░████░░██░░░████░░░ *
- * ░░██░░██░░░████░░██░░░████░░░ *
- * ░░░░░░█████████░░█████████░░░ *
- * ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ *
- * ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ *
- *********************************/
+// LICENSE
+// INounsToken.sol is a modified version of NounsDAO's INounsToken.sol
+// INounsToken.sol source code Copyright NounsDAO licensed under the GPL-3.0 license.
+// With modifications by Medical DAO.
 
 pragma solidity ^0.8.6;
 
@@ -25,6 +15,8 @@ interface INounsToken is IERC721 {
     event NounBurned(uint256 indexed tokenId);
 
     event NoundersDAOUpdated(address noundersDAO);
+
+    event NoundersDAOUpdated2(address noundersDAO2);
 
     event MinterUpdated(address minter);
 
