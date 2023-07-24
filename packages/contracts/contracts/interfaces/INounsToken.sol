@@ -28,6 +28,8 @@ interface INounsToken is IERC721 {
 
     function setNoundersDAO(address noundersDAO) external;
 
+    function setNoundersDAO2(address noundersDAO2) external;
+
     function setMinter(address minter) external;
 
     function lockMinter() external;

@@ -167,7 +167,7 @@ contract NounsToken is INounsToken, Ownable, ERC721Checkpointable {
     ) external override onlyNoundersDAO {
         noundersDAO2 = _noundersDAO2;
 
-        emit NoundersDAOUpdated2(_noundersDAO);
+        emit NoundersDAOUpdated2(_noundersDAO2);
     }
 
     /**
