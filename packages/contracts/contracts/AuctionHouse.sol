@@ -1,26 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0
 
-/// @title The Nouns DAO auction house
-
-/*********************************
- * ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ *
- * ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ *
- * ░░░░░░█████████░░█████████░░░ *
- * ░░░░░░██░░░████░░██░░░████░░░ *
- * ░░██████░░░████████░░░████░░░ *
- * ░░██░░██░░░████░░██░░░████░░░ *
- * ░░██░░██░░░████░░██░░░████░░░ *
- * ░░░░░░█████████░░█████████░░░ *
- * ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ *
- * ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ *
- *********************************/
-
 // LICENSE
-// AuctionHouse.sol is a modified version of Zora's AuctionHouse.sol:
-// https://github.com/ourzora/auction-house/blob/54a12ec1a6cf562e49f0a4917990474b11350a2d/contracts/AuctionHouse.sol
-//
-// AuctionHouse.sol source code Copyright Zora licensed under the GPL-3.0 license.
-// With modifications by Nounders DAO.
+// AuctionHouse.sol is a modified version of NounsDAO's AuctionHouse.sol
+// AuctionHouse.sol source code Copyright NounsDAO licensed under the GPL-3.0 license.
+// With modifications by Medical DAO.
 
 pragma solidity ^0.8.6;
 
@@ -29,7 +12,7 @@ import {ReentrancyGuardUpgradeable} from "@openzeppelin/contracts-upgradeable/se
 import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {IAuctionHouse} from "./interfaces/IAuctionHouse.sol";
-import {IMockERC721} from "./interfaces/IMockERC721.sol";
+import {INounsToken} from "./interfaces/INounsToken.sol";
 import {IWETH} from "./interfaces/IWETH.sol";
 
 contract AuctionHouse is
@@ -39,7 +22,7 @@ contract AuctionHouse is
     OwnableUpgradeable
 {
     // The Nouns ERC721 token contract
-    IMockERC721 public nft;
+    INounsToken public nft;
 
     // The address of the WETH contract
     address public weth;
@@ -65,7 +48,7 @@ contract AuctionHouse is
      * @dev This function can only be called once.
      */
     function initialize(
-        IMockERC721 _nft,
+        INounsToken _nft,
         address _weth,
         uint256 _timeBuffer,
         uint256 _reservePrice,
