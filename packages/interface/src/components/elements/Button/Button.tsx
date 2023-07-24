@@ -25,7 +25,7 @@ export const Button = ({
         "px-[16px]",
         "py-[10px]",
         "text-[19px]",
-        "rounded-[12px]"
+        "rounded-[12px]",
       )}
       onClick={onClick}
     >

@@ -10,27 +10,27 @@ pragma solidity ^0.8.6;
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 interface INounsToken is IERC721 {
-    event NounCreated(uint256 indexed tokenId);
+  event NounCreated(uint256 indexed tokenId);
 
-    event NounBurned(uint256 indexed tokenId);
+  event NounBurned(uint256 indexed tokenId);
 
-    event NoundersDAOUpdated(address noundersDAO);
+  event NoundersDAOUpdated(address noundersDAO);
 
-    event NoundersDAOUpdated2(address noundersDAO2);
+  event NoundersDAOUpdated2(address noundersDAO2);
 
-    event MinterUpdated(address minter);
+  event MinterUpdated(address minter);
 
-    event MinterLocked();
+  event MinterLocked();
 
-    function mint() external returns (uint256);
+  function mint() external returns (uint256);
 
-    function burn(uint256 tokenId) external;
+  function burn(uint256 tokenId) external;
 
-    function setNoundersDAO(address noundersDAO) external;
+  function setNoundersDAO(address noundersDAO) external;
 
-    function setNoundersDAO2(address noundersDAO2) external;
+  function setNoundersDAO2(address noundersDAO2) external;
 
-    function setMinter(address minter) external;
+  function setMinter(address minter) external;
 
-    function lockMinter() external;
+  function lockMinter() external;
 }

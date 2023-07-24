@@ -8,7 +8,7 @@ export class AuctionModel extends ObjectCopier {
     public readonly dummy3: string = "",
     public readonly dummy4: string = "",
     public readonly dummy5: string = "",
-    public readonly bidder: string = ""
+    public readonly bidder: string = "",
   ) {
     super();
   }

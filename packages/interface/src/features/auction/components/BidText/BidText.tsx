@@ -1,6 +1,4 @@
 import { auctionState } from "@/stores/auctionState";
-import { bidAmountState } from "@/stores/bidAmountState";
-import { bidderState } from "@/stores/bidderState";
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
 import { useRecoilValue } from "recoil";
