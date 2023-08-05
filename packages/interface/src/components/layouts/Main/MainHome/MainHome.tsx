@@ -1,5 +1,6 @@
 import { AuctionImage } from "@/features/auction/components/AuctionImage";
 import { BidButton } from "@/features/auction/components/BidButton";
+import { BidText } from "@/features/auction/components/BidText";
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
 
@@ -15,6 +16,7 @@ export const MainHome = ({ className }: MainHomeProps) => {
       <AuctionImage />
       main homeだよ!
       <BidButton />
+      <BidText />
     </div>
   );
 };
