@@ -9,19 +9,14 @@
 
 pragma solidity ^0.8.6;
 
-
 interface IDescriptorMinimal {
     ///
     /// USED BY TOKEN
     ///
 
-    function tokenURI(
-        uint256 tokenId,
-    ) external view returns (string memory);
+    function tokenURI(uint256 tokenId) external view returns (string memory);
 
-    function dataURI(
-        uint256 tokenId,
-    ) external view returns (string memory);
+    function dataURI(uint256 tokenId) external view returns (string memory);
 
     ///
     /// USED BY SEEDER
