@@ -9,7 +9,6 @@
 
 pragma solidity ^0.8.6;
 
-import {INounsSeeder} from "./INounsSeeder.sol";
 
 interface IDescriptorMinimal {
     ///
@@ -18,12 +17,10 @@ interface IDescriptorMinimal {
 
     function tokenURI(
         uint256 tokenId,
-        INounsSeeder.Seed memory seed
     ) external view returns (string memory);
 
     function dataURI(
         uint256 tokenId,
-        INounsSeeder.Seed memory seed
     ) external view returns (string memory);
 
     ///
