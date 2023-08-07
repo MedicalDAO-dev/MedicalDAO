@@ -30,9 +30,6 @@ contract NounsToken is INounsToken, Ownable, ERC721Checkpointable {
     // Whether the descriptor can be updated
     bool public isDescriptorLocked;
 
-    // Whether the seeder can be updated
-    bool public isSeederLocked;
-
     // The internal noun ID tracker
     uint256 private _currentNounId;
 
