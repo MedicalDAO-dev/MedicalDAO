@@ -9,21 +9,14 @@
 
 pragma solidity ^0.8.6;
 
-import {INounsSeeder} from "./INounsSeeder.sol";
-import {ISVGRenderer} from "./ISVGRenderer.sol";
-import {INounsArt} from "./INounsArt.sol";
 import {IDescriptorMinimal} from "./IDescriptorMinimal.sol";
 
-interface IDescriptor is INounsDescriptorMinimal {
+interface IDescriptor is IDescriptorMinimal {
     event PartsLocked();
 
     event DataURIToggled(bool enabled);
 
     event BaseURIUpdated(string baseURI);
-
-    event ArtUpdated(INounsArt art);
-
-    event RendererUpdated(ISVGRenderer renderer);
 
     error EmptyPalette();
     error BadPaletteLength();
@@ -120,22 +113,17 @@ interface IDescriptor is INounsDescriptorMinimal {
     function setBaseURI(string calldata baseURI) external;
 
     function tokenURI(
-        uint256 tokenId,
-        INounsSeeder.Seed memory seed
+        uint256 tokenId
     ) external view override returns (string memory);
 
     function dataURI(
-        uint256 tokenId,
-        INounsSeeder.Seed memory seed
+        uint256 tokenId
     ) external view override returns (string memory);
 
     function genericDataURI(
         string calldata name,
-        string calldata description,
-        INounsSeeder.Seed memory seed
+        string calldata description
     ) external view returns (string memory);
 
-    function generateSVGImage(
-        INounsSeeder.Seed memory seed
-    ) external view returns (string memory);
+    function getImage() external view returns (string memory);
 }

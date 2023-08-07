@@ -1,32 +1,21 @@
 // SPDX-License-Identifier: GPL-3.0
 
-/// @title The Nouns NFT descriptor
+// LICENSE
+// Descriptor.sol is a modified version of NounsDAO's NounsDescriptorV2.sol
+// NounsDescriptorV2.sol source code Copyright NounsDAO licensed under the GPL-3.0 license.
+// With modifications by Medical DAO.
 
-/*********************************
- * ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ *
- * ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ *
- * ░░░░░░█████████░░█████████░░░ *
- * ░░░░░░██░░░████░░██░░░████░░░ *
- * ░░██████░░░████████░░░████░░░ *
- * ░░██░░██░░░████░░██░░░████░░░ *
- * ░░██░░██░░░████░░██░░░████░░░ *
- * ░░░░░░█████████░░█████████░░░ *
- * ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ *
- * ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ *
- *********************************/
+/// @title The descriptor
 
 pragma solidity ^0.8.6;
 
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
-import {INounsDescriptorV2} from "./interfaces/INounsDescriptorV2.sol";
-import {INounsSeeder} from "./interfaces/INounsSeeder.sol";
-import {NFTDescriptorV2} from "./libs/NFTDescriptorV2.sol";
-import {ISVGRenderer} from "./interfaces/ISVGRenderer.sol";
-import {INounsArt} from "./interfaces/INounsArt.sol";
+import {IDescriptor} from "./interfaces/IDescriptor.sol";
+import {NFTDescriptor} from "./libs/NFTDescriptor.sol";
 import {IInflator} from "./interfaces/IInflator.sol";
 
-contract NounsDescriptorV2 is INounsDescriptorV2, Ownable {
+contract Descriptor is IDescriptor, Ownable {
     using Strings for uint256;
 
     // prettier-ignore
@@ -35,9 +24,6 @@ contract NounsDescriptorV2 is INounsDescriptorV2, Ownable {
 
     /// @notice The contract responsible for holding compressed Noun art
     INounsArt public art;
-
-    /// @notice The contract responsible for constructing SVGs
-    ISVGRenderer public renderer;
 
     /// @notice Whether or not new Noun parts can be added
     bool public override arePartsLocked;
@@ -56,9 +42,8 @@ contract NounsDescriptorV2 is INounsDescriptorV2, Ownable {
         _;
     }
 
-    constructor(INounsArt _art, ISVGRenderer _renderer) {
+    constructor(INounsArt _art) {
         art = _art;
-        renderer = _renderer;
     }
 
     /**
@@ -69,16 +54,6 @@ contract NounsDescriptorV2 is INounsDescriptorV2, Ownable {
         art = _art;
 
         emit ArtUpdated(_art);
-    }
-
-    /**
-     * @notice Set the SVG renderer.
-     * @dev Only callable by the owner.
-     */
-    function setRenderer(ISVGRenderer _renderer) external onlyOwner {
-        renderer = _renderer;
-
-        emit RendererUpdated(_renderer);
     }
 
     /**
@@ -415,8 +390,7 @@ contract NounsDescriptorV2 is INounsDescriptorV2, Ownable {
      * @dev The returned value may be a base64 encoded data URI or an API URL.
      */
     function tokenURI(
-        uint256 tokenId,
-        INounsSeeder.Seed memory seed
+        uint256 tokenId
     ) external view override returns (string memory) {
         if (isDataURIEnabled) {
             return dataURI(tokenId, seed);
@@ -428,8 +402,7 @@ contract NounsDescriptorV2 is INounsDescriptorV2, Ownable {
      * @notice Given a token ID and seed, construct a base64 encoded data URI for an official Nouns DAO noun.
      */
     function dataURI(
-        uint256 tokenId,
-        INounsSeeder.Seed memory seed
+        uint256 tokenId
     ) public view override returns (string memory) {
         string memory nounId = tokenId.toString();
         string memory name = string(abi.encodePacked("Noun ", nounId));
@@ -445,8 +418,7 @@ contract NounsDescriptorV2 is INounsDescriptorV2, Ownable {
      */
     function genericDataURI(
         string memory name,
-        string memory description,
-        INounsSeeder.Seed memory seed
+        string memory description
     ) public view override returns (string memory) {
         NFTDescriptorV2.TokenURIParams memory params = NFTDescriptorV2
             .TokenURIParams({
@@ -456,44 +428,6 @@ contract NounsDescriptorV2 is INounsDescriptorV2, Ownable {
                 background: art.backgrounds(seed.background)
             });
         return NFTDescriptorV2.constructTokenURI(renderer, params);
-    }
-
-    /**
-     * @notice Given a seed, construct a base64 encoded SVG image.
-     */
-    function generateSVGImage(
-        INounsSeeder.Seed memory seed
-    ) external view override returns (string memory) {
-        ISVGRenderer.SVGParams memory params = ISVGRenderer.SVGParams({
-            parts: getPartsForSeed(seed),
-            background: art.backgrounds(seed.background)
-        });
-        return NFTDescriptorV2.generateSVGImage(renderer, params);
-    }
-
-    /**
-     * @notice Get all Noun parts for the passed `seed`.
-     */
-    function getPartsForSeed(
-        INounsSeeder.Seed memory seed
-    ) public view returns (ISVGRenderer.Part[] memory) {
-        bytes memory body = art.bodies(seed.body);
-        bytes memory accessory = art.accessories(seed.accessory);
-        bytes memory head = art.heads(seed.head);
-        bytes memory glasses_ = art.glasses(seed.glasses);
-
-        ISVGRenderer.Part[] memory parts = new ISVGRenderer.Part[](4);
-        parts[0] = ISVGRenderer.Part({image: body, palette: _getPalette(body)});
-        parts[1] = ISVGRenderer.Part({
-            image: accessory,
-            palette: _getPalette(accessory)
-        });
-        parts[2] = ISVGRenderer.Part({image: head, palette: _getPalette(head)});
-        parts[3] = ISVGRenderer.Part({
-            image: glasses_,
-            palette: _getPalette(glasses_)
-        });
-        return parts;
     }
 
     /**
