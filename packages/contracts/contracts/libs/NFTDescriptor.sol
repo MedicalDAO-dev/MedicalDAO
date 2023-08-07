@@ -10,30 +10,20 @@
 pragma solidity ^0.8.6;
 
 import {Base64} from "base64-sol/base64.sol";
-import {ISVGRenderer} from "../interfaces/ISVGRenderer.sol";
 
 library NFTDescriptor {
     struct TokenURIParams {
         string name;
         string description;
-        string background;
-        ISVGRenderer.Part[] parts;
     }
 
     /**
      * @notice Construct an ERC721 token URI.
      */
     function constructTokenURI(
-        ISVGRenderer renderer,
         TokenURIParams memory params
     ) public view returns (string memory) {
-        string memory image = generateSVGImage(
-            renderer,
-            ISVGRenderer.SVGParams({
-                parts: params.parts,
-                background: params.background
-            })
-        );
+        string memory image = "aaa";
 
         // prettier-ignore
         return string(
