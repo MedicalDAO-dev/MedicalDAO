@@ -41,5 +41,7 @@ library NFTDescriptor {
     /**
      * @notice Get an image for use in the ERC721 token URI.
      */
-    function getImage() public view returns (string memory image) {}
+    function getImage() public view returns (string memory image) {
+        return "";
+    }
 }

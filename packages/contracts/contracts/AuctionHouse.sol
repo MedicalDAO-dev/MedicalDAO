@@ -12,7 +12,7 @@ import {ReentrancyGuardUpgradeable} from "@openzeppelin/contracts-upgradeable/se
 import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {IAuctionHouse} from "./interfaces/IAuctionHouse.sol";
-import {INounsToken} from "./interfaces/INounsToken.sol";
+import {IToken} from "./interfaces/IToken.sol";
 import {IWETH} from "./interfaces/IWETH.sol";
 
 contract AuctionHouse is
@@ -22,7 +22,7 @@ contract AuctionHouse is
     OwnableUpgradeable
 {
     // The Nouns ERC721 token contract
-    INounsToken public nft;
+    IToken public nft;
 
     // The address of the WETH contract
     address public weth;
@@ -48,7 +48,7 @@ contract AuctionHouse is
      * @dev This function can only be called once.
      */
     function initialize(
-        INounsToken _nft,
+        IToken _nft,
         address _weth,
         uint256 _timeBuffer,
         uint256 _reservePrice,

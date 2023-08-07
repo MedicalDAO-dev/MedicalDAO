@@ -9,7 +9,7 @@ pragma solidity ^0.8.6;
 
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {ERC721Checkpointable} from "./base/ERC721Checkpointable.sol";
-import {INounsToken} from "./interfaces/INounsToken.sol";
+import {IToken} from "./interfaces/IToken.sol";
 import {ERC721} from "./base/ERC721.sol";
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import {IProxyRegistry} from "./external/opensea/IProxyRegistry.sol";
