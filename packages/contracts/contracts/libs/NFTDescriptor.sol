@@ -15,6 +15,7 @@ library NFTDescriptor {
     struct TokenURIParams {
         string name;
         string description;
+        string background;
     }
 
     /**
@@ -23,7 +24,7 @@ library NFTDescriptor {
     function constructTokenURI(
         TokenURIParams memory params
     ) public view returns (string memory) {
-        string memory image = "aaa";
+        string memory image = getImage();
 
         // prettier-ignore
         return string(
@@ -37,4 +38,9 @@ library NFTDescriptor {
             )
         );
     }
+
+    /**
+     * @notice Get an image for use in the ERC721 token URI.
+     */
+    function getImage() public view returns (string memory image) {}
 }
