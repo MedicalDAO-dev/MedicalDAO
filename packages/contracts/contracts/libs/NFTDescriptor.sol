@@ -37,14 +37,4 @@ library NFTDescriptor {
             )
         );
     }
-
-    /**
-     * @notice Generate an SVG image for use in the ERC721 token URI.
-     */
-    function generateSVGImage(
-        ISVGRenderer renderer,
-        ISVGRenderer.SVGParams memory params
-    ) public view returns (string memory svg) {
-        return Base64.encode(bytes(renderer.generateSVG(params)));
-    }
 }
