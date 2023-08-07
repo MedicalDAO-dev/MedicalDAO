@@ -9,7 +9,7 @@ pragma solidity ^0.8.6;
 
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
-interface INounsToken is IERC721 {
+interface IToken is IERC721 {
     event NounCreated(uint256 indexed tokenId);
 
     event NounBurned(uint256 indexed tokenId);

@@ -2,7 +2,7 @@
 
 // LICENSE
 // This is a modified version of NounsDAO's NounsToken.sol
-// NounsToken.sol source code Copyright NounsDAO licensed under the GPL-3.0 license.
+// Token.sol source code Copyright NounsDAO licensed under the GPL-3.0 license.
 // With modifications by Medical DAO.
 
 pragma solidity ^0.8.6;
@@ -14,7 +14,7 @@ import {ERC721} from "./base/ERC721.sol";
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import {IProxyRegistry} from "./external/opensea/IProxyRegistry.sol";
 
-contract NounsToken is INounsToken, Ownable, ERC721Checkpointable {
+contract Token is IToken, Ownable, ERC721Checkpointable {
     // The nounders DAO address (creators org)
     address public noundersDAO;
 
