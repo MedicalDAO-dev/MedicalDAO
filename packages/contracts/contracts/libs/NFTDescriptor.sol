@@ -15,7 +15,6 @@ library NFTDescriptor {
     struct TokenURIParams {
         string name;
         string description;
-        string background;
     }
 
     /**
