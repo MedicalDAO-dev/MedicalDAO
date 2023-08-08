@@ -10,6 +10,7 @@ pragma solidity ^0.8.6;
 import {PausableUpgradeable} from "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
 import {ReentrancyGuardUpgradeable} from "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol";
 import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import {UUPSUpgradeable} from "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {IAuctionHouse} from "./interfaces/IAuctionHouse.sol";
 import {IToken} from "./interfaces/IToken.sol";
@@ -19,7 +20,8 @@ contract AuctionHouse is
     IAuctionHouse,
     PausableUpgradeable,
     ReentrancyGuardUpgradeable,
-    OwnableUpgradeable
+    OwnableUpgradeable,
+    UUPSUpgradeable
 {
     // The Nouns ERC721 token contract
     IToken public nft;
@@ -58,6 +60,7 @@ contract AuctionHouse is
         __Pausable_init();
         __ReentrancyGuard_init();
         __Ownable_init();
+        __UUPSUpgradeable_init();
 
         _pause();
 
@@ -265,4 +268,8 @@ contract AuctionHouse is
         (bool success, ) = to.call{value: value, gas: 30_000}(new bytes(0));
         return success;
     }
+
+    function _authorizeUpgrade(
+        address newImplementation
+    ) internal override onlyOwner {}
 }
