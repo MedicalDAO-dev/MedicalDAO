@@ -7,6 +7,7 @@
 
 pragma solidity ^0.8.6;
 
+import {IDescriptorMinimal} from "./IDescriptorMinimal.sol";
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 interface IToken is IERC721 {
@@ -22,9 +23,15 @@ interface IToken is IERC721 {
 
     event MinterLocked();
 
+    event DescriptorUpdated(IDescriptorMinimal descriptor);
+
+    event DescriptorLocked();
+
     function mint() external returns (uint256);
 
     function burn(uint256 tokenId) external;
+
+    function dataURI(uint256 tokenId) external returns (string memory);
 
     function setNoundersDAO(address noundersDAO) external;
 
@@ -33,4 +40,8 @@ interface IToken is IERC721 {
     function setMinter(address minter) external;
 
     function lockMinter() external;
+
+    function setDescriptor(IDescriptorMinimal descriptor) external;
+
+    function lockDescriptor() external;
 }

@@ -9,6 +9,7 @@ pragma solidity ^0.8.6;
 
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {ERC721Checkpointable} from "./base/ERC721Checkpointable.sol";
+import {IDescriptorMinimal} from "./interfaces/IDescriptorMinimal.sol";
 import {IToken} from "./interfaces/IToken.sol";
 import {ERC721} from "./base/ERC721.sol";
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
@@ -23,6 +24,9 @@ contract Token is IToken, Ownable, ERC721Checkpointable {
 
     // An address who has permissions to mint Nouns
     address public minter;
+
+    // The token URI descriptor
+    IDescriptorMinimal public descriptor;
 
     // Whether the minter can be updated
     bool public isMinterLocked;
@@ -49,6 +53,14 @@ contract Token is IToken, Ownable, ERC721Checkpointable {
     }
 
     /**
+     * @notice Require that the descriptor has not been locked.
+     */
+    modifier whenDescriptorNotLocked() {
+        require(!isDescriptorLocked, "Descriptor is locked");
+        _;
+    }
+
+    /**
      * @notice Require that the sender is the nounders DAO.
      */
     modifier onlyNoundersDAO() {
@@ -68,11 +80,13 @@ contract Token is IToken, Ownable, ERC721Checkpointable {
         address _noundersDAO,
         address _noundersDAO2,
         address _minter,
+        IDescriptorMinimal _descriptor,
         IProxyRegistry _proxyRegistry
     ) ERC721("Nouns", "NOUN") {
         noundersDAO = _noundersDAO;
         noundersDAO2 = _noundersDAO2;
         minter = _minter;
+        descriptor = _descriptor;
         proxyRegistry = _proxyRegistry;
     }
 
@@ -129,19 +143,33 @@ contract Token is IToken, Ownable, ERC721Checkpointable {
         emit NounBurned(nounId);
     }
 
-    // /**
-    //  * @notice A distinct Uniform Resource Identifier (URI) for a given asset.
-    //  * @dev See {IERC721Metadata-tokenURI}.
-    //  */
-    // function tokenURI(
-    //     uint256 tokenId
-    // ) public view override returns (string memory) {
-    //     require(
-    //         _exists(tokenId),
-    //         "NounsToken: URI query for nonexistent token"
-    //     );
-    //     return descriptor.tokenURI(tokenId, seeds[tokenId]);
-    // }
+    /**
+     * @notice A distinct Uniform Resource Identifier (URI) for a given asset.
+     * @dev See {IERC721Metadata-tokenURI}.
+     */
+    function tokenURI(
+        uint256 tokenId
+    ) public view override returns (string memory) {
+        require(
+            _exists(tokenId),
+            "NounsToken: URI query for nonexistent token"
+        );
+        return descriptor.tokenURI(tokenId);
+    }
+
+    /**
+     * @notice Similar to `tokenURI`, but always serves a base64 encoded data URI
+     * with the JSON contents directly inlined.
+     */
+    function dataURI(
+        uint256 tokenId
+    ) public view override returns (string memory) {
+        require(
+            _exists(tokenId),
+            "NounsToken: URI query for nonexistent token"
+        );
+        return descriptor.dataURI(tokenId);
+    }
 
     /**
      * @notice Set the nounders DAO.
@@ -187,6 +215,33 @@ contract Token is IToken, Ownable, ERC721Checkpointable {
         isMinterLocked = true;
 
         emit MinterLocked();
+    }
+
+    /**
+     * @notice Set the token URI descriptor.
+     * @dev Only callable by the owner when not locked.
+     */
+    function setDescriptor(
+        IDescriptorMinimal _descriptor
+    ) external override onlyOwner whenDescriptorNotLocked {
+        descriptor = _descriptor;
+
+        emit DescriptorUpdated(_descriptor);
+    }
+
+    /**
+     * @notice Lock the descriptor.
+     * @dev This cannot be reversed and is only callable by the owner when not locked.
+     */
+    function lockDescriptor()
+        external
+        override
+        onlyOwner
+        whenDescriptorNotLocked
+    {
+        isDescriptorLocked = true;
+
+        emit DescriptorLocked();
     }
 
     /**
