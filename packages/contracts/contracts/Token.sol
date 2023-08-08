@@ -2,19 +2,19 @@
 
 // LICENSE
 // This is a modified version of NounsDAO's NounsToken.sol
-// NounsToken.sol source code Copyright NounsDAO licensed under the GPL-3.0 license.
+// Token.sol source code Copyright NounsDAO licensed under the GPL-3.0 license.
 // With modifications by Medical DAO.
 
 pragma solidity ^0.8.6;
 
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {ERC721Checkpointable} from "./base/ERC721Checkpointable.sol";
-import {INounsToken} from "./interfaces/INounsToken.sol";
+import {IToken} from "./interfaces/IToken.sol";
 import {ERC721} from "./base/ERC721.sol";
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import {IProxyRegistry} from "./external/opensea/IProxyRegistry.sol";
 
-contract NounsToken is INounsToken, Ownable, ERC721Checkpointable {
+contract Token is IToken, Ownable, ERC721Checkpointable {
     // The nounders DAO address (creators org)
     address public noundersDAO;
 
@@ -29,9 +29,6 @@ contract NounsToken is INounsToken, Ownable, ERC721Checkpointable {
 
     // Whether the descriptor can be updated
     bool public isDescriptorLocked;
-
-    // Whether the seeder can be updated
-    bool public isSeederLocked;
 
     // The internal noun ID tracker
     uint256 private _currentNounId;
