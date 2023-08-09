@@ -66,14 +66,14 @@ contract Descriptor is IDescriptor, Ownable {
     function dataURI(
         uint256 tokenId
     ) public view override returns (string memory) {
-        string memory tokenId = tokenId.toString();
+        string memory tokenIdString = tokenId.toString();
         string memory name = string(
-            abi.encodePacked("Medical DAO NFT ", tokenId)
+            abi.encodePacked("Medical DAO NFT ", tokenIdString)
         );
         string memory description = string(
             abi.encodePacked(
                 "Medical DAO NFT ",
-                tokenId,
+                tokenIdString,
                 " is a member of the Medical DAO"
             )
         );
