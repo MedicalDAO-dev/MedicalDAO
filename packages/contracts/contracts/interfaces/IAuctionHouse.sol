@@ -9,8 +9,8 @@ pragma solidity ^0.8.6;
 
 interface IAuctionHouse {
     struct Auction {
-        // ID for the Noun (ERC721 token ID)
-        uint256 nounId;
+        // ID for the token (ERC721 token ID)
+        uint256 tokenId;
         // The current highest bid amount
         uint256 amount;
         // The time that the auction started
@@ -24,22 +24,22 @@ interface IAuctionHouse {
     }
 
     event AuctionCreated(
-        uint256 indexed nounId,
+        uint256 indexed tokenId,
         uint256 startTime,
         uint256 endTime
     );
 
     event AuctionBid(
-        uint256 indexed nounId,
+        uint256 indexed tokenId,
         address sender,
         uint256 value,
         bool extended
     );
 
-    event AuctionExtended(uint256 indexed nounId, uint256 endTime);
+    event AuctionExtended(uint256 indexed tokenId, uint256 endTime);
 
     event AuctionSettled(
-        uint256 indexed nounId,
+        uint256 indexed tokenId,
         address winner,
         uint256 amount
     );
@@ -56,7 +56,7 @@ interface IAuctionHouse {
 
     function settleCurrentAndCreateNewAuction() external;
 
-    function createBid(uint256 nounId) external payable;
+    function createBid(uint256 tokenId) external payable;
 
     function pause() external;
 

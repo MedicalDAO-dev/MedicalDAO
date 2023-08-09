@@ -48,7 +48,7 @@ contract Descriptor is IDescriptor, Ownable {
     }
 
     /**
-     * @notice Given a token ID and seed, construct a token URI for an official Nouns DAO noun.
+     * @notice Given a token ID and seed, construct a token URI for an official Medical DAO token.
      * @dev The returned value may be a base64 encoded data URI or an API URL.
      */
     function tokenURI(
@@ -61,15 +61,21 @@ contract Descriptor is IDescriptor, Ownable {
     }
 
     /**
-     * @notice Given a token ID and seed, construct a base64 encoded data URI for an official Nouns DAO noun.
+     * @notice Given a token ID and seed, construct a base64 encoded data URI for an official Medical DAO token.
      */
     function dataURI(
         uint256 tokenId
     ) public view override returns (string memory) {
-        string memory nounId = tokenId.toString();
-        string memory name = string(abi.encodePacked("Noun ", nounId));
+        string memory tokenId = tokenId.toString();
+        string memory name = string(
+            abi.encodePacked("Medical DAO NFT ", tokenId)
+        );
         string memory description = string(
-            abi.encodePacked("Noun ", nounId, " is a member of the Medical DAO")
+            abi.encodePacked(
+                "Medical DAO NFT ",
+                tokenId,
+                " is a member of the Medical DAO"
+            )
         );
 
         return genericDataURI(name, description);

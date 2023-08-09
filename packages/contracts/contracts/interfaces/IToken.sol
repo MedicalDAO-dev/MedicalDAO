@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0
 
 // LICENSE
-// INounsToken.sol is a modified version of NounsDAO's INounsToken.sol
+// IToken.sol is a modified version of NounsDAO's INounsToken.sol
 // INounsToken.sol source code Copyright NounsDAO licensed under the GPL-3.0 license.
 // With modifications by Medical DAO.
 
@@ -11,13 +11,13 @@ import {IDescriptorMinimal} from "./IDescriptorMinimal.sol";
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 interface IToken is IERC721 {
-    event NounCreated(uint256 indexed tokenId);
+    event TokenCreated(uint256 indexed tokenId);
 
-    event NounBurned(uint256 indexed tokenId);
+    event TokenBurned(uint256 indexed tokenId);
 
-    event NoundersDAOUpdated(address noundersDAO);
+    event TokendersDAOUpdated(address foundersDAO);
 
-    event NoundersDAOUpdated2(address noundersDAO2);
+    event TokendersDAOUpdated2(address foundersDAO2);
 
     event MinterUpdated(address minter);
 
@@ -33,9 +33,9 @@ interface IToken is IERC721 {
 
     function dataURI(uint256 tokenId) external returns (string memory);
 
-    function setNoundersDAO(address noundersDAO) external;
+    function setFoundersDAO(address foundersDAO) external;
 
-    function setNoundersDAO2(address noundersDAO2) external;
+    function setFoundersDAO2(address foundersDAO2) external;
 
     function setMinter(address minter) external;
 

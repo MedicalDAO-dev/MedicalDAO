@@ -16,13 +16,13 @@ import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import {IProxyRegistry} from "./external/opensea/IProxyRegistry.sol";
 
 contract Token is IToken, Ownable, ERC721Checkpointable {
-    // The nounders DAO address (creators org)
-    address public noundersDAO;
+    // The founders DAO address (creators org)
+    address public foundersDAO;
 
-    // The nounders DAO address 2 (creators org)
-    address public noundersDAO2;
+    // The founders DAO address 2 (creators org)
+    address public foundersDAO2;
 
-    // An address who has permissions to mint Nouns
+    // An address who has permissions to mint tokens
     address public minter;
 
     // The token URI descriptor
@@ -34,8 +34,8 @@ contract Token is IToken, Ownable, ERC721Checkpointable {
     // Whether the descriptor can be updated
     bool public isDescriptorLocked;
 
-    // The internal noun ID tracker
-    uint256 private _currentNounId;
+    // The internal token ID tracker
+    uint256 private _currentTokenId;
 
     // IPFS content hash of contract-level metadata
     string private _contractURIHash =
@@ -61,10 +61,10 @@ contract Token is IToken, Ownable, ERC721Checkpointable {
     }
 
     /**
-     * @notice Require that the sender is the nounders DAO.
+     * @notice Require that the sender is the founders DAO.
      */
-    modifier onlyNoundersDAO() {
-        require(msg.sender == noundersDAO, "Sender is not the nounders DAO");
+    modifier onlyFoundersDAO() {
+        require(msg.sender == foundersDAO, "Sender is not the founders DAO");
         _;
     }
 
@@ -77,14 +77,14 @@ contract Token is IToken, Ownable, ERC721Checkpointable {
     }
 
     constructor(
-        address _noundersDAO,
-        address _noundersDAO2,
+        address _foundersDAO,
+        address _foundersDAO2,
         address _minter,
         IDescriptorMinimal _descriptor,
         IProxyRegistry _proxyRegistry
-    ) ERC721("Nouns", "NOUN") {
-        noundersDAO = _noundersDAO;
-        noundersDAO2 = _noundersDAO2;
+    ) ERC721("MedicalDAONFT", "MDNFT") {
+        foundersDAO = _foundersDAO;
+        foundersDAO2 = _foundersDAO2;
         minter = _minter;
         descriptor = _descriptor;
         proxyRegistry = _proxyRegistry;
@@ -122,25 +122,25 @@ contract Token is IToken, Ownable, ERC721Checkpointable {
     }
 
     /**
-     * @notice Mint a Noun to the minter, along with a possible nounders reward
-     * Noun. Nounders reward Nouns are minted every 10 Nouns, starting at 0,
-     * until 183 nounder Nouns have been minted (5 years w/ 24 hour auctions).
+     * @notice Mint a token to the minter, along with a possible founders reward
+     * token. Founders reward tokens are minted every 10 tokens, starting at 0,
+     * until 183 founder tokens have been minted (5 years w/ 24 hour auctions).
      * @dev Call _mintTo with the to address(es).
      */
     function mint() public override onlyMinter returns (uint256) {
-        if (_currentNounId <= 1820 && _currentNounId % 10 == 0) {
-            _mintTo(noundersDAO, _currentNounId++);
-            _mintTo(noundersDAO2, _currentNounId++);
+        if (_currentTokenId <= 1820 && _currentTokenId % 10 == 0) {
+            _mintTo(foundersDAO, _currentTokenId++);
+            _mintTo(foundersDAO2, _currentTokenId++);
         }
-        return _mintTo(minter, _currentNounId++);
+        return _mintTo(minter, _currentTokenId++);
     }
 
     /**
-     * @notice Burn a noun.
+     * @notice Burn a token.
      */
-    function burn(uint256 nounId) public override onlyMinter {
-        _burn(nounId);
-        emit NounBurned(nounId);
+    function burn(uint256 tokenId) public override onlyMinter {
+        _burn(tokenId);
+        emit TokenBurned(tokenId);
     }
 
     /**
@@ -152,7 +152,7 @@ contract Token is IToken, Ownable, ERC721Checkpointable {
     ) public view override returns (string memory) {
         require(
             _exists(tokenId),
-            "NounsToken: URI query for nonexistent token"
+            "MedicalDAONFT: URI query for nonexistent token"
         );
         return descriptor.tokenURI(tokenId);
     }
@@ -166,33 +166,33 @@ contract Token is IToken, Ownable, ERC721Checkpointable {
     ) public view override returns (string memory) {
         require(
             _exists(tokenId),
-            "NounsToken: URI query for nonexistent token"
+            "MedicalDAONFT: URI query for nonexistent token"
         );
         return descriptor.dataURI(tokenId);
     }
 
     /**
-     * @notice Set the nounders DAO.
-     * @dev Only callable by the nounders DAO when not locked.
+     * @notice Set the founders DAO.
+     * @dev Only callable by the founders DAO when not locked.
      */
-    function setNoundersDAO(
-        address _noundersDAO
-    ) external override onlyNoundersDAO {
-        noundersDAO = _noundersDAO;
+    function setFoundersDAO(
+        address _foundersDAO
+    ) external override onlyFoundersDAO {
+        foundersDAO = _foundersDAO;
 
-        emit NoundersDAOUpdated(_noundersDAO);
+        emit FoundersDAOUpdated(_foundersDAO);
     }
 
     /**
-     * @notice Set the nounders DAO 2.
-     * @dev Only callable by the nounders DAO 2 when not locked.
+     * @notice Set the founders DAO 2.
+     * @dev Only callable by the founders DAO 2 when not locked.
      */
-    function setNoundersDAO2(
-        address _noundersDAO2
-    ) external override onlyNoundersDAO {
-        noundersDAO2 = _noundersDAO2;
+    function setFoundersDAO2(
+        address _foundersDAO2
+    ) external override onlyFoundersDAO {
+        foundersDAO2 = _foundersDAO2;
 
-        emit NoundersDAOUpdated2(_noundersDAO2);
+        emit FoundersDAOUpdated2(_foundersDAO2);
     }
 
     /**
@@ -245,12 +245,12 @@ contract Token is IToken, Ownable, ERC721Checkpointable {
     }
 
     /**
-     * @notice Mint a Noun with `nounId` to the provided `to` address.
+     * @notice Mint a token with `tokenId` to the provided `to` address.
      */
-    function _mintTo(address to, uint256 nounId) internal returns (uint256) {
-        _mint(owner(), to, nounId);
-        emit NounCreated(nounId);
+    function _mintTo(address to, uint256 tokenId) internal returns (uint256) {
+        _mint(owner(), to, tokenId);
+        emit TokenCreated(tokenId);
 
-        return nounId;
+        return tokenId;
     }
 }
