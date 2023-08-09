@@ -23,7 +23,7 @@ contract AuctionHouse is
     OwnableUpgradeable,
     UUPSUpgradeable
 {
-    // The Nouns ERC721 token contract
+    // The ERC721 token contract
     IToken public nft;
 
     // The address of the WETH contract
@@ -73,7 +73,7 @@ contract AuctionHouse is
     }
 
     /**
-     * @notice Settle the current auction, mint a new Noun, and put it up for auction.
+     * @notice Settle the current auction, mint a new token, and put it up for auction.
      */
     function settleCurrentAndCreateNewAuction()
         external
@@ -94,13 +94,13 @@ contract AuctionHouse is
     }
 
     /**
-     * @notice Create a bid for a Noun, with a given amount.
+     * @notice Create a bid for a token, with a given amount.
      * @dev This contract only accepts payment in ETH.
      */
-    function createBid(uint256 nounId) external payable override nonReentrant {
+    function createBid(uint256 tokenId) external payable override nonReentrant {
         IAuctionHouse.Auction memory _auction = auction;
 
-        require(_auction.nounId == nounId, "Noun not up for auction");
+        require(_auction.tokenId == tokenId, "Token not up for auction");
         require(block.timestamp < _auction.endTime, "Auction expired");
         require(msg.value >= reservePrice, "Must send at least reservePrice");
         require(
@@ -126,15 +126,15 @@ contract AuctionHouse is
             auction.endTime = _auction.endTime = block.timestamp + timeBuffer;
         }
 
-        emit AuctionBid(_auction.nounId, msg.sender, msg.value, extended);
+        emit AuctionBid(_auction.tokenId, msg.sender, msg.value, extended);
 
         if (extended) {
-            emit AuctionExtended(_auction.nounId, _auction.endTime);
+            emit AuctionExtended(_auction.tokenId, _auction.endTime);
         }
     }
 
     /**
-     * @notice Pause the Nouns auction house.
+     * @notice Pause the auction house.
      * @dev This function can only be called by the owner when the
      * contract is unpaused. While no new auctions can be started when paused,
      * anyone can settle an ongoing auction.
@@ -144,7 +144,7 @@ contract AuctionHouse is
     }
 
     /**
-     * @notice Unpause the Nouns auction house.
+     * @notice Unpause the auction house.
      * @dev This function can only be called by the owner when the
      * contract is paused. If required, this function will start a new auction.
      */
@@ -199,12 +199,12 @@ contract AuctionHouse is
      * catch the revert and pause this contract.
      */
     function _createAuction() internal {
-        try nft.mint() returns (uint256 nounId) {
+        try nft.mint() returns (uint256 tokenId) {
             uint256 startTime = block.timestamp;
             uint256 endTime = startTime + duration;
 
             auction = Auction({
-                nounId: nounId,
+                tokenId: tokenId,
                 amount: 0,
                 startTime: startTime,
                 endTime: endTime,
@@ -212,7 +212,7 @@ contract AuctionHouse is
                 settled: false
             });
 
-            emit AuctionCreated(nounId, startTime, endTime);
+            emit AuctionCreated(tokenId, startTime, endTime);
         } catch Error(string memory) {
             _pause();
         }
@@ -220,7 +220,7 @@ contract AuctionHouse is
 
     /**
      * @notice Settle an auction, finalizing the bid and paying out to the owner.
-     * @dev If there are no bids, the Noun is burned.
+     * @dev If there are no bids, the token is burned.
      */
     function _settleAuction() internal {
         IAuctionHouse.Auction memory _auction = auction;
@@ -235,16 +235,16 @@ contract AuctionHouse is
         auction.settled = true;
 
         if (_auction.bidder == address(0)) {
-            nft.burn(_auction.nounId);
+            nft.burn(_auction.tokenId);
         } else {
-            nft.transferFrom(address(this), _auction.bidder, _auction.nounId);
+            nft.transferFrom(address(this), _auction.bidder, _auction.tokenId);
         }
 
         if (_auction.amount > 0) {
             _safeTransferETHWithFallback(owner(), _auction.amount);
         }
 
-        emit AuctionSettled(_auction.nounId, _auction.bidder, _auction.amount);
+        emit AuctionSettled(_auction.tokenId, _auction.bidder, _auction.amount);
     }
 
     /**
