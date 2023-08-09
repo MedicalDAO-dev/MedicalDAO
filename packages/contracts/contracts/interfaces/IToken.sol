@@ -15,9 +15,9 @@ interface IToken is IERC721 {
 
     event TokenBurned(uint256 indexed tokenId);
 
-    event TokendersDAOUpdated(address foundersDAO);
+    event FoundersDAOUpdated(address foundersDAO);
 
-    event TokendersDAOUpdated2(address foundersDAO2);
+    event FoundersDAOUpdated2(address foundersDAO2);
 
     event MinterUpdated(address minter);
 
