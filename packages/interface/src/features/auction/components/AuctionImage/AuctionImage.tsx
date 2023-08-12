@@ -12,5 +12,5 @@ export type AuctionImageProps = {} & BaseProps;
 export const AuctionImage = ({ className }: AuctionImageProps) => {
   const auction = useRecoilValue(auctionState);
 
-  return <Image src={auction.imageURL} alt="test" width={512} height={512} />;
+  return <Image src={auction.imageURL} alt="test" width={550} height={550} />;
 };
