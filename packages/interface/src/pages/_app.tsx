@@ -1,6 +1,6 @@
 import type { AppProps } from "next/app";
 import "@/styles/globals.css";
-import { Londrina_Solid } from "@next/font/google";
+import { Londrina_Solid } from "next/font/google";
 import { RecoilRoot } from "recoil";
 
 const LondrinaSolid_normal = Londrina_Solid({
