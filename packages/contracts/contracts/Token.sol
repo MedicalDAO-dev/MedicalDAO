@@ -97,29 +97,29 @@ contract Token is IToken, Ownable, ERC721Checkpointable {
         return string(abi.encodePacked("ipfs://", _contractURIHash));
     }
 
-    /**
-     * @notice Set the _contractURIHash.
-     * @dev Only callable by the owner.
-     */
-    function setContractURIHash(
-        string memory newContractURIHash
-    ) external onlyOwner {
-        _contractURIHash = newContractURIHash;
-    }
+    // /**
+    //  * @notice Set the _contractURIHash.
+    //  * @dev Only callable by the owner.
+    //  */
+    // function setContractURIHash(
+    //     string memory newContractURIHash
+    // ) external onlyOwner {
+    //     _contractURIHash = newContractURIHash;
+    // }
 
-    /**
-     * @notice Override isApprovedForAll to whitelist user's OpenSea proxy accounts to enable gas-less listings.
-     */
-    function isApprovedForAll(
-        address owner,
-        address operator
-    ) public view override(IERC721, ERC721) returns (bool) {
-        // Whitelist OpenSea proxy contract for easy trading.
-        if (proxyRegistry.proxies(owner) == operator) {
-            return true;
-        }
-        return super.isApprovedForAll(owner, operator);
-    }
+    // /**
+    //  * @notice Override isApprovedForAll to whitelist user's OpenSea proxy accounts to enable gas-less listings.
+    //  */
+    // function isApprovedForAll(
+    //     address owner,
+    //     address operator
+    // ) public view override(IERC721, ERC721) returns (bool) {
+    //     // Whitelist OpenSea proxy contract for easy trading.
+    //     if (proxyRegistry.proxies(owner) == operator) {
+    //         return true;
+    //     }
+    //     return super.isApprovedForAll(owner, operator);
+    // }
 
     /**
      * @notice Mint a token to the minter, along with a possible founders reward
@@ -229,20 +229,20 @@ contract Token is IToken, Ownable, ERC721Checkpointable {
         emit DescriptorUpdated(_descriptor);
     }
 
-    /**
-     * @notice Lock the descriptor.
-     * @dev This cannot be reversed and is only callable by the owner when not locked.
-     */
-    function lockDescriptor()
-        external
-        override
-        onlyOwner
-        whenDescriptorNotLocked
-    {
-        isDescriptorLocked = true;
+    // /**
+    //  * @notice Lock the descriptor.
+    //  * @dev This cannot be reversed and is only callable by the owner when not locked.
+    //  */
+    // function lockDescriptor()
+    //     external
+    //     override
+    //     onlyOwner
+    //     whenDescriptorNotLocked
+    // {
+    //     isDescriptorLocked = true;
 
-        emit DescriptorLocked();
-    }
+    //     emit DescriptorLocked();
+    // }
 
     /**
      * @notice Mint a token with `tokenId` to the provided `to` address.
