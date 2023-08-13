@@ -20,7 +20,7 @@ export const BidButton = ({ className }: BidButtonProps) => {
   return (
     <Button
       className={clsx(className)}
-      variant="secondary"
+      variant="tertiary"
       onClick={handleClick}
     >
       入札をする

@@ -20,7 +20,7 @@ export const ConnectButton = ({ className }: ConnectButtonProps) => {
   return (
     <Button
       className={clsx(className)}
-      variant="secondary"
+      variant="tertiary"
       onClick={handleClick}
     >
       接続する
