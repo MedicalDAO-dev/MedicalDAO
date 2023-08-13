@@ -56,7 +56,7 @@ export const MainHome = ({ className }: MainHomeProps) => {
                     </div>
                   </div>
                   <div className="flex">
-                    <h1 className="font-[sans] mt-[4px] mb-[8px] text-[68px] text-[#151c3b]">
+                    <h1 className="font-['Londrina_Solid'] mt-[4px] mb-[8px] text-[68px] text-[#151c3b]">
                       Noun 808
                     </h1>
                   </div>
@@ -170,6 +170,48 @@ export const MainHome = ({ className }: MainHomeProps) => {
                   <div className="flex justify-center ">
                     <div className="pb-4 ml-2 font-['PT_Root_UI'] font-bold text-[16px] text-[#79809c]">
                       すべての入札を表示
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="!px-[0] !py-16 flex justify-center items-center">
+            <div className="w-[1140px] px-[12px] mx-[70px]">
+              <div className="!items-center -mx-[12px]">
+                <div className="ml-[95px] px-[12px]">
+                  <div className="flex-col text-[1.3rem] mr-[95px]">
+                    <div className="font-['Londrina_Solid'] text-[4rem] text-[#14161b] mt-[4px] mx-[0] mb-[0]">
+                      <h1>WTF?</h1>
+                    </div>
+                    <div className="font-['PT_Root_UI',sans-serif] font-medium tracking-[-.25px] leading-[28px] !m-0 pt-4 block text-[1.3rem]">
+                      <p>
+                        Nouns
+                        は、オンチェーン・アバターコミュニティの形成を改善するための実験的な試みです。
+                        <a
+                          className="text-[#d63c5e] font-['PT_Root_UI'] font-bold underline cursor-pointer tracking-[-.25px] leading-[28px] text-[1.3rem]"
+                          href="https://cryptopunks.app/"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          クリプトパンクス
+                        </a>{" "}
+                        などのプロジェクトがデジタルコミュニティとアイデンティティの構築を試みているのに対し、Nounsはアイデンティティ、コミュニティ、ガバナンス、そしてコミュニティが使用できるトレジャリーを構築することを試みています。
+                      </p>
+                    </div>
+                    <div className="pb-16 font-['PT_Root_UI',sans-serif] font-medium tracking-[-.25px] leading-[28px] !m-0 pt-4">
+                      <p className="">
+                        詳しくは以下をご覧ください。また、
+                        <a
+                          className="text-[#d63c5e] font-['PT_Root_UI'] font-bold underline cursor-pointer tracking-[-.25px] leading-[28px] text-[1.3rem]"
+                          href="/playground"
+                          target="_self"
+                          rel="noreferrer"
+                        >
+                          遊び場
+                        </a>{" "}
+                        を使いNounsのオフチェーンの作成をすることもできます。
+                      </p>
                     </div>
                   </div>
                 </div>
