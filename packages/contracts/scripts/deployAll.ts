@@ -59,6 +59,10 @@ async function main() {
   );
   await auctionHouseProxy.deployed();
   console.log(`AuctionHouseProxy address: ${auctionHouseProxy.address}`);
+
+  await (await token.setMinter(auctionHouseProxy.address)).wait();
+  const minterAddress: string = await token.minter();
+  console.log(`Token minter address: ${minterAddress}`);
 }
 
 main().catch((error) => {
