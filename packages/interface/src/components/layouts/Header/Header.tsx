@@ -16,7 +16,12 @@ export const Header = ({ className }: HeaderProps) => {
         <div className="w-[1280px] flex justify-between">
           <div className="flex justify-center items-center">
             <div className="py-[8px] mr-[16px]">
-              <Image src="/images/icon.jpg" alt="test" width={90} height={90} />
+              <Image
+                src="/images/transparent_icon.png"
+                alt="test"
+                width={90}
+                height={90}
+              />
             </div>
             <div className="">
               <div className="px-[10px]">
