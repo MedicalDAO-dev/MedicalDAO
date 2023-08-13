@@ -28,7 +28,8 @@
 
    - \_nft: `Token.sol` のアドレス
    - \_weth: WETH のコントラクトアドレス
-   - \_timeBuffer: `AuctionHouse.sol` の Proxy のアドレス
+   - \_timeBuffer: 300
+   - \_reservePrice: 1
    - \_minBidIncrementPercentage: 2
    - \_duration: 86400
 
