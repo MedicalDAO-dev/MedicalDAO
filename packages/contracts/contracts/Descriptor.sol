@@ -65,7 +65,7 @@ contract Descriptor is IDescriptor, Ownable {
      */
     function dataURI(
         uint256 tokenId
-    ) public view override returns (string memory) {
+    ) public pure override returns (string memory) {
         string memory tokenIdString = tokenId.toString();
         string memory name = string(
             abi.encodePacked("Medical DAO NFT ", tokenIdString)
@@ -87,7 +87,7 @@ contract Descriptor is IDescriptor, Ownable {
     function genericDataURI(
         string memory name,
         string memory description
-    ) public view override returns (string memory) {
+    ) public pure override returns (string memory) {
         NFTDescriptor.TokenURIParams memory params = NFTDescriptor
             .TokenURIParams({name: name, description: description});
         return NFTDescriptor.constructTokenURI(params);
@@ -96,7 +96,7 @@ contract Descriptor is IDescriptor, Ownable {
     /**
      * @notice Get an image for use in the ERC721 token URI.
      */
-    function getImage() public view returns (string memory image) {
+    function getImage() external pure returns (string memory image) {
         return NFTDescriptor.getImage();
     }
 }

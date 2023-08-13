@@ -22,7 +22,7 @@ library NFTDescriptor {
      */
     function constructTokenURI(
         TokenURIParams memory params
-    ) public view returns (string memory) {
+    ) internal pure returns (string memory) {
         string memory image = getImage();
 
         // prettier-ignore
@@ -41,7 +41,7 @@ library NFTDescriptor {
     /**
      * @notice Get an image for use in the ERC721 token URI.
      */
-    function getImage() public view returns (string memory image) {
+    function getImage() internal pure returns (string memory image) {
         return "";
     }
 }
