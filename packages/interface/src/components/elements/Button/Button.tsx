@@ -36,5 +36,5 @@ export const Button = ({
 
 const variants = {
   primary: clsx("bg-white"),
-  secondary: clsx("bg-black", "text-white"),
+  secondary: clsx("text-white"),
 };
