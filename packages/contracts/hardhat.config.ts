@@ -5,9 +5,9 @@ import "dotenv/config";
 
 const config: HardhatUserConfig = {
   solidity: "0.8.18",
-  // etherscan: {
-  //   apiKey: `${process.env.ETHERSCAN_API}`,
-  // },
+  etherscan: {
+    apiKey: `${process.env.ETHERSCAN_API_KEY}`,
+  },
   networks: {
     // mainnet: {
     //   url: `${process.env.API_URL}`,
