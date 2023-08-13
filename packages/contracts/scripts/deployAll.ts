@@ -13,11 +13,11 @@ async function main() {
   console.log(`Descriptor address: ${descriptor.address}`);
 
   const tokenDeployArgs: Array<string> = [
+    deployer.address,
+    deployer.address,
+    deployer.address,
     descriptor.address,
-    descriptor.address,
-    descriptor.address,
-    descriptor.address,
-    descriptor.address,
+    "0xa5409ec958C83C3f309868babACA7c86DCB077c1",
   ];
 
   const Token = await ethers.getContractFactory("Token");
