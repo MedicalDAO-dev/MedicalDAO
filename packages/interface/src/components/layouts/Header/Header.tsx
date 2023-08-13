@@ -43,7 +43,7 @@ export const Header = ({ className }: HeaderProps) => {
             </div>
           </div>
           <div className="flex justify-center items-center">
-            <div className="mr-[16px]">
+            <div className="mr-[4px]">
               <a
                 href="https://nouns.center/"
                 target="_blank"
