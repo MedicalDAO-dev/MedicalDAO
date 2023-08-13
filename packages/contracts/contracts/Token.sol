@@ -19,7 +19,7 @@ contract Token is IToken, Ownable, ERC721Checkpointable {
     // The founders DAO address (creators org)
     address public foundersDAO;
 
-    // The founders DAO address 2 (creators org)
+    // The founders DAO address 2 (creators org 2)
     address public foundersDAO2;
 
     // An address who has permissions to mint tokens
