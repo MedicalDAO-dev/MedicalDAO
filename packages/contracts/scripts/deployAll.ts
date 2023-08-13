@@ -12,17 +12,34 @@ async function main() {
 
   console.log(`Descriptor address: ${descriptor.address}`);
 
+  const tokenDeployArgs: Array<string> = [
+    descriptor.address,
+    descriptor.address,
+    descriptor.address,
+    descriptor.address,
+    descriptor.address,
+  ];
+
   const Token = await ethers.getContractFactory("Token");
   const token = await Token.deploy(
-    descriptor.address,
-    descriptor.address,
-    descriptor.address,
-    descriptor.address,
-    descriptor.address
+    tokenDeployArgs[0],
+    tokenDeployArgs[1],
+    tokenDeployArgs[2],
+    tokenDeployArgs[3],
+    tokenDeployArgs[4]
   );
   console.log(`Token address: ${token.address}`);
 
-  const auctionHouseDeployArgs = [
+  type auctionHouseDeployArgsType = [
+    string,
+    string,
+    number,
+    number,
+    number,
+    number
+  ];
+
+  const auctionHouseDeployArgs: auctionHouseDeployArgsType = [
     token.address,
     "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
     300,
