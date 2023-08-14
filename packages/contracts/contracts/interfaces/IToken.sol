@@ -43,5 +43,5 @@ interface IToken is IERC721 {
 
     function setDescriptor(IDescriptorMinimal descriptor) external;
 
-    // function lockDescriptor() external;
+    function lockDescriptor() external;
 }
