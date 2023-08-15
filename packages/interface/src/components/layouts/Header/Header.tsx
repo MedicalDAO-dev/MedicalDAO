@@ -1,5 +1,3 @@
-import Image from "next/image";
-import Link from "next/link";
 import { Connection } from "./Connection";
 import { Document } from "./Document";
 import { Logo } from "./Logo";

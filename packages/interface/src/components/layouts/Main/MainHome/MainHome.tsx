@@ -1,6 +1,6 @@
-import { Londrina_Solid } from "next/font/google";
 import Image from "next/image";
-import { AuctionImage } from "@/features/auction/components/AuctionImage";
+import { AuctionImageDisplay } from "./AuctionImageDisplay";
+import { DateSelection } from "./DateSelection";
 import { BidButton } from "@/features/auction/components/BidButton";
 import { BidText } from "@/features/auction/components/BidText";
 import { BaseProps } from "@/types/BaseProps";
@@ -13,48 +13,17 @@ export type MainHomeProps = {} & BaseProps;
  * @keit0728
  */
 
-const LondrinaSolid_normal = Londrina_Solid({
-  weight: "400",
-  subsets: ["latin"],
-});
-const LondrinaSolid_bold = Londrina_Solid({
-  weight: "900",
-  subsets: ["latin"],
-});
-
 export const MainHome = ({ className }: MainHomeProps) => {
   return (
     <div className={clsx(className)}>
       <div className="bg-[#D5D7E1] flex justify-center items-center">
         <div className="w-[1280px] ">
           <div className="mx-[30px] px-[12px] flex">
-            <div className="px-[12px]">
-              <AuctionImage />
-            </div>
+            <AuctionImageDisplay />
             <div className="pl-[12px] pr-[80px] flex-col justify-center">
               <div className="mb-[8px]">
                 <div className="flex-col">
-                  <div className="flex">
-                    <div className="flex justify-center items-center">
-                      <div className="flex">
-                        <Image
-                          src="/images/arrow_circle_left_72px.png"
-                          alt="test"
-                          width={36}
-                          height={36}
-                        />
-                        <div className="mr-[5px]">
-                          <Image
-                            src="/images/arrow_circle_right_72px.png"
-                            alt="test"
-                            width={36}
-                            height={36}
-                          />
-                        </div>
-                      </div>
-                      <h4 className="text-[#79809c]">2023年8月11日</h4>
-                    </div>
-                  </div>
+                  <DateSelection />
                   <div className="flex">
                     <h1 className="font-['Londrina_Solid'] mt-[4px] mb-[8px] text-[68px] text-[#151c3b]">
                       Noun 808
