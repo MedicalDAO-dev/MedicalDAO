@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Logo } from "./Logo";
 import { ConnectButton } from "@/features/auction/components/ConnectButton";
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
@@ -16,16 +17,7 @@ export const Header = ({ className }: HeaderProps) => {
       <div className="pt-[8px] pb-[16px] bg-[#D5D7E1] px-[12px] flex justify-center items-center">
         <div className="w-[1280px] flex justify-between">
           <div className="flex justify-center items-center">
-            <div className="py-[8px] mr-[16px]">
-              <Link href="/">
-                <Image
-                  src="/images/transparent_icon.png"
-                  alt="test"
-                  width={90}
-                  height={90}
-                />
-              </Link>
-            </div>
+            <Logo />
             <div className="">
               <div className="px-[10px]">
                 <a
