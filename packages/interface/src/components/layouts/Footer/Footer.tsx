@@ -1,3 +1,6 @@
+import { Etherscan } from "./Etherscan";
+import { Forum } from "./Forum";
+import { Twitter } from "./Twitter";
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
 
@@ -14,15 +17,9 @@ export const Footer = ({ className }: FooterProps) => {
         <div className="w-[1280px] ">
           <div className="mx-[30px] px-[12px]">
             <div className="mx-[417px] pt-[32px] pb-[64px] flex justify-center items-center">
-              <div className="no-underline text-[#000] mx-[14px] my-[8px] [transition:all_.15s_ease-in-out]">
-                Twitter
-              </div>
-              <div className="no-underline text-[#000] mx-[14px] my-[8px] [transition:all_.15s_ease-in-out]">
-                Etherscan
-              </div>
-              <div className="no-underline text-[#000] mx-[14px] my-[8px] [transition:all_.15s_ease-in-out]">
-                Forum
-              </div>
+              <Twitter />
+              <Etherscan />
+              <Forum />
             </div>
           </div>
         </div>
