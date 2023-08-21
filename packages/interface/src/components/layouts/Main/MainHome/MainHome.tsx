@@ -22,33 +22,61 @@ export type MainHomeProps = {} & BaseProps;
 export const MainHome = ({ className }: MainHomeProps) => {
   return (
     <div className={clsx(className)}>
-      <div className="bg-[#D5D7E1] flex justify-center items-center">
-        <div className="w-[1280px] ">
-          <div className="mx-[30px] px-[12px] flex">
+      <div
+        className={clsx(
+          "bg-[#D5D7E1]",
+          "flex",
+          "justify-center",
+          "items-center",
+        )}
+      >
+        <div className={clsx("w-[1280px]")}>
+          <div className={clsx("mx-[30px]", "px-[12px]", "flex")}>
             <AuctionImageDisplay />
-            <div className="pl-[12px] pr-[80px] flex-col justify-center">
-              <div className="mb-[8px]">
-                <div className="flex-col">
-                  <DateSelection />
-                  <NFTNameAndIndex />
-                </div>
-                <div className="flex -mx-[12px]">
-                  <RecentbidAmount />
-                  <TimeLimit />
-                </div>
+            <div
+              className={clsx(
+                "pl-[12px]",
+                "pr-[80px]",
+                "flex-col",
+                "justify-center",
+                "mb-[8px]",
+              )}
+            >
+              <div className={clsx("flex-col")}>
+                <DateSelection />
+                <NFTNameAndIndex />
               </div>
+              <div className={clsx("flex", "-mx-[12px]")}>
+                <RecentbidAmount />
+                <TimeLimit />
+              </div>
+
               <NextMint />
               <InputBidAmount />
               <BidList />
             </div>
           </div>
-          <div className="!px-[0] !py-16 flex justify-center items-center">
-            <div className="w-[1140px] px-[12px] mx-[70px]">
-              <div className="!items-center -mx-[12px]">
-                <div className="ml-[95px] px-[12px]">
-                  <Outline />
-                </div>
-              </div>
+          <div
+            className={clsx(
+              "px-[0]",
+              "py-16",
+              "flex",
+              "justify-center",
+              "items-center",
+            )}
+          >
+            <div
+              className={clsx(
+                "w-[1140px]",
+                "px-[12px]",
+                "mx-[70px]",
+                "items-center",
+                "-mx-[12px]",
+                "ml-[95px]",
+                "px-[12px]",
+              )}
+            >
+              <Outline />
             </div>
           </div>
         </div>
