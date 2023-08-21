@@ -1,6 +1,8 @@
 import { Button } from "@/components/elements/Button";
 import { useAuctionController } from "@/hooks/useAuction";
 import { BaseProps } from "@/types/BaseProps";
+import { auctionState } from "@/stores/auctionState";
+import { useRecoilValue } from "recoil";
 import clsx from "clsx";
 
 export type BidButtonProps = {} & BaseProps;
@@ -11,10 +13,13 @@ export type BidButtonProps = {} & BaseProps;
  */
 export const BidButton = ({ className }: BidButtonProps) => {
   const auctionController = useAuctionController();
+  const auctionData = useRecoilValue(auctionState);
+  const { bidder, bidAmount } = auctionData;
 
   const handleClick = async () => {
-    alert("入札!");
-    await auctionController.bid();
+    console.log("bidder: ", bidder);
+    console.log("bidAmount: ", bidAmount);
+    await auctionController.bid(bidder, bidAmount);
   };
 
   return (

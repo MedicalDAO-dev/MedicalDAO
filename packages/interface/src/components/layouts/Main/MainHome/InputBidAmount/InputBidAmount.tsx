@@ -1,6 +1,8 @@
 import { BidButton } from "@/features/auction/components/BidButton";
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
+// useAuction.tsからuseAuctionValueをimport
+import { useAuctionController } from "@/hooks/useAuction";
 
 export type InputBidAmountProps = {} & BaseProps;
 
@@ -9,6 +11,7 @@ export type InputBidAmountProps = {} & BaseProps;
  * @keit0728
  */
 export const InputBidAmount = ({ className }: InputBidAmountProps) => {
+  const auctionController = useAuctionController();
   return (
     <div className={clsx(className)}>
       <div className="-mx-[12px]">
@@ -20,6 +23,7 @@ export const InputBidAmount = ({ className }: InputBidAmountProps) => {
               className="h-[54px] w-[320px] text-[#D9DBE2] bg-[#fff] !rounded-[12px] !outline-[none] [box-shadow:none!important] font-['PT_Root_UI'] font-bold text-[20px] [transition:all_.2s_ease-in-out] block px-3 py-1.5 leading-normal bg-clip-padding appearance-none border-none "
               placeholder="Ξ 33.26 かそれ以上"
               required
+              onChange={(e) => {auctionController.setBidAmount(e.target.value)}}
             />
           </div>
           <div className="">
