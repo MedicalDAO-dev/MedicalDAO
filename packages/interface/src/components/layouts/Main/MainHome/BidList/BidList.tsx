@@ -29,32 +29,6 @@ export const BidList = ({ className }: BidListProps) => {
                 )}
               >
                 <div className={clsx("flex")}>
-                  <svg width="24px" height="24px">
-                    <rect
-                      x="0"
-                      y="0"
-                      width="24"
-                      height="24"
-                      fill="#035A5D"
-                      transform="translate(0.8408906370506414 -4.291976388065376) rotate(395.6 12 12)"
-                    ></rect>
-                    <rect
-                      x="0"
-                      y="0"
-                      width="24"
-                      height="24"
-                      fill="#247BE1"
-                      transform="translate(-6.472747947319047 -10.89489149082615) rotate(274.0 12 12)"
-                    ></rect>
-                    <rect
-                      x="0"
-                      y="0"
-                      width="24"
-                      height="24"
-                      fill="#F72201"
-                      transform="translate(0.4293922898176871 19.82216426921413) rotate(125.2 12 12)"
-                    ></rect>
-                  </svg>
                   <div className={clsx("ml-[10px]")}>0xAa...2977</div>
                 </div>
                 <div className={clsx("flex")}>
