@@ -32,7 +32,26 @@ export const Header = ({ className }: HeaderProps) => {
         </div>
         <div className={clsx("flex", "justify-center", "items-center")}>
           <Document />
-          <ConnectButton className="h-[40px] ml-[9px] text-[16px] border-[1px] border-solid border-[#bdc0cf] rounded-[10px] text-[#221b1a] px-[12px] py-[0] [transition:all_.2s_ease-in-out] font-bold h-[40px] text-[16px] leading-[16px] font-['PT_Root_UI'] font-bold [box-shadow:none!important]" />
+          <ConnectButton
+            className={clsx(
+              "h-[40px]",
+              "ml-[9px]",
+              "text-[16px]",
+              "border-[1px]",
+              "border-solid",
+              "border-[#bdc0cf]",
+              "rounded-[10px]",
+              "text-[#221b1a]",
+              "px-[12px]",
+              "py-[0]",
+              "font-bold",
+              "h-[40px]",
+              "text-[16px]",
+              "leading-[16px]",
+              "font-['PT_Root_UI']",
+              "font-bold",
+            )}
+          />
         </div>
       </div>
     </header>
