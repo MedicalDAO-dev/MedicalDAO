@@ -20,14 +20,13 @@ export const DateSelection = ({ className }: DateSelectionProps) => {
             width={36}
             height={36}
           />
-          <div className={clsx("mr-[5px]")}>
-            <Image
-              src="/images/arrow_circle_right_72px.png"
-              alt="test"
-              width={36}
-              height={36}
-            />
-          </div>
+          <Image
+            src="/images/arrow_circle_right_72px.png"
+            alt="test"
+            width={36}
+            height={36}
+            className={clsx("mr-[5px]")}
+          />
         </div>
         <h4 className={clsx("text-[#79809c]")}>2023年8月11日</h4>
       </div>
