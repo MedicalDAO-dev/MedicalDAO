@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { AuctionImageDisplay } from "./AuctionImageDisplay";
 import { BidList } from "./BidList";
 import { DateSelection } from "./DateSelection";
 import { InputBidAmount } from "./InputBidAmount";
@@ -8,6 +7,7 @@ import { NextMint } from "./NextMint";
 import { Outline } from "./Outline";
 import { RecentbidAmount } from "./RecentbidAmount";
 import { TimeLimit } from "./TimeLimit";
+import { AuctionImage } from "@/features/auction/components/AuctionImage";
 import { BidText } from "@/features/auction/components/BidText";
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
@@ -32,7 +32,9 @@ export const MainHome = ({ className }: MainHomeProps) => {
       >
         <div className={clsx("w-[1280px]")}>
           <div className={clsx("mx-[30px]", "px-[12px]", "flex")}>
-            <AuctionImageDisplay />
+            <div className={clsx("px-[12px]")}>
+              <AuctionImage />
+            </div>
             <div
               className={clsx(
                 "pl-[12px]",
