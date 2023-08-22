@@ -56,7 +56,7 @@ export const Document = ({ className }: DocumentProps) => {
             <div className={clsx("mr-[0.4rem]")}>
               <Image
                 src="/images/book_icon_32px.png"
-                alt="test"
+                alt="ドキュメントのアイコン"
                 width={20}
                 height={20}
               />
