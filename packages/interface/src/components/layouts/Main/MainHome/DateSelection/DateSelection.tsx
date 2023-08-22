@@ -12,15 +12,15 @@ export type DateSelectionProps = {} & BaseProps;
 export const DateSelection = ({ className }: DateSelectionProps) => {
   return (
     <div className={clsx(className, "flex")}>
-      <div className="flex justify-center items-center">
-        <div className="flex">
+      <div className={clsx("flex", "justify-center", "items-center")}>
+        <div className={clsx("flex")}>
           <Image
             src="/images/arrow_circle_left_72px.png"
             alt="test"
             width={36}
             height={36}
           />
-          <div className="mr-[5px]">
+          <div className={clsx("mr-[5px]")}>
             <Image
               src="/images/arrow_circle_right_72px.png"
               alt="test"
@@ -29,7 +29,7 @@ export const DateSelection = ({ className }: DateSelectionProps) => {
             />
           </div>
         </div>
-        <h4 className="text-[#79809c]">2023年8月11日</h4>
+        <h4 className={clsx("text-[#79809c]")}>2023年8月11日</h4>
       </div>
     </div>
   );
