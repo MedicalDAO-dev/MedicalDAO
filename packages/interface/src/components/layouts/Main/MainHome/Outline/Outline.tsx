@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
@@ -39,7 +38,7 @@ export const Outline = ({ className }: OutlineProps) => {
         <p>
           Nouns
           は、オンチェーン・アバターコミュニティの形成を改善するための実験的な試みです。
-          <a
+          <Link
             className={clsx(
               "text-[#d63c5e]",
               "font-['PT_Root_UI']",
@@ -55,7 +54,7 @@ export const Outline = ({ className }: OutlineProps) => {
             rel="noreferrer"
           >
             クリプトパンクス
-          </a>{" "}
+          </Link>{" "}
           などのプロジェクトがデジタルコミュニティとアイデンティティの構築を試みているのに対し、Nounsはアイデンティティ、コミュニティ、ガバナンス、そしてコミュニティが使用できるトレジャリーを構築することを試みています。
         </p>
       </div>
@@ -72,7 +71,7 @@ export const Outline = ({ className }: OutlineProps) => {
       >
         <p className={clsx(className)}>
           詳しくは以下をご覧ください。また、
-          <a
+          <Link
             className={clsx(
               "text-[#d63c5e]",
               "font-['PT_Root_UI']",
@@ -88,7 +87,7 @@ export const Outline = ({ className }: OutlineProps) => {
             rel="noreferrer"
           >
             遊び場
-          </a>{" "}
+          </Link>{" "}
           を使いNounsのオフチェーンの作成をすることもできます。
         </p>
       </div>

@@ -14,37 +14,32 @@ export const BidList = ({ className }: BidListProps) => {
     <div className={clsx(className)}>
       <div className={clsx("-mx-[12px]")}>
         <div className={clsx("flex-col", "mx-[12px]")}>
-          <>
-            <ul className={clsx("my-[16px]")}>
-              <li
-                className={clsx(
-                  "flex",
-                  "items-center",
-                  "justify-between",
-                  "p-[13px]",
-                  "font-['PT_Root_UI',sans-serif]",
-                  "font-bold",
-                  "[transition:all_.2s_ease-in-out]",
-                  "[border-bottom:1px_solid_#C6C8D8]",
-                )}
-              >
-                <div className={clsx("flex")}>
-                  <div className={clsx("ml-[10px]")}>0xAa...2977</div>
-                </div>
-                <div className={clsx("flex")}>
-                  <div className={clsx("mr-4", "pt-[2px]")}>Ξ 32.60</div>
-                  <div className="">
-                    <Image
-                      src="/images/link_icon_64px.png"
-                      alt="test"
-                      width={24}
-                      height={24}
-                    />
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </>
+          <ul className={clsx("my-[16px]")}>
+            <li
+              className={clsx(
+                "flex",
+                "items-center",
+                "justify-between",
+                "p-[13px]",
+                "font-['PT_Root_UI',sans-serif]",
+                "font-bold",
+                "[border-bottom:1px_solid_#C6C8D8]",
+              )}
+            >
+              <div className={clsx("flex")}>
+                <div className={clsx("ml-[10px]")}>0xAa...2977</div>
+              </div>
+              <div className={clsx("flex")}>
+                <div className={clsx("mr-4", "pt-[2px]")}>Ξ 32.60</div>
+                <Image
+                  src="/images/link_icon_64px.png"
+                  alt="Etherscanなどへのリンクを表すアイコン"
+                  width={24}
+                  height={24}
+                />
+              </div>
+            </li>
+          </ul>
           <div className={clsx("flex", "justify-center")}>
             <div
               className={clsx(

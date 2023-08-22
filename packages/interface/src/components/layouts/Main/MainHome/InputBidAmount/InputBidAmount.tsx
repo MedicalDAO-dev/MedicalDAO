@@ -14,7 +14,7 @@ export const InputBidAmount = ({ className }: InputBidAmountProps) => {
       <div className={clsx("flex", "px-[12px]")}>
         <input
           type="text"
-          id="first_name"
+          id="bid_amount"
           className={clsx(
             "h-[54px]",
             "w-[320px]",
@@ -22,10 +22,8 @@ export const InputBidAmount = ({ className }: InputBidAmountProps) => {
             "bg-[#fff]",
             "rounded-[12px]",
             "outline-[none]",
-            "[box-shadow:none!important]",
             "font-['PT_Root_UI']",
             "font-bold text-[20px]",
-            "[transition:all_.2s_ease-in-out]",
             "block",
             "px-3",
             "py-1.5",

@@ -17,7 +17,7 @@ export const NextMint = ({ className }: NextMintProps) => {
       >
         <Image
           src="/images/info_icon_16px.png"
-          alt="test"
+          alt="アテンションを引くためのインフォメーションアイコン"
           width={20}
           height={20}
         />

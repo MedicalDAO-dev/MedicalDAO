@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
 

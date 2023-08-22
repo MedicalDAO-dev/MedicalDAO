@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { BidList } from "./BidList";
 import { DateSelection } from "./DateSelection";
 import { InputBidAmount } from "./InputBidAmount";
@@ -8,7 +7,6 @@ import { Outline } from "./Outline";
 import { RecentbidAmount } from "./RecentbidAmount";
 import { TimeLimit } from "./TimeLimit";
 import { AuctionImage } from "@/features/auction/components/AuctionImage";
-import { BidText } from "@/features/auction/components/BidText";
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
 
@@ -75,7 +73,6 @@ export const MainHome = ({ className }: MainHomeProps) => {
                 "items-center",
                 "-mx-[12px]",
                 "ml-[95px]",
-                "px-[12px]",
               )}
             >
               <Outline />
