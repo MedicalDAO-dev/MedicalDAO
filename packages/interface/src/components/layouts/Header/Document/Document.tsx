@@ -39,7 +39,6 @@ export const Document = ({ className }: DocumentProps) => {
             "font-bold",
             "px-[12px]",
             "py-[0]",
-            "[transition:all_.125s_ease-in-out]",
             "[box-shadow:none!important]",
           )}
         >
