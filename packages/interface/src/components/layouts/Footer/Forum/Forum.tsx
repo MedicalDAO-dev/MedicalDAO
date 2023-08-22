@@ -11,10 +11,17 @@ export type ForumProps = {} & BaseProps;
  */
 export const Forum = ({ className }: ForumProps) => {
   return (
-    <div className={clsx(className)}>
-      <div className="no-underline text-[#000] mx-[14px] my-[8px] [transition:all_.15s_ease-in-out]">
-        Forum
-      </div>
+    <div
+      className={clsx(
+        className,
+        "no-underline",
+        "text-[#000]",
+        "mx-[14px]",
+        "my-[8px]",
+        "[transition:all_.15s_ease-in-out]",
+      )}
+    >
+      Forum
     </div>
   );
 };
