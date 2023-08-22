@@ -1,7 +1,7 @@
-import { Connection } from "./Connection";
 import { Document } from "./Document";
 import { Logo } from "./Logo";
 import { Treasury } from "./Treasury";
+import { ConnectButton } from "@/features/auction/components/ConnectButton";
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
 
@@ -32,7 +32,7 @@ export const Header = ({ className }: HeaderProps) => {
         </div>
         <div className={clsx("flex", "justify-center", "items-center")}>
           <Document />
-          <Connection />
+          <ConnectButton className="h-[40px] ml-[9px] text-[16px] border-[1px] border-solid border-[#bdc0cf] rounded-[10px] text-[#221b1a] px-[12px] py-[0] [transition:all_.2s_ease-in-out] font-bold h-[40px] text-[16px] leading-[16px] font-['PT_Root_UI'] font-bold [box-shadow:none!important]" />
         </div>
       </div>
     </header>
