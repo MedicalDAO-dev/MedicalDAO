@@ -18,11 +18,7 @@ export const ConnectButton = ({ className }: ConnectButtonProps) => {
   };
 
   return (
-    <Button
-      className={clsx(className)}
-      variant="tertiary"
-      onClick={handleClick}
-    >
+    <Button className={clsx(className)} color="primary" onClick={handleClick}>
       接続する
     </Button>
   );
