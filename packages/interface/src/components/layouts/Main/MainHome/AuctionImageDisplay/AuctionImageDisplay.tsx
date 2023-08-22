@@ -7,7 +7,7 @@ export type AuctionImageDisplayProps = {} & BaseProps;
 
 /**
  * AuctionImageDisplay
- * @keit0728
+ * @YosukeMiyata
  */
 export const AuctionImageDisplay = ({
   className,

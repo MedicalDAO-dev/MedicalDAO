@@ -7,7 +7,7 @@ export type ForumProps = {} & BaseProps;
 
 /**
  * Forum
- * @keit0728
+ * @YosukeMiyata
  */
 export const Forum = ({ className }: ForumProps) => {
   return (

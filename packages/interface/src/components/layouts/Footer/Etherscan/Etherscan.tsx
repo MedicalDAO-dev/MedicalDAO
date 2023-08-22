@@ -7,7 +7,7 @@ export type EtherscanProps = {} & BaseProps;
 
 /**
  * Etherscan
- * @keit0728
+ * @YosukeMiyata
  */
 export const Etherscan = ({ className }: EtherscanProps) => {
   return (

@@ -7,7 +7,7 @@ export type LogoProps = {} & BaseProps;
 
 /**
  * Logo
- * @keit0728
+ * @YosukeMiyata
  */
 export const Logo = ({ className }: LogoProps) => {
   return (

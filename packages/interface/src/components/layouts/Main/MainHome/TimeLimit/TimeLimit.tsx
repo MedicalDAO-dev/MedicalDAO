@@ -7,7 +7,7 @@ export type TimeLimitProps = {} & BaseProps;
 
 /**
  * TimeLimit
- * @keit0728
+ * @YosukeMiyata
  */
 export const TimeLimit = ({ className }: TimeLimitProps) => {
   return (

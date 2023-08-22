@@ -7,7 +7,7 @@ export type DocumentProps = {} & BaseProps;
 
 /**
  * Document
- * @keit0728
+ * @YosukeMiyata
  */
 export const Document = ({ className }: DocumentProps) => {
   return (

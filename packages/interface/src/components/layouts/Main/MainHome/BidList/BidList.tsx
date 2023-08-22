@@ -7,7 +7,7 @@ export type BidListProps = {} & BaseProps;
 
 /**
  * BidList
- * @keit0728
+ * @YosukeMiyata
  */
 export const BidList = ({ className }: BidListProps) => {
   return (

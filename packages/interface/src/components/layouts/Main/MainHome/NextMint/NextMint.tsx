@@ -7,7 +7,7 @@ export type NextMintProps = {} & BaseProps;
 
 /**
  * NextMint
- * @keit0728
+ * @YosukeMiyata
  */
 export const NextMint = ({ className }: NextMintProps) => {
   return (

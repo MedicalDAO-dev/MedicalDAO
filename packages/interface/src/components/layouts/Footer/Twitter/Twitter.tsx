@@ -7,7 +7,7 @@ export type TwitterProps = {} & BaseProps;
 
 /**
  * Twitter
- * @keit0728
+ * @YosukeMiyata
  */
 export const Twitter = ({ className }: TwitterProps) => {
   return (

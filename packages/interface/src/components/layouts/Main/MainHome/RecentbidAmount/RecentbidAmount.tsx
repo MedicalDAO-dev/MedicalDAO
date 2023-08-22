@@ -6,7 +6,7 @@ export type RecentbidAmountProps = {} & BaseProps;
 
 /**
  * RecentbidAmount
- * @keit0728
+ * @YosukeMiyata
  */
 export const RecentbidAmount = ({ className }: RecentbidAmountProps) => {
   return (

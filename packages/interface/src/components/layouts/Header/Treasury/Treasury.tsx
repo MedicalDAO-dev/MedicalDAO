@@ -7,7 +7,7 @@ export type TreasuryProps = {} & BaseProps;
 
 /**
  * Treasury
- * @keit0728
+ * @YosukeMiyata
  */
 export const Treasury = ({ className }: TreasuryProps) => {
   return (

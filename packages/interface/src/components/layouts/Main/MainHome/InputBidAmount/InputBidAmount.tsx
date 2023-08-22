@@ -6,7 +6,7 @@ export type InputBidAmountProps = {} & BaseProps;
 
 /**
  * InputBidAmount
- * @keit0728
+ * @YosukeMiyata
  */
 export const InputBidAmount = ({ className }: InputBidAmountProps) => {
   return (

@@ -8,7 +8,7 @@ export type ConnectionProps = {} & BaseProps;
 
 /**
  * Connection
- * @keit0728
+ * @YosukeMiyata
  */
 export const Connection = ({ className }: ConnectionProps) => {
   return (

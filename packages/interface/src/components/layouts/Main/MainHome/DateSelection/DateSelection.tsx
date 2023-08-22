@@ -7,7 +7,7 @@ export type DateSelectionProps = {} & BaseProps;
 
 /**
  * DateSelection
- * @keit0728
+ * @YosukeMiyata
  */
 export const DateSelection = ({ className }: DateSelectionProps) => {
   return (

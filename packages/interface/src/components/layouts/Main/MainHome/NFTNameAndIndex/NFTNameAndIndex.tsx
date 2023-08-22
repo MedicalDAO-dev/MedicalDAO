@@ -7,7 +7,7 @@ export type NFTNameAndIndexProps = {} & BaseProps;
 
 /**
  * NFTNameAndIndex
- * @keit0728
+ * @YosukeMiyata
  */
 export const NFTNameAndIndex = ({ className }: NFTNameAndIndexProps) => {
   return (

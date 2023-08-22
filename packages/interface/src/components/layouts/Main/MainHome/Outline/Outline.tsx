@@ -7,7 +7,7 @@ export type OutlineProps = {} & BaseProps;
 
 /**
  * Outline
- * @keit0728
+ * @YosukeMiyata
  */
 export const Outline = ({ className }: OutlineProps) => {
   return (
