@@ -21,7 +21,7 @@ export const TimeLimit = ({ className }: TimeLimitProps) => {
         "pr-[12px]",
       )}
     >
-      <div
+      <h4
         className={clsx(
           "mt-[1px]",
           "mb-[8px]",
@@ -30,8 +30,8 @@ export const TimeLimit = ({ className }: TimeLimitProps) => {
           "text-[#79809c]",
         )}
       >
-        <h4>オークション終了まで</h4>
-      </div>
+        オークション終了まで
+      </h4>
       <div
         className={clsx(
           "font-['PT_Root_UI']",
