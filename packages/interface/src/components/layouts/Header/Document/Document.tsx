@@ -17,7 +17,6 @@ export const Document = ({ className }: DocumentProps) => {
         target="_blank"
         rel="noreferrer"
         className={clsx(
-          "p-[5px]",
           "font-['PT_Root_UI']",
           "font-bold",
           "text-[.9rem]",
