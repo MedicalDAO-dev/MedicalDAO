@@ -12,7 +12,7 @@ export type TreasuryProps = {} & BaseProps;
 export const Treasury = ({ className }: TreasuryProps) => {
   return (
     <div className={clsx(className, "px-[10px]")}>
-      <a
+      <Link
         href="https://etherscan.io/tokenholdings?a=0x0BC3807Ec262cB779b38D65b38158acC3bfedE10"
         target="_blank"
         rel="noreferrer"
@@ -70,7 +70,7 @@ export const Treasury = ({ className }: TreasuryProps) => {
             </div>
           </div>
         </div>
-      </a>
+      </Link>
     </div>
   );
 };

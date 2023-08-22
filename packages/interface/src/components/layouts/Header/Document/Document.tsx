@@ -12,7 +12,7 @@ export type DocumentProps = {} & BaseProps;
 export const Document = ({ className }: DocumentProps) => {
   return (
     <div className={clsx(className, "mr-[4px]")}>
-      <a
+      <Link
         href="https://nouns.center/"
         target="_blank"
         rel="noreferrer"
@@ -64,7 +64,7 @@ export const Document = ({ className }: DocumentProps) => {
             <div className={clsx("text-[#151c3b]")}>ドキュメント</div>
           </div>
         </div>
-      </a>
+      </Link>
     </div>
   );
 };

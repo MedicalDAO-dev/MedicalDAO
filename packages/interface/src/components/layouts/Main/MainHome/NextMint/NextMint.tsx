@@ -21,14 +21,14 @@ export const NextMint = ({ className }: NextMintProps) => {
           width={20}
           height={20}
         />
-        <a
+        <Link
           href="https://fomonouns.wtf"
           target="_blank"
           rel="noreferrer"
           className={clsx("pl-[8px]")}
         >
           次にミントされるNounの投票をしてください
-        </a>
+        </Link>
       </div>
     </div>
   );
