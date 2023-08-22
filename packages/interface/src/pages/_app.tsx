@@ -5,11 +5,6 @@ import { RecoilRoot } from "recoil";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <RecoilRoot>
-      <style jsx global>{`
-        html {
-          font-family: "Arial";
-        }
-      `}</style>
       <Component {...pageProps} />
     </RecoilRoot>
   );

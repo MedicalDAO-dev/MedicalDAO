@@ -1,4 +1,5 @@
 import { Head, Html, Main, NextScript } from "next/document";
+import clsx from "clsx";
 
 export default function Document() {
   return (
@@ -9,7 +10,7 @@ export default function Document() {
           rel="stylesheet"
         />
       </Head>
-      <body>
+      <body className={clsx("plaintext")}>
         <Main />
         <NextScript />
       </body>
