@@ -18,10 +18,9 @@ export const Forum = ({ className }: ForumProps) => {
         "text-[#000]",
         "mx-[14px]",
         "my-[8px]",
-        "[transition:all_.15s_ease-in-out]",
       )}
     >
-      Forum
+      <Link href="">Forum</Link>
     </div>
   );
 };

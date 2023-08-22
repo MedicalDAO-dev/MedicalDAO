@@ -18,10 +18,9 @@ export const Twitter = ({ className }: TwitterProps) => {
         "text-[#000]",
         "mx-[14px]",
         "my-[8px]",
-        "[transition:all_.15s_ease-in-out]",
       )}
     >
-      Twitter
+      <Link href="">Twitter</Link>
     </div>
   );
 };

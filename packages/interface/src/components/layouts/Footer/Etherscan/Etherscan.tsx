@@ -18,10 +18,9 @@ export const Etherscan = ({ className }: EtherscanProps) => {
         "text-[#000]",
         "mx-[14px]",
         "my-[8px]",
-        "[transition:all_.15s_ease-in-out]",
       )}
     >
-      Etherscan
+      <Link href="">Etherscan</Link>
     </div>
   );
 };
