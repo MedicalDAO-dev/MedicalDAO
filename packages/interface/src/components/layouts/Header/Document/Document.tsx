@@ -38,7 +38,6 @@ export const Document = ({ className }: DocumentProps) => {
             "font-bold",
             "px-[12px]",
             "py-[0]",
-            "[box-shadow:none!important]",
           )}
         >
           <div

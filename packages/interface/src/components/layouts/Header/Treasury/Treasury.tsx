@@ -24,7 +24,6 @@ export const Treasury = ({ className }: TreasuryProps) => {
           "text-[#000]",
           "block",
           "no-underline",
-          "[transition:color_.15s_ease-in-out,background-color_.15s_ease-i",
         )}
       >
         <div
@@ -40,8 +39,6 @@ export const Treasury = ({ className }: TreasuryProps) => {
             "font-bold",
             "px-[10px]",
             "py-[0]",
-            "[transition:all_.125s_ease-in-out]",
-            "[box-shadow:none]",
           )}
         >
           <div
