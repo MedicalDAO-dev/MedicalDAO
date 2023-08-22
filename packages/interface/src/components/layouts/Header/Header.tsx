@@ -13,17 +13,26 @@ export type HeaderProps = {} & BaseProps;
  */
 export const Header = ({ className }: HeaderProps) => {
   return (
-    <header className={clsx(className)}>
-      <div className="pt-[8px] pb-[16px] bg-[#D5D7E1] px-[12px] flex justify-center items-center">
-        <div className="w-[1280px] flex justify-between">
-          <div className="flex justify-center items-center">
-            <Logo />
-            <Treasury />
-          </div>
-          <div className="flex justify-center items-center">
-            <Document />
-            <Connection />
-          </div>
+    <header
+      className={clsx(
+        className,
+        "pt-[8px]",
+        "pb-[16px]",
+        "bg-[#D5D7E1]",
+        "px-[12px]",
+        "flex",
+        "justify-center",
+        "items-center",
+      )}
+    >
+      <div className={clsx("w-[1280px]", "flex", "justify-between")}>
+        <div className={clsx("flex", "justify-center", "items-center")}>
+          <Logo />
+          <Treasury />
+        </div>
+        <div className={clsx("flex", "justify-center", "items-center")}>
+          <Document />
+          <Connection />
         </div>
       </div>
     </header>
