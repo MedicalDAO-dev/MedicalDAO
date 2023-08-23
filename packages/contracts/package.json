@@ -4,7 +4,8 @@
     "clean": "hardhat clean",
     "compile": "hardhat compile",
     "test": "hardhat test",
-    "deploy:all": "hardhat run scripts/deployAll.ts --network $npm_config_network"
+    "deploy:all": "hardhat run scripts/deployAll.ts --network $npm_config_network",
+    "format": "prettier --write '**/*.js' '**/*.ts' '**/*.sol' '**/*.json' --ignore-path .gitignore"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^1.0.2",

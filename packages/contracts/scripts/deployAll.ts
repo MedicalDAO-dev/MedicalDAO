@@ -1,5 +1,5 @@
-import { ethers, run, upgrades } from "hardhat";
 import "dotenv/config";
+import { ethers, run, upgrades } from "hardhat";
 
 async function main() {
   const network = await ethers.provider.getNetwork();
@@ -28,7 +28,7 @@ async function main() {
     tokenDeployArgs[1],
     tokenDeployArgs[2],
     tokenDeployArgs[3],
-    tokenDeployArgs[4]
+    tokenDeployArgs[4],
   );
   console.log(`Token address: ${token.address}`);
 
@@ -38,7 +38,7 @@ async function main() {
     number,
     number,
     number,
-    number
+    number,
   ];
 
   const auctionHouseDeployArgs: auctionHouseDeployArgsType = [
@@ -57,7 +57,7 @@ async function main() {
     {
       kind: "uups",
       initializer: "initialize",
-    }
+    },
   );
   await auctionHouseProxy.deployed();
   console.log(`AuctionHouseProxy address: ${auctionHouseProxy.address}`);
@@ -65,7 +65,7 @@ async function main() {
   const auctionHouseImplementationAddress: string =
     await upgrades.erc1967.getImplementationAddress(auctionHouseProxy.address);
   console.log(
-    `AuctionHouse implementation address: ${auctionHouseImplementationAddress}`
+    `AuctionHouse implementation address: ${auctionHouseImplementationAddress}`,
   );
 
   try {
@@ -90,13 +90,13 @@ async function main() {
     await verify(
       "AuctionHouse implementation",
       auctionHouseImplementationAddress,
-      []
+      [],
     );
 
     await verify(
       "AuctionHouseProxy",
       auctionHouseProxy.address,
-      auctionHouseDeployArgs
+      auctionHouseDeployArgs,
     );
 
     console.log("==========================");
@@ -106,7 +106,7 @@ async function main() {
 const verify = async (
   contractName: string,
   contractAddress: string,
-  deployArgs: any[]
+  deployArgs: any[],
 ) => {
   console.log(`Verifying ${contractName}`);
   try {

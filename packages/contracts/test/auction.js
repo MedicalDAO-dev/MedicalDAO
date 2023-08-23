@@ -33,7 +33,7 @@ describe("AuctionHouse contract", function () {
         1000, // reservePrice
         10, // minBidIncrementPercentage
         3600, // duration
-      ]
+      ],
     );
 
     // const AuctionHouseProxyAdmin = await ethers.getContractFactory(
