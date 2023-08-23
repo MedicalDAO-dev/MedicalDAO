@@ -11,37 +11,37 @@ import {IDescriptorMinimal} from "./IDescriptorMinimal.sol";
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 interface IToken is IERC721 {
-    event TokenCreated(uint256 indexed tokenId);
+  event TokenCreated(uint256 indexed tokenId);
 
-    event TokenBurned(uint256 indexed tokenId);
+  event TokenBurned(uint256 indexed tokenId);
 
-    event FoundersDAOUpdated(address foundersDAO);
+  event FoundersDAOUpdated(address foundersDAO);
 
-    event FoundersDAOUpdated2(address foundersDAO2);
+  event FoundersDAOUpdated2(address foundersDAO2);
 
-    event MinterUpdated(address minter);
+  event MinterUpdated(address minter);
 
-    event MinterLocked();
+  event MinterLocked();
 
-    event DescriptorUpdated(IDescriptorMinimal descriptor);
+  event DescriptorUpdated(IDescriptorMinimal descriptor);
 
-    event DescriptorLocked();
+  event DescriptorLocked();
 
-    function mint() external returns (uint256);
+  function mint() external returns (uint256);
 
-    function burn(uint256 tokenId) external;
+  function burn(uint256 tokenId) external;
 
-    function dataURI(uint256 tokenId) external returns (string memory);
+  function dataURI(uint256 tokenId) external returns (string memory);
 
-    function setFoundersDAO(address foundersDAO) external;
+  function setFoundersDAO(address foundersDAO) external;
 
-    function setFoundersDAO2(address foundersDAO2) external;
+  function setFoundersDAO2(address foundersDAO2) external;
 
-    function setMinter(address minter) external;
+  function setMinter(address minter) external;
 
-    function lockMinter() external;
+  function lockMinter() external;
 
-    function setDescriptor(IDescriptorMinimal descriptor) external;
+  function setDescriptor(IDescriptorMinimal descriptor) external;
 
-    function lockDescriptor() external;
+  function lockDescriptor() external;
 }
