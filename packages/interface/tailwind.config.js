@@ -11,7 +11,7 @@ module.exports = {
       },
     },
     fontFamily: {
-      sans: ["Londrina Solid"],
+      plaintext: ["Arial"],
     },
   },
   plugins: [],

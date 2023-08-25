@@ -7,11 +7,11 @@ export type LogoProps = {} & BaseProps;
 
 /**
  * Logo
- * @keit0728
+ * @YosukeMiyata
  */
 export const Logo = ({ className }: LogoProps) => {
   return (
-    <div className={clsx(className, "py-[8px] mr-[16px]")}>
+    <div className={clsx(className, "py-[8px]", "mr-[16px]")}>
       <Link href="/">
         <Image
           src="/images/transparent_icon.png"

@@ -1,20 +1,18 @@
 {
   "name": "hardhat-project",
   "scripts": {
-    "node": "npx hardhat node",
-    "clean": "npx hardhat clean",
-    "compile": "npx hardhat compile",
-    "deploy": "npx hardhat run scripts/$npm_config_name/deploy.ts --network $npm_config_network",
-    "post-deploy": "npx hardhat run scripts/$npm_config_name/post-deploy.ts --network $npm_config_network",
-    "script": "npx hardhat run scripts/$npm_config_name/utils/$npm_config_file.ts --network $npm_config_network",
-    "size": "npx hardhat size-contracts",
-    "format": "prettier --write '**/*.ts' '**/*.json' '**/*.sol' --ignore-path .gitignore"
+    "clean": "hardhat clean",
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:all": "hardhat run scripts/deployAll.ts --network $npm_config_network",
+    "format": "prettier --write '**/*.js' '**/*.ts' '**/*.sol' '**/*.json' --ignore-path .gitignore"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^1.0.2",
     "@openzeppelin/contracts": "^4.9.0",
     "@openzeppelin/contracts-upgradeable": "^4.9.0",
     "@openzeppelin/hardhat-upgrades": "^1.28.0",
+    "base64-sol": "^1.1.0",
     "dotenv": "^16.3.1",
     "ethers": "^5.7.2",
     "hardhat": "^2.14.0",

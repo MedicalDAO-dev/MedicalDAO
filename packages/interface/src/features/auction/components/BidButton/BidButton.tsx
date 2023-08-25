@@ -23,11 +23,7 @@ export const BidButton = ({ className }: BidButtonProps) => {
   };
 
   return (
-    <Button
-      className={clsx(className)}
-      variant="quaternary"
-      onClick={handleClick}
-    >
+    <Button className={clsx(className)} color="secondary" onClick={handleClick}>
       入札をする
     </Button>
   );

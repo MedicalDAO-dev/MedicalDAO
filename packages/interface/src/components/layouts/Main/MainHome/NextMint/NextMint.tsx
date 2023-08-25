@@ -7,27 +7,28 @@ export type NextMintProps = {} & BaseProps;
 
 /**
  * NextMint
- * @keit0728
+ * @YosukeMiyata
  */
 export const NextMint = ({ className }: NextMintProps) => {
   return (
-    <div className={clsx(className)}>
-      <div className="-mx-[12px]">
-        <div className="flex px-[12px] mb-[16px]">
-          <div className="">
-            <Image
-              src="/images/info_icon_16px.png"
-              alt="test"
-              width={20}
-              height={20}
-            />
-          </div>
-          <div className="pl-[8px]">
-            <a href="https://fomonouns.wtf" target="_blank" rel="noreferrer">
-              次にミントされるNounの投票をしてください
-            </a>
-          </div>
-        </div>
+    <div className={clsx(className, "-mx-[12px]")}>
+      <div
+        className={clsx("flex", "flex items-center", "px-[12px]", "mb-[16px]")}
+      >
+        <Image
+          src="/images/info_icon_16px.png"
+          alt="アテンションを引くためのインフォメーションアイコン"
+          width={20}
+          height={20}
+        />
+        <Link
+          href="https://fomonouns.wtf"
+          target="_blank"
+          rel="noreferrer"
+          className={clsx("pl-[8px]")}
+        >
+          次にミントされるNounの投票をしてください
+        </Link>
       </div>
     </div>
   );
