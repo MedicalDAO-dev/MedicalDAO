@@ -46,6 +46,7 @@ export const InputBidAmount = ({ className }: InputBidAmountProps) => {
             "ml-[9px]",
             "bg-[#9fa0a3]",
           )}
+          onChange={(e) => {auctionController.setBidAmount(e.target.value)}}
         />
       </div>
     </div>
