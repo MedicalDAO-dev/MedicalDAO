@@ -39,7 +39,10 @@ export const ConnectButton = ({ className }: ConnectButtonProps) => {
         <button
           className={clsx(className)}
           variant="tertiary"
-          onClick={()=>{disconnect}}
+          onClick={()=>{
+            disconnect
+            console.log("disconnect")
+          }}
         >
           {/* <img src={ensAvatar} alt="ENS Avatar" /> */}
           <div>{ensName ? `${ensName} (${address})` : address}</div>

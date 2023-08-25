@@ -15,18 +15,11 @@ export const useAuctionValue = (): AuctionState => {
 export const useAuctionController = (): AuctionController => {
   const setAuction = useSetRecoilState(auctionState);
   const { address, connector, isConnected } = useAccount()
+  const abi = require('../utils/AuctionHouse.json')
   const { config } = usePrepareContractWrite({
-    address: '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
-    abi: [
-      {
-        name: 'mint',
-        type: 'function',
-        stateMutability: 'nonpayable',
-        inputs: [],
-        outputs: [],
-      },
-    ],
-    functionName: 'mint',
+    address: '0x6AFf29eBd3bE51ced0773FEc596696AF0812C97a',
+    abi: abi.abi,
+    functionName: 'createBid',
     args: [parseInt("3")],
     enabled: Boolean(3),
   })

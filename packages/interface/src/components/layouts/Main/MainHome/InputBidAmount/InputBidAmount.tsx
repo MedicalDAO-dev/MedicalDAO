@@ -37,6 +37,7 @@ export const InputBidAmount = ({ className }: InputBidAmountProps) => {
           )}
           placeholder="Ξ 33.26 かそれ以上"
           required
+          onChange={(e) => {auctionController.setBidAmount(e.target.value)}}
         />
         <BidButton
           className={clsx(
@@ -46,7 +47,6 @@ export const InputBidAmount = ({ className }: InputBidAmountProps) => {
             "ml-[9px]",
             "bg-[#9fa0a3]",
           )}
-          onChange={(e) => {auctionController.setBidAmount(e.target.value)}}
         />
       </div>
     </div>
