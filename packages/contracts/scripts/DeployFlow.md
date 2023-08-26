@@ -20,7 +20,6 @@
    - \_foundersDAO2: Founder の EOA アドレス No.2
    - \_minter: Founder の EOA アドレス No.3 (後で `AuctionHouse.sol` の Proxy のアドレスをセットする)
    - \_descriptor: `Descriptor.sol` のアドレス
-   - \_proxyRegistry: Opensea の Proxy アドレス
 
 3. `AuctionHouse.sol` のデプロイ
 
