@@ -12,36 +12,28 @@ pragma solidity ^0.8.6;
 import {Base64} from "base64-sol/base64.sol";
 
 library NFTDescriptor {
-  struct TokenURIParams {
-    string name;
-    string description;
-  }
+    struct TokenURIParams {
+        string name;
+        string description;
+        string image;
+    }
 
-  /**
-   * @notice Construct an ERC721 token URI.
-   */
-  function constructTokenURI(
-    TokenURIParams memory params
-  ) internal pure returns (string memory) {
-    string memory image = getImage();
-
-    // prettier-ignore
-    return string(
+    /**
+     * @notice Construct an ERC721 token URI.
+     */
+    function constructTokenURI(
+        TokenURIParams memory params
+    ) internal pure returns (string memory) {
+        // prettier-ignore
+        return string(
             abi.encodePacked(
                 'data:application/json;base64,',
                 Base64.encode(
                     bytes(
-                        abi.encodePacked('{"name":"', params.name, '", "description":"', params.description, '", "image": "', 'data:image/svg+xml;base64,', image, '"}')
+                        abi.encodePacked('{"name":"', params.name, '", "description":"', params.description, '", "image": "ipfs://,', params.image, '"}')
                     )
                 )
             )
         );
-  }
-
-  /**
-   * @notice Get an image for use in the ERC721 token URI.
-   */
-  function getImage() internal pure returns (string memory image) {
-    return "";
-  }
+    }
 }

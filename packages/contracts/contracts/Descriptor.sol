@@ -23,6 +23,10 @@ contract Descriptor is IDescriptor, Ownable {
   /// @notice Base URI, used when isDataURIEnabled is false
   string public override baseURI;
 
+    //@todo テスト用画像　本番では削除
+    string public testImageCid =
+        "QmPE9tKkLkTJHqzr77epkPayo9HheUGLjysnJuR3MQaRB3";
+
   /**
    * @notice Toggle a boolean value which determines if `tokenURI` returns a data URI
    * or an HTTP URL.
@@ -65,7 +69,7 @@ contract Descriptor is IDescriptor, Ownable {
    */
   function dataURI(
     uint256 tokenId
-  ) public pure override returns (string memory) {
+  ) public view override returns (string memory) {
     string memory tokenIdString = tokenId.toString();
     string memory name = string(
       abi.encodePacked("Medical DAO NFT ", tokenIdString)
@@ -81,24 +85,26 @@ contract Descriptor is IDescriptor, Ownable {
     return genericDataURI(name, description);
   }
 
-  /**
-   * @notice Given a name, description, and seed, construct a base64 encoded data URI.
-   */
-  function genericDataURI(
-    string memory name,
-    string memory description
-  ) public pure override returns (string memory) {
-    NFTDescriptor.TokenURIParams memory params = NFTDescriptor.TokenURIParams({
-      name: name,
-      description: description
-    });
-    return NFTDescriptor.constructTokenURI(params);
-  }
+    /**
+     * @notice Given a name, description, and seed, construct a base64 encoded data URI.
+     */
+    function genericDataURI(
+        string memory name,
+        string memory description
+    ) public view override returns (string memory) {
+        NFTDescriptor.TokenURIParams memory params = NFTDescriptor
+            .TokenURIParams({
+                name: name,
+                description: description,
+                image: testImageCid
+            });
+        return NFTDescriptor.constructTokenURI(params);
+    }
 
   /**
    * @notice Get an image for use in the ERC721 token URI.
    */
-  function getImage() external pure returns (string memory image) {
-    return NFTDescriptor.getImage();
+  function getImage() external view returns (string memory image) {
+    return testImageCid;
   }
 }
