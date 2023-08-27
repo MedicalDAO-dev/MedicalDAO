@@ -13,7 +13,6 @@ import {IDescriptorMinimal} from "./interfaces/IDescriptorMinimal.sol";
 import {IToken} from "./interfaces/IToken.sol";
 import {ERC721} from "./base/ERC721.sol";
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
-import {IProxyRegistry} from "./external/opensea/IProxyRegistry.sol";
 
 contract Token is IToken, Ownable, ERC721Checkpointable {
   // The founders DAO address (creators org)
@@ -40,9 +39,6 @@ contract Token is IToken, Ownable, ERC721Checkpointable {
   // IPFS content hash of contract-level metadata
   string private _contractURIHash =
     "QmZi1n79FqWt2tTLwCqiy6nLM6xLGRsEPQ5JmReJQKNNzX";
-
-  // OpenSea's Proxy Registry
-  IProxyRegistry public immutable proxyRegistry;
 
   /**
    * @notice Require that the minter has not been locked.
@@ -80,14 +76,12 @@ contract Token is IToken, Ownable, ERC721Checkpointable {
     address _foundersDAO,
     address _foundersDAO2,
     address _minter,
-    IDescriptorMinimal _descriptor,
-    IProxyRegistry _proxyRegistry
+    IDescriptorMinimal _descriptor
   ) ERC721("MedicalDAONFT", "MDNFT") {
     foundersDAO = _foundersDAO;
     foundersDAO2 = _foundersDAO2;
     minter = _minter;
     descriptor = _descriptor;
-    proxyRegistry = _proxyRegistry;
   }
 
   /**
@@ -105,20 +99,6 @@ contract Token is IToken, Ownable, ERC721Checkpointable {
     string memory newContractURIHash
   ) external onlyOwner {
     _contractURIHash = newContractURIHash;
-  }
-
-  /**
-   * @notice Override isApprovedForAll to whitelist user's OpenSea proxy accounts to enable gas-less listings.
-   */
-  function isApprovedForAll(
-    address owner,
-    address operator
-  ) public view override(IERC721, ERC721) returns (bool) {
-    // Whitelist OpenSea proxy contract for easy trading.
-    if (proxyRegistry.proxies(owner) == operator) {
-      return true;
-    }
-    return super.isApprovedForAll(owner, operator);
   }
 
   /**

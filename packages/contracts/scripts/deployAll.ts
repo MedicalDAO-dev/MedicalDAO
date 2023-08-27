@@ -19,7 +19,6 @@ async function main() {
     deployer.address,
     deployer.address,
     descriptor.address,
-    "0xa5409ec958C83C3f309868babACA7c86DCB077c1",
   ];
 
   const Token = await ethers.getContractFactory("Token");
@@ -28,7 +27,6 @@ async function main() {
     tokenDeployArgs[1],
     tokenDeployArgs[2],
     tokenDeployArgs[3],
-    tokenDeployArgs[4],
   );
   console.log(`Token address: ${token.address}`);
 
