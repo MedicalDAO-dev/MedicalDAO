@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { BidList } from "../BidList";
 import { DateSelection } from "../DateSelection";
 import { InputBidAmount } from "../InputBidAmount";
@@ -12,6 +13,8 @@ import clsx from "clsx";
 export type IntroProps = {} & BaseProps;
 
 export const Auction = ({ className }: IntroProps) => {
+  const [isAuction, setIsAuction] = useState(true);
+
   return (
     <div className={clsx(className)}>
       <div className={clsx("mx-[30px]", "px-[12px]", "flex")}>
@@ -20,7 +23,7 @@ export const Auction = ({ className }: IntroProps) => {
         </div>
         <div
           className={clsx(
-            "pl-[12px]",
+            "pl-[24px]",
             "pr-[80px]",
             "flex-col",
             "justify-center",
@@ -31,14 +34,24 @@ export const Auction = ({ className }: IntroProps) => {
             <DateSelection />
             <NFTNameAndIndex />
           </div>
-          <div className={clsx("flex", "-mx-[12px]")}>
-            <RecentbidAmount />
-            <TimeLimit />
+          <div>
+            {isAuction ?
+              (
+                <div>
+                  <div className={clsx("flex")}>
+                    <RecentbidAmount />
+                    <TimeLimit />
+                  </div>
+                  <NextMint />
+                  <InputBidAmount />
+                  <BidList />
+                </div>
+              ) :
+              (
+                <div>
+                </div>
+              )}
           </div>
-
-          <NextMint />
-          <InputBidAmount />
-          <BidList />
         </div>
       </div>
     </div>

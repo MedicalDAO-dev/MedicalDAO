@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Auction } from "@/components/layouts/Main/MainHome/Auction";
 import { Outline } from "./Outline";
 import { BaseProps } from "@/types/BaseProps";
@@ -12,13 +11,6 @@ export type MainHomeProps = {} & BaseProps;
  */
 
 export const MainHome = ({ className }: MainHomeProps) => {
-  const lastAuctionNounId = 0;
-  const [onDisplayAuctionTokenId, setOnDisplayAuctionTokenId] = useState(lastAuctionNounId);
-
-  useEffect(() => {
-
-  }, [onDisplayAuctionTokenId]);
-
   return (
     <div className={clsx(className)}>
       <div

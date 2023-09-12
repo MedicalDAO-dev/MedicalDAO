@@ -14,9 +14,7 @@ export const RecentbidAmount = ({ className }: RecentbidAmountProps) => {
         className,
         "flex-col",
         "mt-[6px]",
-        "ml-[6px]",
         "pr-[24px]",
-        "pl-[12px]",
         "[border-right:1px_solid_rgba(121,128,156,.28627450980392155)]",
       )}
     >
