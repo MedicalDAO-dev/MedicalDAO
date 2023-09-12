@@ -5,5 +5,5 @@ export type AuctionState = AuctionModel;
 
 export const auctionState = atom<AuctionState>({
   key: "auctionState",
-  default: new AuctionModel(),
+  default: AuctionModel.create({}),
 });

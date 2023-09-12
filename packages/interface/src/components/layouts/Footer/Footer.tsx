@@ -13,24 +13,16 @@ export type FooterProps = {} & BaseProps;
 export const Footer = ({ className }: FooterProps) => {
   return (
     <footer
-      className={clsx(className, "flex", "justify-center", "items-center")}
+      className={clsx(
+        className,
+        "flex justify-center items-center",
+        "pt-8 pb-16",
+        "bg-background-footer",
+      )}
     >
-      <div className={clsx("w-[1280px]", "mx-[30px]", "px-[12px]")}>
-        <div
-          className={clsx(
-            "mx-[417px]",
-            "pt-[32px]",
-            "pb-[64px]",
-            "flex",
-            "justify-center",
-            "items-center",
-          )}
-        >
-          <Twitter />
-          <Etherscan />
-          <Forum />
-        </div>
-      </div>
+      <Twitter className={clsx("mr-8")} />
+      <Etherscan className={clsx("mr-8")} />
+      <Forum />
     </footer>
   );
 };
