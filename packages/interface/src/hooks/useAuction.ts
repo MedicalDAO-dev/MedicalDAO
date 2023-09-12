@@ -1,4 +1,4 @@
-import { NULL_ADDRESS } from "@/const/chain";
+import { NULL_ADDRESS } from "@/config/chain";
 import { AuctionState, auctionState } from "@/stores/auctionState";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {

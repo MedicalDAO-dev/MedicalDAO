@@ -2,10 +2,10 @@ import { BidList } from "./BidList";
 import { DateSelection } from "./DateSelection";
 import { InputBidAmount } from "./InputBidAmount";
 import { NFTNameAndIndex } from "./NFTNameAndIndex";
-import { NextMint } from "./NextMint";
 import { Outline } from "./Outline";
-import { RecentbidAmount } from "./RecentbidAmount";
+import { RecentBidAmount } from "./RecentBidAmount";
 import { TimeLimit } from "./TimeLimit";
+import { Divider } from "@/components/elements/Divider";
 import { AuctionImage } from "@/features/auction/components/AuctionImage";
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
@@ -19,67 +19,24 @@ export type MainHomeProps = {} & BaseProps;
 
 export const MainHome = ({ className }: MainHomeProps) => {
   return (
-    <div className={clsx(className)}>
-      <div
-        className={clsx(
-          "bg-[#D5D7E1]",
-          "flex",
-          "justify-center",
-          "items-center",
-        )}
-      >
-        <div className={clsx("w-[1280px]")}>
-          <div className={clsx("mx-[30px]", "px-[12px]", "flex")}>
-            <div className={clsx("px-[12px]")}>
-              <AuctionImage />
-            </div>
-            <div
-              className={clsx(
-                "pl-[12px]",
-                "pr-[80px]",
-                "flex-col",
-                "justify-center",
-                "mb-[8px]",
-              )}
-            >
-              <div className={clsx("flex-col")}>
-                <DateSelection />
-                <NFTNameAndIndex />
-              </div>
-              <div className={clsx("flex", "-mx-[12px]")}>
-                <RecentbidAmount />
-                <TimeLimit />
-              </div>
-
-              <NextMint />
-              <InputBidAmount />
-              <BidList />
-            </div>
+    <div
+      className={clsx(className, "flex flex-col justify-center items-center")}
+    >
+      <div className={clsx("flex", "mb-16")}>
+        <AuctionImage className={clsx("mr-8")} />
+        <div className={clsx("flex flex-col items-start")}>
+          <DateSelection className={clsx("mb-2")} />
+          <NFTNameAndIndex className={clsx("mb-8")} />
+          <div className={clsx("flex justify-between", "w-[100%]", "mb-4")}>
+            <RecentBidAmount />
+            <Divider orientation="vertical" />
+            <TimeLimit />
           </div>
-          <div
-            className={clsx(
-              "px-[0]",
-              "py-16",
-              "flex",
-              "justify-center",
-              "items-center",
-            )}
-          >
-            <div
-              className={clsx(
-                "w-[1140px]",
-                "px-[12px]",
-                "mx-[70px]",
-                "items-center",
-                "-mx-[12px]",
-                "ml-[95px]",
-              )}
-            >
-              <Outline />
-            </div>
-          </div>
+          <InputBidAmount className={clsx("mb-4")} />
+          <BidList />
         </div>
       </div>
+      <Outline />
     </div>
   );
 };

@@ -9,38 +9,11 @@ export type TimeLimitProps = {} & BaseProps;
  */
 export const TimeLimit = ({ className }: TimeLimitProps) => {
   return (
-    <div
-      className={clsx(
-        className,
-        "-mx-[12px]",
-        "flex-col",
-        "mt-[5px]",
-        "pl-[40px]",
-        "pr-[12px]",
-      )}
-    >
-      <h4
-        className={clsx(
-          "mt-[1px]",
-          "mb-[8px]",
-          "text-[18px]",
-          "font-bold",
-          "text-[#79809c]",
-        )}
-      >
+    <div className={clsx(className, "font-bold")}>
+      <div className={clsx("mb-2", "text-lg text-[#79809c]")}>
         オークション終了まで
-      </h4>
-      <div
-        className={clsx(
-          "font-['PT_Root_UI']",
-          "font-bold",
-          "text-[32px]",
-          "mb-0",
-          "mt-[3px]",
-        )}
-      >
-        5時間20分10秒
       </div>
+      <div className={clsx("font-['PT_Root_UI'] text-3xl")}>5時間20分10秒</div>
     </div>
   );
 };
