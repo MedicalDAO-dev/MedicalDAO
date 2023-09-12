@@ -1,9 +1,9 @@
 import { Button } from "@/components/elements/Button";
 import { useAuctionController } from "@/hooks/useAuction";
-import { BaseProps } from "@/types/BaseProps";
 import { auctionState } from "@/stores/auctionState";
-import { useRecoilValue } from "recoil";
+import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
+import { useRecoilValue } from "recoil";
 
 export type BidButtonProps = {} & BaseProps;
 
