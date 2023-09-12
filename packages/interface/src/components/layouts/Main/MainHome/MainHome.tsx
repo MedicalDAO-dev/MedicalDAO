@@ -1,11 +1,11 @@
-import { BidList } from "./BidList";
-import { DateSelection } from "./DateSelection";
-import { InputBidAmount } from "./InputBidAmount";
-import { NFTNameAndIndex } from "./NFTNameAndIndex";
-import { Outline } from "./Outline";
-import { RecentBidAmount } from "./RecentBidAmount";
-import { TimeLimit } from "./TimeLimit";
 import { Divider } from "@/components/elements/Divider";
+import { BidList } from "@/components/layouts/Main/MainHome/BidList";
+import { DateSelection } from "@/components/layouts/Main/MainHome/DateSelection";
+import { InputBidAmount } from "@/components/layouts/Main/MainHome/InputBidAmount";
+import { NFTNameAndIndex } from "@/components/layouts/Main/MainHome/NFTNameAndIndex";
+import { Outline } from "@/components/layouts/Main/MainHome/Outline";
+import { RecentBidAmount } from "@/components/layouts/Main/MainHome/RecentBidAmount";
+import { TimeLimit } from "@/components/layouts/Main/MainHome/TimeLimit";
 import { AuctionImage } from "@/features/auction/components/AuctionImage";
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";

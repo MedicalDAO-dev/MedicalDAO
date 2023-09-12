@@ -1,6 +1,6 @@
-import { Document } from "./Document";
-import { Logo } from "./Logo";
-import { Treasury } from "./Treasury";
+import { DocumentLink } from "@/components/layouts/Header/DocumentLink";
+import { Logo } from "@/components/layouts/Header/Logo";
+import { Treasury } from "@/components/layouts/Header/Treasury";
 import { ConnectButton } from "@/features/user/components/ConnectButton";
 import { UserInfo } from "@/features/user/components/UserInfo";
 import { useUserValue } from "@/hooks/useUser";
@@ -30,7 +30,7 @@ export const Header = ({ className }: HeaderProps) => {
         <Treasury />
       </div>
       <div className={clsx("flex justify-center items-center")}>
-        <Document className={clsx("mr-2")} />
+        <DocumentLink className={clsx("mr-2")} />
         {user.isConnected() ? <UserInfo /> : <ConnectButton />}
       </div>
     </header>

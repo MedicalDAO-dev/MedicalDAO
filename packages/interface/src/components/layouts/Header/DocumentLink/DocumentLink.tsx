@@ -3,13 +3,13 @@ import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
 import { IoBook } from "react-icons/io5";
 
-export type DocumentProps = {} & BaseProps;
+export type DocumentLinkProps = {} & BaseProps;
 
 /**
- * Document
+ * DocumentLink
  * @YosukeMiyata
  */
-export const Document = ({ className }: DocumentProps) => {
+export const DocumentLink = ({ className }: DocumentLinkProps) => {
   return (
     <Link
       className={clsx(className, "flex justify-center items-center")}
