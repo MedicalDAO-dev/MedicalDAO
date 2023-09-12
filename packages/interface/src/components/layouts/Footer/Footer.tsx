@@ -1,6 +1,6 @@
-import { Etherscan } from "./Etherscan";
-import { Forum } from "./Forum";
-import { Twitter } from "./Twitter";
+import { Etherscan } from "@/components/layouts/Footer/Etherscan";
+import { Forum } from "@/components/layouts/Footer/Forum";
+import { Twitter } from "@/components/layouts/Footer/Twitter";
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
 
