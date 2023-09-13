@@ -3,11 +3,11 @@ import { BidList } from "../BidList";
 import { DateSelection } from "../DateSelection";
 import { InputBidAmount } from "../InputBidAmount";
 import { NFTNameAndIndex } from "../NFTNameAndIndex";
-import { NextMint } from "../NextMint";
-import { RecentbidAmount } from "../RecentbidAmount";
 import { TimeLimit } from "../TimeLimit";
 import { AuctionImage } from "@/features/auction/components/AuctionImage";
 import { BaseProps } from "@/types/BaseProps";
+import { RecentBidAmount } from "@/components/layouts/Main/MainHome/RecentbidAmount/RecentbidAmount";
+import { Divider } from "@/components/elements/Divider";
 import clsx from "clsx";
 
 export type IntroProps = {} & BaseProps;
@@ -16,43 +16,18 @@ export const Auction = ({ className }: IntroProps) => {
   const [isAuction, setIsAuction] = useState(true);
 
   return (
-    <div className={clsx(className)}>
-      <div className={clsx("mx-[30px]", "px-[12px]", "flex")}>
-        <div className={clsx("px-[12px]")}>
-          <AuctionImage />
+    <div className={clsx("flex", "mb-16")}>
+      <AuctionImage className={clsx("mr-8")} />
+      <div className={clsx("flex flex-col items-start")}>
+        <DateSelection className={clsx("mb-2")} />
+        <NFTNameAndIndex className={clsx("mb-8")} />
+        <div className={clsx("flex justify-between", "w-[100%]", "mb-4")}>
+          <RecentBidAmount />
+          <Divider orientation="vertical" />
+          <TimeLimit />
         </div>
-        <div
-          className={clsx(
-            "pl-[24px]",
-            "pr-[80px]",
-            "flex-col",
-            "justify-center",
-            "mb-[8px]",
-          )}
-        >
-          <div className={clsx("flex-col")}>
-            <DateSelection />
-            <NFTNameAndIndex />
-          </div>
-          <div>
-            {isAuction ?
-              (
-                <div>
-                  <div className={clsx("flex")}>
-                    <RecentbidAmount />
-                    <TimeLimit />
-                  </div>
-                  <NextMint />
-                  <InputBidAmount />
-                  <BidList />
-                </div>
-              ) :
-              (
-                <div>
-                </div>
-              )}
-          </div>
-        </div>
+        <InputBidAmount className={clsx("mb-4")} />
+        <BidList />
       </div>
     </div>
   )
