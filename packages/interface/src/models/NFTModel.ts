@@ -1,6 +1,6 @@
-import { ObjectCopier } from "@/models/ObjectCopier";
+import { BaseModel } from "@/models/BaseModel";
 
-export class NFTModel extends ObjectCopier {
+export class NFTModel extends BaseModel {
   constructor(
     public readonly bidAmount: number = 0,
     public readonly imageURL: string = "/images/icon.jpg",
