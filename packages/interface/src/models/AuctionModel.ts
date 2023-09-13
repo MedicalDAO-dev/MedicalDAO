@@ -1,12 +1,12 @@
-import { NULL_ADDRESS } from "@/const/chain";
+import { NULL_ADDRESS } from "@/config/chain";
+import { BaseModel } from "@/models/BaseModel";
 import { NFTModel } from "@/models/NFTModel";
-import { ObjectCopier } from "@/models/ObjectCopier";
 import { Address } from "wagmi";
 
-export class AuctionModel extends ObjectCopier {
+export class AuctionModel extends BaseModel {
   constructor(
     public readonly bidAmount: number = 0,
-    public readonly imageURL: string = "/images/icon.jpg",
+    public readonly imageURL: string = "/assets/images/logo.webp",
     public readonly bidder: Address = NULL_ADDRESS,
     public readonly nft: NFTModel = new NFTModel(),
   ) {

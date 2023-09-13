@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/components/elements/Link";
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
 
@@ -10,16 +10,8 @@ export type EtherscanProps = {} & BaseProps;
  */
 export const Etherscan = ({ className }: EtherscanProps) => {
   return (
-    <div
-      className={clsx(
-        className,
-        "no-underline",
-        "text-[#000]",
-        "mx-[14px]",
-        "my-[8px]",
-      )}
-    >
-      <Link href="">Etherscan</Link>
-    </div>
+    <Link className={clsx(className)} href="" theme="none">
+      Etherscan
+    </Link>
   );
 };
