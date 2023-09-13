@@ -1,1 +1,1 @@
-export * from "./RecentbidAmount";
+export * from "./RecentBidAmount";

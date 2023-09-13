@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { auctionState } from "@/stores/auctionState";
 import { BaseProps } from "@/types/BaseProps";
+import clsx from "clsx";
 import { useRecoilValue } from "recoil";
 
 export type AuctionImageProps = {} & BaseProps;
@@ -12,5 +13,14 @@ export type AuctionImageProps = {} & BaseProps;
 export const AuctionImage = ({ className }: AuctionImageProps) => {
   const auction = useRecoilValue(auctionState);
 
-  return <Image src={auction.imageURL} alt="test" width={550} height={550} />;
+  return (
+    <Image
+      className={clsx(className)}
+      src={auction.imageURL}
+      alt="auctionImage"
+      width={512}
+      height={512}
+      priority
+    />
+  );
 };

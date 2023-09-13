@@ -1,13 +1,13 @@
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
 
-export type RecentbidAmountProps = {} & BaseProps;
+export type RecentBidAmountProps = {} & BaseProps;
 
 /**
- * RecentbidAmount
+ * RecentBidAmount
  * @YosukeMiyata
  */
-export const RecentbidAmount = ({ className }: RecentbidAmountProps) => {
+export const RecentBidAmount = ({ className }: RecentBidAmountProps) => {
   return (
     <div
       className={clsx(
@@ -28,17 +28,9 @@ export const RecentbidAmount = ({ className }: RecentbidAmountProps) => {
       >
         現在の入札額
       </h4>
-      <div
-        className={clsx(
-          "font-['PT_Root_UI']",
-          "font-bold",
-          "text-[32px]",
-          "mb-0",
-          "mt-[3px]",
-        )}
-      >
-        Ξ 32.60
+      <div className={clsx("font-['PT_Root_UI'] font-bold text-3xl")}>
+        Ξ 32.20
       </div>
-    </div>
+    </div >
   );
 };

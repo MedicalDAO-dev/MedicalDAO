@@ -1,6 +1,6 @@
-import { Etherscan } from "./Etherscan";
-import { Forum } from "./Forum";
-import { Twitter } from "./Twitter";
+import { Etherscan } from "@/components/layouts/Footer/Etherscan";
+import { Forum } from "@/components/layouts/Footer/Forum";
+import { Twitter } from "@/components/layouts/Footer/Twitter";
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
 
@@ -13,24 +13,16 @@ export type FooterProps = {} & BaseProps;
 export const Footer = ({ className }: FooterProps) => {
   return (
     <footer
-      className={clsx(className, "flex", "justify-center", "items-center")}
+      className={clsx(
+        className,
+        "flex justify-center items-center",
+        "pt-8 pb-16",
+        "bg-background-footer",
+      )}
     >
-      <div className={clsx("w-[1280px]", "mx-[30px]", "px-[12px]")}>
-        <div
-          className={clsx(
-            "mx-[417px]",
-            "pt-[32px]",
-            "pb-[64px]",
-            "flex",
-            "justify-center",
-            "items-center",
-          )}
-        >
-          <Twitter />
-          <Etherscan />
-          <Forum />
-        </div>
-      </div>
+      <Twitter className={clsx("mr-8")} />
+      <Etherscan className={clsx("mr-8")} />
+      <Forum />
     </footer>
   );
 };

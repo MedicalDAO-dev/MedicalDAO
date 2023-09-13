@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/components/elements/Link";
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
 
