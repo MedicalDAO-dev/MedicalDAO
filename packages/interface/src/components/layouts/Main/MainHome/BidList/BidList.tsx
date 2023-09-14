@@ -1,22 +1,22 @@
+import { Button } from "@/components/elements/Button";
 import { Divider } from "@/components/elements/Divider";
+import { Link } from "@/components/elements/Link";
+import { MAX_BID_LIST } from "@/const/const";
+import { useAuctionValue } from "@/hooks/useAuction";
 import { BaseProps } from "@/types/BaseProps";
-import { abbreviateString } from "@/utils/util";
+import { abbreviateAddress, toFixedBigint } from "@/utils/util";
 import clsx from "clsx";
 import { FiExternalLink } from "react-icons/fi";
 import { v4 as uuidv4 } from "uuid";
 
 export type BidListProps = {} & BaseProps;
 
-const dummyBids = [
-  { bidder: "0x019281ce34F8b8739991713D5E09D0C290B53886", bidAmount: 32.2 },
-  { bidder: "0x31F31693723c4397cb8A978A19A95B82c72f4212", bidAmount: 10.25 },
-];
-
 /**
  * BidList
  * @YosukeMiyata
  */
 export const BidList = ({ className }: BidListProps) => {
+  const { bids } = useAuctionValue();
   return (
     <div
       className={clsx(
@@ -27,29 +27,49 @@ export const BidList = ({ className }: BidListProps) => {
       )}
     >
       <div className={clsx("mb-4")}>
-        {dummyBids.map((bid) => {
-          const { bidder, bidAmount } = bid;
-          return (
-            <div key={uuidv4()}>
-              <div className={clsx("flex justify-between", "my-4")}>
-                <div className={clsx("pl-2")}>{abbreviateString(bidder)}</div>
-                <div className={clsx("flex items-center", "pr-2")}>
-                  <div className={clsx("mr-4")}>Ξ {bidAmount}</div>
-                  <FiExternalLink className={clsx("w-5 h-5")} color="gray" />
+        {bids
+          .slice()
+          .reverse()
+          .map((bid, i) => {
+            if (i >= MAX_BID_LIST) return <div key={uuidv4()}></div>;
+            const { bidder, amount, hash } = bid;
+            return (
+              <div key={uuidv4()}>
+                <div className={clsx("flex justify-between", "my-4")}>
+                  <div className={clsx("pl-2")}>
+                    {abbreviateAddress(bidder)}
+                  </div>
+                  <div className={clsx("flex items-center", "pr-2")}>
+                    <div className={clsx("mr-4")}>
+                      Ξ {toFixedBigint(amount, 2)}
+                    </div>
+                    <Link
+                      href={`https://goerli-optimism.etherscan.io/tx/${hash}`}
+                      theme="none"
+                      isExternal={true}
+                    >
+                      <FiExternalLink
+                        className={clsx("w-5 h-5")}
+                        color="gray"
+                      />
+                    </Link>
+                  </div>
                 </div>
+                <Divider />
               </div>
-              <Divider />
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
-      <div
-        className={clsx(
-          "flex justify-center",
-          "font-['PT_Root_UI'] font-bold text-[#79809c]",
-        )}
-      >
-        すべての入札を表示
+      <div className={clsx("flex justify-center")}>
+        <Button
+          className={clsx(
+            "flex justify-center",
+            "font-['PT_Root_UI'] font-bold text-[#79809c] hover:text-[#4965f0]",
+          )}
+          theme="none"
+        >
+          すべての入札を表示
+        </Button>
       </div>
     </div>
   );

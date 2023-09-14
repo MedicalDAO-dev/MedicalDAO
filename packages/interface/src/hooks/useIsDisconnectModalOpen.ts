@@ -18,14 +18,14 @@ export const useIsDisconnectModalOpenController =
     );
 
     /**
-     * open
+     * モーダルを開く
      */
     const open = (): void => {
       setIsDisconnectModalOpen(true);
     };
 
     /**
-     * close
+     * モーダル閉じる
      */
     const close = (): void => {
       setIsDisconnectModalOpen(false);
