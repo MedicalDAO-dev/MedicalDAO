@@ -3,7 +3,13 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { Address } from "wagmi";
 
 export interface UserController {
-  update: (address?: Address) => void;
+  update: ({
+    address,
+    bidAmount,
+  }: {
+    address?: Address;
+    bidAmount?: bigint;
+  }) => void;
 }
 
 export const useUserValue = (): UserState => {
@@ -14,11 +20,22 @@ export const useUserController = (): UserController => {
   const setUser = useSetRecoilState(userState);
 
   /**
-   * update
+   * 更新
+   * @param address アドレス
+   * @param bidAmount 入札額
    */
-  const update = (address?: Address): void => {
+  const update = ({
+    address,
+    bidAmount,
+  }: {
+    address?: Address;
+    bidAmount?: bigint;
+  }): void => {
     setUser((prevState) => {
-      return prevState.copyWith({ address: address ?? prevState.address });
+      return prevState.copyWith({
+        address: address ?? prevState.address,
+        bidAmount: bidAmount ?? prevState.bidAmount,
+      });
     });
   };
 

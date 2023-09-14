@@ -4,7 +4,7 @@ import { DisconnectModal } from "@/features/user/components/UserInfo/DisconnectM
 import { useIsDisconnectModalOpenState } from "@/hooks/useIsDisconnectModalOpen";
 import { useUserValue } from "@/hooks/useUser";
 import { BaseProps } from "@/types/BaseProps";
-import { abbreviateString } from "@/utils/util";
+import { abbreviateAddress } from "@/utils/util";
 import clsx from "clsx";
 import { BiSolidDownArrow, BiSolidUpArrow } from "react-icons/bi";
 import { useNetwork, useSwitchNetwork } from "wagmi";
@@ -38,7 +38,7 @@ export const UserInfo = ({ className }: UserInfoProps) => {
         className={clsx(className, "flex items-center")}
         onClick={handleClick}
       >
-        <div className={clsx("mr-2")}>{abbreviateString(address!)}</div>
+        <div className={clsx("mr-2")}>{abbreviateAddress(address!)}</div>
         {isModalOpen ? <BiSolidUpArrow /> : <BiSolidDownArrow />}
       </Button>
       <DisconnectModal />

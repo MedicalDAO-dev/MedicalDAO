@@ -27,6 +27,10 @@ const config: HardhatUserConfig = {
       url: `${process.env.ALCHEMY_SEPOLIA_API_URL}`,
       accounts: [`${process.env.DEPLOYER_PRIVATE_KEY}`],
     },
+    "optimism-goerli": {
+      url: "https://goerli.optimism.io",
+      accounts: [`${process.env.DEPLOYER_PRIVATE_KEY}`],
+    },
     // local: {
     //   url: 'http://localhost:8545',
     //   // accounts: [`${process.env.LOCAL_PRIVATE_KEY}`],

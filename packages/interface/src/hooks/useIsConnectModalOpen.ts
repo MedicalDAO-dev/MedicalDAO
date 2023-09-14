@@ -18,14 +18,14 @@ export const useIsConnectModalOpenController =
     const setIsConnectModalOpen = useSetRecoilState(isConnectModalOpenState);
 
     /**
-     * open
+     * モーダルを開く
      */
     const open = (): void => {
       setIsConnectModalOpen(true);
     };
 
     /**
-     * close
+     * モーダルを閉じる
      */
     const close = (): void => {
       setIsConnectModalOpen(false);
