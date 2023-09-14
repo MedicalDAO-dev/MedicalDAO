@@ -29,5 +29,8 @@ export const toFixedBigint = (num: bigint, fractionDigits: number): string => {
   if (isNaN(numberValue)) {
     throw new Error("Invalid number string");
   }
-  return numberValue.toFixed(fractionDigits);
+  return (
+    Math.floor(numberValue * 10 ** fractionDigits) /
+    10 ** fractionDigits
+  ).toFixed(fractionDigits);
 };

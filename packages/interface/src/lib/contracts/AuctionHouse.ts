@@ -1,5 +1,5 @@
 import auctionHouse from "@/artifacts/AuctionHouse.json";
-import { AUCTION_HOUSE } from "@/config/chain";
+import { AUCTION_HOUSE } from "@/config/config";
 import { Auction } from "@/types/Auction";
 import { Hash, readContract, writeContract } from "@wagmi/core";
 import { parseEther } from "viem";
