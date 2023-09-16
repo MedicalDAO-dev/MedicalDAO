@@ -1,69 +1,32 @@
+import { deployAuctionHouseProxy } from "./helpers/deployAuctionHouseProxy";
+import { deployDescriptor } from "./helpers/deployDescriptor";
+import { deployToken } from "./helpers/deployToken";
 import "dotenv/config";
-import { ethers, run, upgrades } from "hardhat";
+import { ethers, run } from "hardhat";
 
 async function main() {
   const network = await ethers.provider.getNetwork();
-
   const [deployer] = await ethers.getSigners();
   console.log("Deployer account: ", deployer.address);
 
-  const Descriptor = await ethers.getContractFactory("Descriptor");
-  const descriptor = await Descriptor.deploy();
-
-  await descriptor.deployed();
-
-  console.log(`Descriptor address: ${descriptor.address}`);
-
-  const tokenDeployArgs: Array<string> = [
+  const descriptor = await deployDescriptor();
+  const token = await deployToken(
     deployer.address,
     deployer.address,
     deployer.address,
     descriptor.address,
-  ];
-
-  const Token = await ethers.getContractFactory("Token");
-  const token = await Token.deploy(
-    tokenDeployArgs[0],
-    tokenDeployArgs[1],
-    tokenDeployArgs[2],
-    tokenDeployArgs[3],
   );
-  console.log(`Token address: ${token.address}`);
-
-  type auctionHouseDeployArgsType = [
-    string,
-    string,
-    number,
-    number,
-    number,
-    number,
-  ];
-
-  const auctionHouseDeployArgs: auctionHouseDeployArgsType = [
+  const {
+    auctionHouseProxy,
+    auctionHouseImplementationAddress,
+    auctionHouseDeployArgs,
+  } = await deployAuctionHouseProxy(
     token.address,
-    "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+    "0x4200000000000000000000000000000000000006", // optimism-goerli weth
     300,
     1,
     2,
     86400,
-  ];
-
-  const AuctionHouse = await ethers.getContractFactory("AuctionHouse");
-  const auctionHouseProxy = await upgrades.deployProxy(
-    AuctionHouse,
-    auctionHouseDeployArgs,
-    {
-      kind: "uups",
-      initializer: "initialize",
-    },
-  );
-  await auctionHouseProxy.deployed();
-  console.log(`AuctionHouseProxy address: ${auctionHouseProxy.address}`);
-
-  const auctionHouseImplementationAddress: string =
-    await upgrades.erc1967.getImplementationAddress(auctionHouseProxy.address);
-  console.log(
-    `AuctionHouse implementation address: ${auctionHouseImplementationAddress}`,
   );
 
   try {

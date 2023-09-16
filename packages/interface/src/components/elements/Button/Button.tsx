@@ -1,3 +1,4 @@
+import { useIsDisableValue } from "@/hooks/useIsDisable";
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
 
@@ -18,11 +19,13 @@ export const Button = ({
   theme = "primary",
   onClick,
 }: ButtonProps) => {
+  const isDisable = useIsDisableValue();
+
   return (
     <button
       className={clsx(className, themes[theme])}
       onClick={onClick}
-      disabled={disabled}
+      disabled={disabled || isDisable}
     >
       {children}
     </button>

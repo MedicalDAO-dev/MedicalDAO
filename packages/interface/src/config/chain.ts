@@ -1,4 +1,0 @@
-export const NULL_ADDRESS = "0x0000000000000000000000000000000000000000";
-export const WALLET_CONNECT_API_KEY = process.env
-  .NEXT_PUBLIC_WALLET_CONNECT_API_KEY as string;
-export const STAGE = process.env.NEXT_PUBLIC_STAGE as string;

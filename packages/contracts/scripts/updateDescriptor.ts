@@ -1,6 +1,6 @@
-import { ethers, run } from "hardhat";
-import "dotenv/config";
 import { TOKEN_ADDRESS } from "./helpers/const";
+import "dotenv/config";
+import { ethers, run } from "hardhat";
 
 async function main() {
   const network = await ethers.provider.getNetwork();

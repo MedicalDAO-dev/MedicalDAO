@@ -5,6 +5,7 @@
     "compile": "hardhat compile",
     "test": "hardhat test",
     "deploy:all": "hardhat run scripts/deployAll.ts --network $npm_config_network",
+    "script": "hardhat run scripts/$npm_config_file.ts --network $npm_config_network",
     "format": "prettier --write '**/*.js' '**/*.ts' '**/*.sol' '**/*.json' --ignore-path .gitignore"
   },
   "devDependencies": {
