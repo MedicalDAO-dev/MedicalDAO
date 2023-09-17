@@ -1,6 +1,9 @@
 import { AuctionHouse } from "@/lib/contracts/AuctionHouse";
+import { Descriptor } from "@/lib/contracts/Descriptor";
 import { AuctionModel } from "@/models/AuctionModel";
+import { NFTModel } from "@/models/NFTModel";
 import { AuctionState, auctionState } from "@/stores/auctionState";
+import { Auction } from "@/types/Auction";
 import { Hash } from "@wagmi/core";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
@@ -21,31 +24,34 @@ export const useAuctionController = (): AuctionController => {
    */
   const init = async (): Promise<void> => {
     // TODO: コントラクトからオークション情報を取得する
+    const getAuction = async (): Promise<Auction> => {
+      return await AuctionHouse.auction();
+    };
+    const auction: Auction = await AuctionHouse.auction();
+    const imageURL: string = `https://ipfs.io/ipfs/${await Descriptor.getImage(
+      auction.tokenId,
+    )}`;
+
+    const timeLimitDiff: bigint =
+      auction.endTime - BigInt(Date.now()) / BigInt(1000);
+    const timeLimitStamp = timeLimitDiff > 0 ? timeLimitDiff : BigInt(0);
+
     setAuction(
       AuctionModel.create({
+        tokenId: auction.tokenId,
+        amount: auction.amount,
+        startTime: auction.startTime,
+        endTime: auction.endTime,
+        bidder: auction.bidder,
         bids: [
           {
-            bidder: "0x019281ce34F8b8739991713D5E09D0C290B53886",
-            amount: 20000000000000000n,
-            hash: "0xb4c9eda3ef858a25ef819540daadece3cf16f3a213051b6c74e53bbe5b47869d",
-          },
-          {
-            bidder: "0x31F31693723c4397cb8A978A19A95B82c72f4212",
-            amount: 1000000000000000000n,
+            bidder: auction.bidder,
+            amount: auction.amount,
             hash: "0x934e6bb9b4a8d78d87a98c30b807567ea88a6a363a14e6824072c21ad82d2921",
           },
-          {
-            bidder: "0x019281ce34F8b8739991713D5E09D0C290B53886",
-            amount: 20500000000000000000n,
-            hash: "0xeb4b9a2e2b2ff2f8dc4239912dee24200c248ef17ff03baaa2ebcb6d9c5dd4e4",
-          },
-          {
-            bidder: "0x31F31693723c4397cb8A978A19A95B82c72f4212",
-            amount: 32200000000000000000n,
-            hash: "0xa27d00837e594e1186cd6d9bebae720b4a783dd63c3226ba353d910b1a3f1280",
-          },
         ],
-        timeLimit: "5時間20分10秒",
+        timeLimit: formatDuration(timeLimitStamp),
+        nft: new NFTModel(imageURL),
       }),
     );
   };
@@ -65,6 +71,28 @@ export const useAuctionController = (): AuctionController => {
   };
   return controller;
 };
+
+function formatDuration(duration: bigint): string {
+  const MINUTE = BigInt(60);
+  const HOUR = MINUTE * BigInt(60);
+
+  let hours;
+  let minutes;
+  let seconds;
+  if (duration !== BigInt(0)) {
+    hours = duration / HOUR;
+    duration = duration % HOUR;
+    minutes = duration / MINUTE;
+    seconds = duration % MINUTE;
+  } else {
+    hours = BigInt(0);
+    minutes = BigInt(0);
+    seconds = BigInt(0);
+    return "入札終了";
+  }
+
+  return `${hours}時間 ${minutes}分 ${seconds}秒`;
+}
 
 export const useAuctionState = (): [AuctionState, AuctionController] => [
   useAuctionValue(),

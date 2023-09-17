@@ -16,7 +16,7 @@ export const AuctionImage = ({ className }: AuctionImageProps) => {
   return (
     <Image
       className={clsx(className)}
-      src={auction.imageURL}
+      src={auction.nft.imageURL}
       alt="auctionImage"
       width={512}
       height={512}
