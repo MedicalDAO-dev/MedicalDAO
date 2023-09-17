@@ -30,6 +30,11 @@ export const useAuctionController = (): AuctionController => {
 
     setAuction(
       AuctionModel.create({
+        tokenId: auction.tokenId,
+        amount: auction.amount,
+        startTime: auction.startTime,
+        endTime: auction.endTime,
+        bidder: auction.bidder,
         bids: [
           {
             bidder: auction.bidder,
