@@ -2,12 +2,12 @@ import { MIN_BID_AMOUNT } from "@/const/const";
 import { BaseModel } from "@/models/BaseModel";
 import { NFTModel } from "@/models/NFTModel";
 import { Bid } from "@/types/Bid";
+
 export class AuctionModel extends BaseModel {
-    constructor(
-      public readonly bids: Bid[] = [],
-      public readonly timeLimit: string = "0時間0分0秒",
-      public readonly imageURL: string = "/assets/images/logo.webp", // TODO: NFT情報としてまとめる
-      public readonly nft: NFTModel = new NFTModel(),
+  constructor(
+    public readonly bids: Bid[] = [],
+    public readonly timeLimit: string = "0時間0分0秒",
+    public readonly nft: NFTModel = new NFTModel(),
   ) {
     super();
   }
