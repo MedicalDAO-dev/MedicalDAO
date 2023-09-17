@@ -6,7 +6,7 @@ import { NFTNameAndIndex } from "../NFTNameAndIndex";
 import { TimeLimit } from "../TimeLimit";
 import { AuctionImage } from "@/features/auction/components/AuctionImage";
 import { BaseProps } from "@/types/BaseProps";
-import { RecentBidAmount } from "@/components/layouts/Main/MainHome/RecentbidAmount/RecentbidAmount";
+import { RecentBidAmount } from "@/components/layouts/Main/MainHome/RecentBidAmount/RecentBidAmount";
 import { Divider } from "@/components/elements/Divider";
 import clsx from "clsx";
 
