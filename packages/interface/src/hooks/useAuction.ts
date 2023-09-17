@@ -1,5 +1,7 @@
 import { AuctionHouse } from "@/lib/contracts/AuctionHouse";
+import { Descriptor } from "@/lib/contracts/Descriptor";
 import { AuctionModel } from "@/models/AuctionModel";
+import { NFTModel } from "@/models/NFTModel";
 import { AuctionState, auctionState } from "@/stores/auctionState";
 import { Auction } from "@/types/Auction";
 import { Hash } from "@wagmi/core";
@@ -22,7 +24,13 @@ export const useAuctionController = (): AuctionController => {
    */
   const init = async (): Promise<void> => {
     // TODO: コントラクトからオークション情報を取得する
+    const getAuction = async (): Promise<Auction> => {
+      return await AuctionHouse.auction();
+    };
     const auction: Auction = await AuctionHouse.auction();
+    const imageURL: string = `https://ipfs.io/ipfs/${await Descriptor.getImage(
+      auction.tokenId,
+    )}`;
 
     const timeLimitDiff: bigint =
       auction.endTime - BigInt(Date.now()) / BigInt(1000);
@@ -43,6 +51,7 @@ export const useAuctionController = (): AuctionController => {
           },
         ],
         timeLimit: formatDuration(timeLimitStamp),
+        nft: new NFTModel(imageURL),
       }),
     );
   };
