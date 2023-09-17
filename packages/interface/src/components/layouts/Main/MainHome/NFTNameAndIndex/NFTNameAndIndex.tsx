@@ -1,5 +1,7 @@
+import { auctionState } from "@/stores/auctionState";
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
+import { useRecoilValue } from "recoil";
 
 export type NFTNameAndIndexProps = {} & BaseProps;
 
@@ -8,6 +10,8 @@ export type NFTNameAndIndexProps = {} & BaseProps;
  * @YosukeMiyata
  */
 export const NFTNameAndIndex = ({ className }: NFTNameAndIndexProps) => {
+  const auction = useRecoilValue(auctionState);
+
   return (
     <div
       className={clsx(
@@ -15,7 +19,7 @@ export const NFTNameAndIndex = ({ className }: NFTNameAndIndexProps) => {
         "font-['Londrina_Solid'] text-7xl text-[#151c3b]",
       )}
     >
-      Noun 808
+      Token {Number(auction.tokenId)}
     </div>
   );
 };
