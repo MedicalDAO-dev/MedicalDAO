@@ -30,9 +30,6 @@ export const useAuctionController = (): AuctionController => {
       auction.tokenId,
     )}`;
 
-    const timeLimitDiff: bigint = auction.endTime - BigInt(dateTime);
-    const timeLimitStamp = timeLimitDiff > 0 ? timeLimitDiff : BigInt(0);
-
     setAuction(
       AuctionModel.create({
         currentDateTime: dateTime,
