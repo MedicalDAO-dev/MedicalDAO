@@ -13,7 +13,7 @@ export const DocumentLink = ({ className }: DocumentLinkProps) => {
   return (
     <Link
       className={clsx(className, "flex justify-center items-center")}
-      href="https://nouns.center/"
+      href="https://cerulean-flannel-4b5.notion.site/6731ccad0750445a8562bcc019750cab?pvs=4"
       isExternal={true}
     >
       <IoBook className={clsx("mr-2")} color="gray" />
