@@ -1,5 +1,5 @@
+import { Discord } from "@/components/layouts/Footer/Discord";
 import { Etherscan } from "@/components/layouts/Footer/Etherscan";
-import { Forum } from "@/components/layouts/Footer/Forum";
 import { Twitter } from "@/components/layouts/Footer/Twitter";
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
@@ -22,7 +22,7 @@ export const Footer = ({ className }: FooterProps) => {
     >
       <Twitter className={clsx("mr-8")} />
       <Etherscan className={clsx("mr-8")} />
-      <Forum />
+      <Discord />
     </footer>
   );
 };
