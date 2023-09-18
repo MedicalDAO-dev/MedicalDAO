@@ -15,6 +15,4 @@ interface IDescriptorMinimal {
   ///
 
   function tokenURI(uint256 tokenId) external view returns (string memory);
-
-  function dataURI(uint256 tokenId) external view returns (string memory);
 }

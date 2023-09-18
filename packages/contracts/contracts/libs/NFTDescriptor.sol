@@ -30,7 +30,7 @@ library NFTDescriptor {
                 'data:application/json;base64,',
                 Base64.encode(
                     bytes(
-                        abi.encodePacked('{"name":"', params.name, '", "description":"', params.description, '", "image": "ipfs://,', params.image, '"}')
+                        abi.encodePacked('{"name":"', params.name, '", "description":"', params.description, '", "image": "', params.image, '"}')
                     )
                 )
             )

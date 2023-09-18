@@ -135,17 +135,6 @@ contract Token is IToken, Ownable, ERC721Checkpointable {
   }
 
   /**
-   * @notice Similar to `tokenURI`, but always serves a base64 encoded data URI
-   * with the JSON contents directly inlined.
-   */
-  function dataURI(
-    uint256 tokenId
-  ) public view override returns (string memory) {
-    require(_exists(tokenId), "MedicalDAONFT: URI query for nonexistent token");
-    return descriptor.dataURI(tokenId);
-  }
-
-  /**
    * @notice Set the founders DAO.
    * @dev Only callable by the founders DAO when not locked.
    */

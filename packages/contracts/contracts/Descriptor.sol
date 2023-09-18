@@ -17,37 +17,18 @@ import {NFTDescriptor} from "./libs/NFTDescriptor.sol";
 contract Descriptor is IDescriptor, Ownable {
   using Strings for uint256;
 
-  /// @notice Whether or not `tokenURI` should be returned as a data URI (Default: true)
-  bool public override isDataURIEnabled = true;
-
-  /// @notice Base URI, used when isDataURIEnabled is false
-  string public override baseURI;
-
-  //@todo テスト用画像　本番では削除
-  string public testImageCid = "QmPE9tKkLkTJHqzr77epkPayo9HheUGLjysnJuR3MQaRB3";
+  /// @notice Base CID
+  string public cid = "";
 
   /**
-   * @notice Toggle a boolean value which determines if `tokenURI` returns a data URI
-   * or an HTTP URL.
+   * @notice Set the base CID for all token IDs. It is automatically
+   * added as a prefix to the value returned in {tokenURI}.
    * @dev This can only be called by the owner.
    */
-  function toggleDataURIEnabled() external override onlyOwner {
-    bool enabled = !isDataURIEnabled;
+  function setCID(string calldata _cid) external override onlyOwner {
+    cid = _cid;
 
-    isDataURIEnabled = enabled;
-    emit DataURIToggled(enabled);
-  }
-
-  /**
-   * @notice Set the base URI for all token IDs. It is automatically
-   * added as a prefix to the value returned in {tokenURI}, or to the
-   * token ID if {tokenURI} is empty.
-   * @dev This can only be called by the owner.
-   */
-  function setBaseURI(string calldata _baseURI) external override onlyOwner {
-    baseURI = _baseURI;
-
-    emit BaseURIUpdated(_baseURI);
+    emit BaseCIDUpdated(_cid);
   }
 
   /**
@@ -57,52 +38,24 @@ contract Descriptor is IDescriptor, Ownable {
   function tokenURI(
     uint256 tokenId
   ) external view override returns (string memory) {
-    if (isDataURIEnabled) {
-      return dataURI(tokenId);
-    }
-    return string(abi.encodePacked(baseURI, tokenId.toString()));
-  }
-
-  /**
-   * @notice Given a token ID and seed, construct a base64 encoded data URI for an official Medical DAO token.
-   */
-  function dataURI(
-    uint256 tokenId
-  ) public view override returns (string memory) {
     string memory tokenIdString = tokenId.toString();
-    string memory name = string(
-      abi.encodePacked("Medical DAO NFT ", tokenIdString)
-    );
-    string memory description = string(
-      abi.encodePacked(
+    NFTDescriptor.TokenURIParams memory params = NFTDescriptor.TokenURIParams({
+      name: string.concat("Medical DAO NFT ", tokenIdString),
+      description: string.concat(
         "Medical DAO NFT ",
         tokenIdString,
         " is a member of the Medical DAO"
-      )
-    );
-
-    return genericDataURI(name, description);
-  }
-
-  /**
-   * @notice Given a name, description, and seed, construct a base64 encoded data URI.
-   */
-  function genericDataURI(
-    string memory name,
-    string memory description
-  ) public view override returns (string memory) {
-    NFTDescriptor.TokenURIParams memory params = NFTDescriptor.TokenURIParams({
-      name: name,
-      description: description,
-      image: testImageCid
+      ),
+      image: getImage(tokenId)
     });
+
     return NFTDescriptor.constructTokenURI(params);
   }
 
   /**
    * @notice Get an image for use in the ERC721 token URI.
    */
-  function getImage() external view returns (string memory image) {
-    return testImageCid;
+  function getImage(uint256 tokenId) public view returns (string memory) {
+    return string.concat("ipfs://", cid, "/", tokenId.toString(), ".png");
   }
 }

@@ -12,31 +12,13 @@ pragma solidity ^0.8.6;
 import {IDescriptorMinimal} from "./IDescriptorMinimal.sol";
 
 interface IDescriptor is IDescriptorMinimal {
-  event DataURIToggled(bool enabled);
+  event BaseCIDUpdated(string baseCID);
 
-  event BaseURIUpdated(string baseURI);
-  error IndexNotFound();
-
-  function isDataURIEnabled() external returns (bool);
-
-  function baseURI() external returns (string memory);
-
-  function toggleDataURIEnabled() external;
-
-  function setBaseURI(string calldata baseURI) external;
+  function setCID(string calldata baseURI) external;
 
   function tokenURI(
     uint256 tokenId
   ) external view override returns (string memory);
 
-  function dataURI(
-    uint256 tokenId
-  ) external view override returns (string memory);
-
-  function genericDataURI(
-    string calldata name,
-    string calldata description
-  ) external view returns (string memory);
-
-  function getImage() external view returns (string memory);
+  function getImage(uint256 tokenId) external view returns (string memory);
 }

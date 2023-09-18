@@ -31,8 +31,6 @@ interface IToken is IERC721 {
 
   function burn(uint256 tokenId) external;
 
-  function dataURI(uint256 tokenId) external returns (string memory);
-
   function setFoundersDAO(address foundersDAO) external;
 
   function setFoundersDAO2(address foundersDAO2) external;
