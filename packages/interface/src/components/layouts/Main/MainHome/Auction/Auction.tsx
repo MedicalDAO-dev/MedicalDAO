@@ -15,24 +15,36 @@ export type IntroProps = {} & BaseProps;
 
 export const Auction = ({ className }: IntroProps) => {
   const { tokenId } = useAuctionValue();
+  const duration = useAuctionValue().getCurrentAuctionDuration();
 
   return (
-    <div className={clsx("flex", "mb-16")}>
+    <div className={clsx(className, "flex", "mb-16")}>
       <TimeUpdater />
-      <AuctionImage className={clsx("mr-8")} />
-      <div className={clsx("flex flex-col items-start min-w-430")}>
-        {tokenId !== 0n && <div>
-          <DateSelection className={clsx("mb-2")} />
-          <NFTNameAndIndex className={clsx("mb-8")} />
-          <div className={clsx("flex justify-between", "w-[100%]", "mb-4")}>
-            <RecentBidAmount />
-            <Divider orientation="vertical" />
-            <TimeLimit />
-          </div>
-          <InputBidAmount className={clsx("mb-4")} />
-          <BidList />
-        </div>}
-      </div>
+      <>
+        <AuctionImage className={clsx("mr-8")} />
+        <div className={clsx("flex flex-col items-start min-w-430")}>
+          {tokenId !== 0n &&
+            <>
+              {duration > 0n ? (
+                <>
+                  <DateSelection className={clsx("mb-2")} />
+                  <NFTNameAndIndex className={clsx("mb-8")} />
+                  <div className={clsx("flex justify-between", "w-[100%]", "mb-4")}>
+                    <RecentBidAmount />
+                    <Divider orientation="vertical" />
+                    <TimeLimit />
+                  </div>
+                  <InputBidAmount className={clsx("mb-4")} />
+                  <BidList />
+                </>
+              ) : (
+                <>
+                  TODO：オークション終了後の処理を書く
+                </>)}
+            </>
+          }
+        </div>
+      </>
     </div>
   )
 };

@@ -10,15 +10,15 @@ export type TimeLimitProps = {} & BaseProps;
  * @YosukeMiyata
  */
 export const TimeLimit = ({ className }: TimeLimitProps) => {
-  const { currentDateTime, endTime } = useAuctionValue();
-  const duration = formatDurationHMS(endTime - BigInt(currentDateTime))
+  const duration = useAuctionValue().getCurrentAuctionDuration();
+  const durationHMS = formatDurationHMS(duration);
 
   return (
     <div className={clsx(className, "font-bold")}>
       <div className={clsx("mb-2", "text-lg text-[#79809c]")}>
         オークション終了まで
       </div>
-      <div className={clsx("font-['PT_Root_UI'] text-3xl")}>{duration}</div>
+      <div className={clsx("font-['PT_Root_UI'] text-3xl")}>{durationHMS}</div>
     </div>
   );
 };

@@ -25,6 +25,14 @@ export class AuctionModel extends BaseModel {
     return this.currentDateTime;
   }
 
+  getCurrentAuctionDuration(): bigint {
+    if (this.endTime !== 0n && this.currentDateTime !== 0) {
+      return this.endTime - BigInt(this.currentDateTime);
+    } else {
+      return 0n;
+    }
+  }
+
   /**
    * 最新の入札情報を取得する
    * @returns {Bid | undefined} 最新の入札情報
