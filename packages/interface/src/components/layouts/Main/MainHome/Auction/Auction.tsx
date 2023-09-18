@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { BidList } from "../BidList";
 import { DateSelection } from "../DateSelection";
 import { InputBidAmount } from "../InputBidAmount";
@@ -10,18 +9,19 @@ import { RecentBidAmount } from "@/components/layouts/Main/MainHome/RecentBidAmo
 import { Divider } from "@/components/elements/Divider";
 import clsx from "clsx";
 import TimeUpdater from "@/components/layouts/Main/MainHome/TimeUpdater/TimeUpdater";
+import { useAuctionValue } from "@/hooks/useAuction";
 
 export type IntroProps = {} & BaseProps;
 
 export const Auction = ({ className }: IntroProps) => {
-  const [isAuction, setIsAuction] = useState(true);
+  const { tokenId } = useAuctionValue();
 
   return (
     <div className={clsx("flex", "mb-16")}>
+      <TimeUpdater />
       <AuctionImage className={clsx("mr-8")} />
-      <div className={clsx("flex flex-col items-start")}>
-        {isAuction && (<>
-          <TimeUpdater />
+      <div className={clsx("flex flex-col items-start min-w-430")}>
+        {tokenId !== 0n && <div>
           <DateSelection className={clsx("mb-2")} />
           <NFTNameAndIndex className={clsx("mb-8")} />
           <div className={clsx("flex justify-between", "w-[100%]", "mb-4")}>
@@ -31,7 +31,7 @@ export const Auction = ({ className }: IntroProps) => {
           </div>
           <InputBidAmount className={clsx("mb-4")} />
           <BidList />
-        </>)}
+        </div>}
       </div>
     </div>
   )
