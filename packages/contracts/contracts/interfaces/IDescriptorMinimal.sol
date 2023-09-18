@@ -7,7 +7,7 @@
 
 /// @title Common interface for Descriptor versions.
 
-pragma solidity ^0.8.6;
+pragma solidity ^0.8.19;
 
 interface IDescriptorMinimal {
   ///

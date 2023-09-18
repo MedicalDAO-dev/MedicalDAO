@@ -7,7 +7,7 @@
 
 /// @title The descriptor
 
-pragma solidity ^0.8.6;
+pragma solidity ^0.8.19;
 
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";

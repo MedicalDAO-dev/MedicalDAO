@@ -7,7 +7,7 @@
 
 /// @title A library used to construct ERC721 token URIs
 
-pragma solidity ^0.8.6;
+pragma solidity ^0.8.19;
 
 import {Base64} from "base64-sol/base64.sol";
 

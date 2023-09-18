@@ -5,7 +5,7 @@
 // IAuctionHouse.sol source code Copyright NounsDAO licensed under the GPL-3.0 license.
 // With modifications by Medical DAO.
 
-pragma solidity ^0.8.6;
+pragma solidity ^0.8.19;
 
 interface IAuctionHouse {
   struct Auction {

@@ -7,7 +7,7 @@
 
 /// @title Interface for Descriptor
 
-pragma solidity ^0.8.6;
+pragma solidity ^0.8.19;
 
 import {IDescriptorMinimal} from "./IDescriptorMinimal.sol";
 
