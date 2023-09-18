@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { BidList } from "../BidList";
 import { DateSelection } from "../DateSelection";
 import { InputBidAmount } from "../InputBidAmount";
@@ -9,26 +8,43 @@ import { BaseProps } from "@/types/BaseProps";
 import { RecentBidAmount } from "@/components/layouts/Main/MainHome/RecentBidAmount/RecentBidAmount";
 import { Divider } from "@/components/elements/Divider";
 import clsx from "clsx";
+import TimeUpdater from "@/components/layouts/Main/MainHome/TimeUpdater/TimeUpdater";
+import { useAuctionValue } from "@/hooks/useAuction";
 
 export type IntroProps = {} & BaseProps;
 
 export const Auction = ({ className }: IntroProps) => {
-  const [isAuction, setIsAuction] = useState(true);
+  const { tokenId } = useAuctionValue();
+  const duration = useAuctionValue().getCurrentAuctionDuration();
 
   return (
-    <div className={clsx("flex", "mb-16")}>
-      <AuctionImage className={clsx("mr-8")} />
-      <div className={clsx("flex flex-col items-start")}>
-        <DateSelection className={clsx("mb-2")} />
-        <NFTNameAndIndex className={clsx("mb-8")} />
-        <div className={clsx("flex justify-between", "w-[100%]", "mb-4")}>
-          <RecentBidAmount />
-          <Divider orientation="vertical" />
-          <TimeLimit />
+    <div className={clsx(className, "flex", "mb-16")}>
+      <TimeUpdater />
+      <>
+        <AuctionImage className={clsx("mr-8")} />
+        <div className={clsx("flex flex-col items-start min-w-430")}>
+          {tokenId !== 0n &&
+            <>
+              {duration > 0n ? (
+                <>
+                  <DateSelection className={clsx("mb-2")} />
+                  <NFTNameAndIndex className={clsx("mb-8")} />
+                  <div className={clsx("flex justify-between", "w-[100%]", "mb-4")}>
+                    <RecentBidAmount />
+                    <Divider orientation="vertical" />
+                    <TimeLimit />
+                  </div>
+                  <InputBidAmount className={clsx("mb-4")} />
+                  <BidList />
+                </>
+              ) : (
+                <>
+                  TODO：オークション終了後の処理を書く
+                </>)}
+            </>
+          }
         </div>
-        <InputBidAmount className={clsx("mb-4")} />
-        <BidList />
-      </div>
+      </>
     </div>
   )
 };

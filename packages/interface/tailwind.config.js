@@ -10,6 +10,9 @@ module.exports = {
       colors: {
         background: { header: "#D5D7E1", main: "#D5D7E1", footer: "#FFF" },
       },
+      minWidth: {
+        430: "430px",
+      },
     },
   },
   plugins: [],
