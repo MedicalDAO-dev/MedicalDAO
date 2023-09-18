@@ -17,8 +17,8 @@ import {NFTDescriptor} from "./libs/NFTDescriptor.sol";
 contract Descriptor is IDescriptor, Ownable {
   using Strings for uint256;
 
-  /// @notice Base CID
-  string public cid = "";
+  /// @notice initial Base CID
+  string public cid = "QmWdcHRNaEEFbpexkJCJSL26KL6abKYzAVWQiwWE73DM2n";
 
   /**
    * @notice Set the base CID for all token IDs. It is automatically
