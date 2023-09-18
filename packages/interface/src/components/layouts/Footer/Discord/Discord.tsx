@@ -2,20 +2,20 @@ import { Link } from "@/components/elements/Link";
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
 
-export type TwitterProps = {} & BaseProps;
+export type DiscordProps = {} & BaseProps;
 
 /**
- * Twitter
+ * Discord
  * @YosukeMiyata
  */
-export const Twitter = ({ className }: TwitterProps) => {
+export const Discord = ({ className }: DiscordProps) => {
   return (
     <Link
       className={clsx(className)}
-      href="https://twitter.com/medicaldaoweb3"
+      href="https://discord.com/invite/yf2DFHp9DK"
       theme="footerHoverRed"
     >
-      X（旧Twitter）
+      Discord
     </Link>
   );
 };
