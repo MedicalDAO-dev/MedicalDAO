@@ -5,32 +5,12 @@ import { Bid } from "@/types/Bid";
 
 export class AuctionModel extends BaseModel {
   constructor(
-    public readonly currentDateTime: number = 0,
-    public readonly tokenId: bigint = 0n,
-    public readonly amount: bigint = 0n,
     public readonly startTime: bigint = 0n,
     public readonly endTime: bigint = 0n,
-    public readonly bidder: `0x${string}` = "0x0000000000000000000000000000000000000000",
     public readonly bids: Bid[] = [],
     public readonly nft: NFTModel = new NFTModel(),
   ) {
     super();
-  }
-
-  /**
-   * 最新の日時を取得する
-   * @returns {number} 最新の日時
-   */
-  getCurrentDateTime(): number {
-    return this.currentDateTime;
-  }
-
-  getCurrentAuctionDuration(): bigint {
-    if (this.endTime !== 0n && this.currentDateTime !== 0) {
-      return this.endTime - BigInt(this.currentDateTime);
-    } else {
-      return 0n;
-    }
   }
 
   /**

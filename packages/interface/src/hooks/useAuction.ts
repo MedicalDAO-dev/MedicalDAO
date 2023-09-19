@@ -10,7 +10,6 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 export interface AuctionController {
   init: () => Promise<void>;
   bid: (bidAmount: bigint) => Promise<Hash>;
-  updateCurrentDateTime: () => void;
 }
 
 export const useAuctionValue = (): AuctionState => {
@@ -18,34 +17,29 @@ export const useAuctionValue = (): AuctionState => {
 };
 
 export const useAuctionController = (): AuctionController => {
-  const dateTime = useAuctionValue().currentDateTime;
   const setAuction = useSetRecoilState(auctionState);
 
   /**
    * 初期化
    */
   const init = async (): Promise<void> => {
-    const auction: Auction = await AuctionHouse.auction();
+    const auctionContractState: Auction = await AuctionHouse.auction();
     const imageURL: string = `https://ipfs.io/ipfs/${await Descriptor.getImage(
-      auction.tokenId,
+      auctionContractState.tokenId,
     )}`;
 
     setAuction(
       AuctionModel.create({
-        currentDateTime: dateTime,
-        tokenId: auction.tokenId,
-        amount: auction.amount,
-        startTime: auction.startTime,
-        endTime: auction.endTime,
-        bidder: auction.bidder,
+        startTime: auctionContractState.startTime,
+        endTime: auctionContractState.endTime,
         bids: [
           {
-            bidder: auction.bidder,
-            amount: auction.amount,
+            bidder: auctionContractState.bidder,
+            amount: auctionContractState.amount,
             hash: "0x934e6bb9b4a8d78d87a98c30b807567ea88a6a363a14e6824072c21ad82d2921",
           },
         ],
-        nft: new NFTModel(imageURL),
+        nft: new NFTModel(auctionContractState.tokenId, imageURL),
       }),
     );
   };
@@ -59,18 +53,9 @@ export const useAuctionController = (): AuctionController => {
     return await AuctionHouse.createBid(bidAmount);
   };
 
-  const updateCurrentDateTime = (): void => {
-    setAuction((prevState) => {
-      return prevState.copyWith({
-        currentDateTime: Math.floor(Date.now() / 1000),
-      });
-    });
-  };
-
   const controller: AuctionController = {
     init,
     bid,
-    updateCurrentDateTime,
   };
 
   return controller;
