@@ -19,7 +19,7 @@ export const NFTNameAndIndex = ({ className }: NFTNameAndIndexProps) => {
         "font-['Londrina_Solid'] text-7xl text-[#151c3b]",
       )}
     >
-      Token {Number(auction.tokenId)}
+      Token {Number(auction.nft.tokenId)}
     </div>
   );
 };

@@ -10,7 +10,7 @@ export type EtherscanProps = {} & BaseProps;
  */
 export const Etherscan = ({ className }: EtherscanProps) => {
   return (
-    <Link className={clsx(className)} href="" theme="none">
+    <Link className={clsx(className)} href="" theme="footerHoverRed">
       Etherscan
     </Link>
   );

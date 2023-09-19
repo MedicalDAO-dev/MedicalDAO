@@ -5,7 +5,7 @@ import clsx from "clsx";
 export type LinkProps = {
   href: string;
   isExternal?: boolean;
-  theme?: "primary" | "secondary" | "none";
+  theme?: "primary" | "secondary" | "footerHoverRed" | "none";
 } & BaseProps; //文字列を制限できる
 
 /**
@@ -40,6 +40,14 @@ const themes = {
     "text-[#d63c5e] font-['PT_Root_UI'] font-bold",
     "underline",
     "px-1",
+  ),
+  footerHoverRed: clsx(
+    "text-black",
+    "font-bold",
+    "hover:text-[#d63c5e]",
+    "transform",
+    "duration-200",
+    "hover:scale-105",
   ),
   none: clsx(""),
 };
