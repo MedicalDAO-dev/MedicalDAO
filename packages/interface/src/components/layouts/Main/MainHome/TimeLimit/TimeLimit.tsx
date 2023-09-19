@@ -1,16 +1,14 @@
-import { useAuctionValue } from "@/hooks/useAuction";
-import { formatDurationHMS } from "@/lib/date/formatDateTIme";
+import { formatDurationHMS } from "@/lib/date/formatDateTime";
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
 
-export type TimeLimitProps = {} & BaseProps;
+export type TimeLimitProps = { duration: number } & BaseProps;
 
 /**
  * TimeLimit
  * @YosukeMiyata
  */
-export const TimeLimit = ({ className }: TimeLimitProps) => {
-  const duration = useAuctionValue().getCurrentAuctionDuration();
+export const TimeLimit = ({ duration, className }: TimeLimitProps) => {
   const durationHMS = formatDurationHMS(duration);
 
   return (
