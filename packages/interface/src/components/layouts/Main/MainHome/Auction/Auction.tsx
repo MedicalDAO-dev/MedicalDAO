@@ -39,7 +39,7 @@ export const Auction = ({ className }: IntroProps) => {
       <div className={clsx("flex flex-col items-start min-w-430")}>
         {tokenId !== 0n &&
           <>
-            {duration > 0 ? (
+            {duration !== 110 ? (
               <>
                 <DateSelection className={clsx("mb-2")} />
                 <NFTNameAndIndex className={clsx("mb-8")} />
