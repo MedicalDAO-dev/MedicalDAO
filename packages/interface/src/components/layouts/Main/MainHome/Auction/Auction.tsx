@@ -39,7 +39,8 @@ export const Auction = ({ className }: IntroProps) => {
       <div className={clsx("flex flex-col items-start min-w-430")}>
         {tokenId !== 0n &&
           <>
-            {duration !== 110 ? (
+            {/* 暫定的に適当な値を入れて、必ずオークションの画面が表示されるようにしています */}
+            {duration !== 1234 ? (
               <>
                 <DateSelection className={clsx("mb-2")} />
                 <NFTNameAndIndex className={clsx("mb-8")} />
