@@ -1,5 +1,4 @@
 import { AuctionHouse } from "@/lib/contracts/AuctionHouse";
-import { Descriptor } from "@/lib/contracts/Descriptor";
 import { AuctionModel } from "@/models/AuctionModel";
 import { NFTModel } from "@/models/NFTModel";
 import { AuctionState, auctionState } from "@/stores/auctionState";
@@ -24,9 +23,9 @@ export const useAuctionController = (): AuctionController => {
    */
   const init = async (): Promise<void> => {
     const auctionContractState: Auction = await AuctionHouse.auction();
-    const imageURL: string = `https://ipfs.io/ipfs/${await Descriptor.getImage(
+    const imageURL: string = `https://ipfs.io/ipfs/QmWdcHRNaEEFbpexkJCJSL26KL6abKYzAVWQiwWE73DM2n/${Number(
       auctionContractState.tokenId,
-    )}`;
+    )}.png`;
 
     setAuction(
       AuctionModel.create({

@@ -5,7 +5,7 @@
 // Token.sol source code Copyright NounsDAO licensed under the GPL-3.0 license.
 // With modifications by Medical DAO.
 
-pragma solidity ^0.8.6;
+pragma solidity ^0.8.19;
 
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {ERC721Checkpointable} from "./base/ERC721Checkpointable.sol";
@@ -132,17 +132,6 @@ contract Token is IToken, Ownable, ERC721Checkpointable {
   ) public view override returns (string memory) {
     require(_exists(tokenId), "MedicalDAONFT: URI query for nonexistent token");
     return descriptor.tokenURI(tokenId);
-  }
-
-  /**
-   * @notice Similar to `tokenURI`, but always serves a base64 encoded data URI
-   * with the JSON contents directly inlined.
-   */
-  function dataURI(
-    uint256 tokenId
-  ) public view override returns (string memory) {
-    require(_exists(tokenId), "MedicalDAONFT: URI query for nonexistent token");
-    return descriptor.dataURI(tokenId);
   }
 
   /**

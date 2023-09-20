@@ -2,17 +2,17 @@
   "manifestVersion": "3.2",
   "proxies": [
     {
-      "address": "0x92Aac65aa48591F23B786a69365AfA0fCE10A372",
-      "txHash": "0xbe4b2d69011a01c370f56c63731c4ebff265c882599dfad7b496e30996174fec",
+      "address": "0x694E945ab27758230D88FB788405F980A5F1c331",
+      "txHash": "0x8df6c4a7c63a57cc1505955c67401422d723829edb726090a7e936f64cbdfe7b",
       "kind": "uups"
     }
   ],
   "impls": {
     "06a94120886db851706bdb85d129b371cefaa8723224bc071aa934d6a6a25994": {
-      "address": "0x475c415dA834BE37E86B877e0E5f648445bc0c1b",
-      "txHash": "0x855a7563385132d84f5648069a066c99d9ac4196c5e9ea8f4ff62634baac9b29",
+      "address": "0x709f8Ba13Ddec2d2Db0CD33f859c98392830F037",
+      "txHash": "0x072b9f096988eb30509af15696d356421055f3d3cab99ae590d230cd83186056",
       "layout": {
-        "solcVersion": "0.8.18",
+        "solcVersion": "0.8.19",
         "storage": [
           {
             "label": "_initialized",
@@ -107,7 +107,7 @@
             "label": "nft",
             "offset": 0,
             "slot": "301",
-            "type": "t_contract(IToken)6908",
+            "type": "t_contract(IToken)6780",
             "contract": "AuctionHouse",
             "src": "contracts/AuctionHouse.sol:27"
           },
@@ -155,7 +155,7 @@
             "label": "auction",
             "offset": 0,
             "slot": "307",
-            "type": "t_struct(Auction)6666_storage",
+            "type": "t_struct(Auction)6581_storage",
             "contract": "AuctionHouse",
             "src": "contracts/AuctionHouse.sol:45"
           }
@@ -181,11 +181,11 @@
             "label": "bool",
             "numberOfBytes": "1"
           },
-          "t_contract(IToken)6908": {
+          "t_contract(IToken)6780": {
             "label": "contract IToken",
             "numberOfBytes": "20"
           },
-          "t_struct(Auction)6666_storage": {
+          "t_struct(Auction)6581_storage": {
             "label": "struct IAuctionHouse.Auction",
             "members": [
               {

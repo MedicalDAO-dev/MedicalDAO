@@ -23,4 +23,14 @@ export class Descriptor {
       ...contract("getImage"),
     })) as string;
   };
+
+  /**
+   * 画像CIDを取得
+   * @return {Promise<string>} 画像CID
+   */
+  public static getCID = async (): Promise<string> => {
+    return (await readContract({
+      ...contract("getCID"),
+    })) as string;
+  };
 }

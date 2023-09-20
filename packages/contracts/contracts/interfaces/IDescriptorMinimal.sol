@@ -7,7 +7,7 @@
 
 /// @title Common interface for Descriptor versions.
 
-pragma solidity ^0.8.6;
+pragma solidity ^0.8.19;
 
 interface IDescriptorMinimal {
   ///
@@ -15,6 +15,4 @@ interface IDescriptorMinimal {
   ///
 
   function tokenURI(uint256 tokenId) external view returns (string memory);
-
-  function dataURI(uint256 tokenId) external view returns (string memory);
 }
