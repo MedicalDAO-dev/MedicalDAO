@@ -16,7 +16,7 @@ const config: HardhatUserConfig = {
     },
   },
   etherscan: {
-    apiKey: `${process.env.ETHERSCAN_API_KEY}`,
+    apiKey: `${process.env.OPTIMISMSCAN_API_KEY}`,
   },
   networks: {
     // mainnet: {
@@ -30,6 +30,7 @@ const config: HardhatUserConfig = {
     "optimism-goerli": {
       url: "https://goerli.optimism.io",
       accounts: [`${process.env.DEPLOYER_PRIVATE_KEY}`],
+      gasPrice: 10000000000,
     },
     // local: {
     //   url: 'http://localhost:8545',
