@@ -21,4 +21,6 @@ interface IDescriptor is IDescriptorMinimal {
   ) external view override returns (string memory);
 
   function getImage(uint256 tokenId) external view returns (string memory);
+
+  function getCID() external view returns (string memory);
 }

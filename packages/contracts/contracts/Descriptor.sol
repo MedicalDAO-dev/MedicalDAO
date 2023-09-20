@@ -58,4 +58,11 @@ contract Descriptor is IDescriptor, Ownable {
   function getImage(uint256 tokenId) public view returns (string memory) {
     return string.concat("ipfs://", cid, "/", tokenId.toString(), ".png");
   }
+
+  /**
+   * @notice Get the CID for images.
+   */
+  function getCID() public view returns (string memory) {
+    return cid;
+  }
 }
