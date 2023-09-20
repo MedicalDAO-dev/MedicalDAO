@@ -86,6 +86,21 @@ contract AuctionHouse is
   }
 
   /**
+   * @notice Settle the current auction, mint a new token, and put it up for auction.
+   */
+  function settleCurrentAndCreateNewAuctionAndCreateBid(uint256 tokenId)
+    external
+    payable
+    override
+    nonReentrant
+    whenNotPaused
+  {
+    _settleAuction();
+    _createAuction();
+    _createBid(tokenId);
+  }
+
+  /**
    * @notice Settle the current auction.
    * @dev This function can only be called when the contract is paused.
    */
@@ -98,38 +113,7 @@ contract AuctionHouse is
    * @dev This contract only accepts payment in ETH.
    */
   function createBid(uint256 tokenId) external payable override nonReentrant {
-    IAuctionHouse.Auction memory _auction = auction;
-
-    require(_auction.tokenId == tokenId, "Token not up for auction");
-    require(block.timestamp < _auction.endTime, "Auction expired");
-    require(msg.value >= reservePrice, "Must send at least reservePrice");
-    require(
-      msg.value >=
-        _auction.amount + ((_auction.amount * minBidIncrementPercentage) / 100),
-      "Must send more than last bid by minBidIncrementPercentage amount"
-    );
-
-    address payable lastBidder = _auction.bidder;
-
-    // Refund the last bidder, if applicable
-    if (lastBidder != address(0)) {
-      _safeTransferETHWithFallback(lastBidder, _auction.amount);
-    }
-
-    auction.amount = msg.value;
-    auction.bidder = payable(msg.sender);
-
-    // Extend the auction if the bid was received within `timeBuffer` of the auction end time
-    bool extended = _auction.endTime - block.timestamp < timeBuffer;
-    if (extended) {
-      auction.endTime = _auction.endTime = block.timestamp + timeBuffer;
-    }
-
-    emit AuctionBid(_auction.tokenId, msg.sender, msg.value, extended);
-
-    if (extended) {
-      emit AuctionExtended(_auction.tokenId, _auction.endTime);
-    }
+    _createBid(tokenId);
   }
 
   /**
@@ -237,6 +221,45 @@ contract AuctionHouse is
     }
 
     emit AuctionSettled(_auction.tokenId, _auction.bidder, _auction.amount);
+  }
+
+  /**
+   * @notice Create a bid for a token, with a given amount.
+   * @dev This contract only accepts payment in ETH.
+   */
+  function _createBid(uint256 tokenId) internal {
+    IAuctionHouse.Auction memory _auction = auction;
+
+    require(_auction.tokenId == tokenId, "Token not up for auction");
+    require(block.timestamp < _auction.endTime, "Auction expired");
+    require(msg.value >= reservePrice, "Must send at least reservePrice");
+    require(
+      msg.value >=
+        _auction.amount + ((_auction.amount * minBidIncrementPercentage) / 100),
+      "Must send more than last bid by minBidIncrementPercentage amount"
+    );
+
+    address payable lastBidder = _auction.bidder;
+
+    // Refund the last bidder, if applicable
+    if (lastBidder != address(0)) {
+      _safeTransferETHWithFallback(lastBidder, _auction.amount);
+    }
+
+    auction.amount = msg.value;
+    auction.bidder = payable(msg.sender);
+
+    // Extend the auction if the bid was received within `timeBuffer` of the auction end time
+    bool extended = _auction.endTime - block.timestamp < timeBuffer;
+    if (extended) {
+      auction.endTime = _auction.endTime = block.timestamp + timeBuffer;
+    }
+
+    emit AuctionBid(_auction.tokenId, msg.sender, msg.value, extended);
+
+    if (extended) {
+      emit AuctionExtended(_auction.tokenId, _auction.endTime);
+    }
   }
 
   /**

@@ -52,6 +52,8 @@ interface IAuctionHouse {
 
   function settleCurrentAndCreateNewAuction() external;
 
+  function settleCurrentAndCreateNewAuctionAndCreateBid(uint256 tokenId) external payable;
+
   function createBid(uint256 tokenId) external payable;
 
   function pause() external;
