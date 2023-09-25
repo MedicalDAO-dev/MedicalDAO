@@ -1,8 +1,11 @@
+import React from "react";
 import { Button } from "@/components/elements/Button";
 import { useIsConnectModalOpenController } from "@/hooks/useIsConnectModalOpen";
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
+import { verifyMessage } from "ethers/lib/utils";
 import { Connector, useConnect, useSwitchNetwork } from "wagmi";
+import { useSignMessage } from "wagmi";
 
 export type ConnectersButtonProps = {} & BaseProps;
 
@@ -12,17 +15,30 @@ export type ConnectersButtonProps = {} & BaseProps;
  */
 export const ConnectersButton = ({ className }: ConnectersButtonProps) => {
   const { close } = useIsConnectModalOpenController();
-  const { connect, connectors } = useConnect();
+  const { connectors, connectAsync } = useConnect();
   // const { chain, chains } = useNetwork();
-  const { chains, error, isLoading, pendingChainId, switchNetwork } =
-    useSwitchNetwork();
+  const { chains, pendingChainId, switchNetwork } = useSwitchNetwork();
   // console.log(chain);
   console.log(chains);
 
-  const handleClick = (connector: Connector<any, any>) => {
+  const recoveredAddress = React.useRef<string>();
+  const { data, error, isLoading, signMessage } = useSignMessage({
+    onSuccess(data, variables) {
+      const address = verifyMessage(variables.message, data);
+      recoveredAddress.current = address;
+    },
+  });
+
+  const handleClick = async (connector: Connector<any, any>) => {
     // console.log(chain);
     console.log(chains);
-    connect({ connector });
+    try {
+      await connectAsync({ connector });
+      const message = "hello world"; //　ここに利用規約を入れる
+      signMessage({ message });
+    } catch (error) {
+      console.error(error);
+    }
     close();
   };
 
