@@ -42,7 +42,7 @@ contract AuctionHouse is
   uint256 public duration;
 
   // The active auction
-  IAuctionHouse.Auction public auction;
+  IAuctionHouse.Auction[] public auctions;
 
   /**
    * @notice Initialize the auction house and base contracts,
@@ -88,13 +88,9 @@ contract AuctionHouse is
   /**
    * @notice Settle the current auction, mint a new token, and put it up for auction.
    */
-  function settleCurrentAndCreateNewAuctionAndCreateBid(uint256 tokenId)
-    external
-    payable
-    override
-    nonReentrant
-    whenNotPaused
-  {
+  function settleCurrentAndCreateNewAuctionAndCreateBid(
+    uint256 tokenId
+  ) external payable override nonReentrant whenNotPaused {
     _settleAuction();
     _createAuction();
     _createBid(tokenId);

@@ -12,13 +12,13 @@ interface IAuctionHouse {
     // ID for the token (ERC721 token ID)
     uint256 tokenId;
     // The current highest bid amount
-    uint256 amount;
+    uint256[] amounts;
     // The time that the auction started
     uint256 startTime;
     // The time that the auction is scheduled to end
     uint256 endTime;
     // The address of the current highest bid
-    address payable bidder;
+    address payable[] bidders;
     // Whether or not the auction has been settled
     bool settled;
   }
@@ -52,7 +52,9 @@ interface IAuctionHouse {
 
   function settleCurrentAndCreateNewAuction() external;
 
-  function settleCurrentAndCreateNewAuctionAndCreateBid(uint256 tokenId) external payable;
+  function settleCurrentAndCreateNewAuctionAndCreateBid(
+    uint256 tokenId
+  ) external payable;
 
   function createBid(uint256 tokenId) external payable;
 
