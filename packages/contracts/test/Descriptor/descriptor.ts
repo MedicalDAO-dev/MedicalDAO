@@ -1,6 +1,7 @@
 import { Descriptor } from "../../typechain-types";
 import { deploy } from "./deployment";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
+import { Buffer } from "buffer";
 import { expect } from "chai";
 import { ethers } from "hardhat";
 
@@ -59,12 +60,31 @@ describe("Descriptor", () => {
     });
   });
 
-  // describe("tokenURI", () => {
-  //   it("should return the correct token uri", async () => {
-  //     const encodedTokenURI = encodeBase64(constructTokenURI(1));
-  //     expect(await descriptor.tokenURI(1)).to.equal(encodedTokenURI);
-  //   });
-  // });
+  describe("tokenURI", () => {
+    it("should return the correct token uri", async () => {
+      interface Params {
+        name: string;
+        description: string;
+        image: string;
+      }
+
+      const calcEncodedMetadata = (tokenId: number): string => {
+        const jsonString = `{"name":"Medical DAO NFT ${tokenId}", "description":"Medical DAO NFT ${tokenId} is a member of the Medical DAO", "image": "${getImage(
+          tokenId,
+        )}"}`;
+
+        const base64EncodedString = Buffer.from(jsonString).toString("base64");
+
+        const resultString =
+          "data:application/json;base64," + base64EncodedString;
+
+        return resultString;
+      };
+
+      const encodedTokenURI = calcEncodedMetadata(1);
+      expect(await descriptor.tokenURI(1)).to.equal(encodedTokenURI);
+    });
+  });
 
   describe("getImage", () => {
     it("should return the correct image", async () => {
