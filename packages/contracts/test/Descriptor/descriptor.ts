@@ -13,25 +13,8 @@ describe("Descriptor", () => {
 
   const cid = "QmWdcHRNaEEFbpexkJCJSL26KL6abKYzAVWQiwWE73DM2n";
 
-  const constructTokenURI = (tokenId: number) => {
-    return (
-      '{"name":"Medical DAO NFT ' +
-      tokenId +
-      '", "description":"Medical DAO NFT ' +
-      tokenId +
-      ' is a member of the Medical DAO", "image": "' +
-      getImage(tokenId) +
-      '"}'
-    );
-  };
-
   const getImage = (tokenId: number) => {
     return "ipfs://" + cid + "/" + tokenId + ".png";
-  };
-
-  const encodeBase64 = (tokenURI: string): string => {
-    const jsonString = JSON.stringify(tokenURI);
-    return "data:application/json;base64," + btoa(jsonString);
   };
 
   beforeEach(async () => {
