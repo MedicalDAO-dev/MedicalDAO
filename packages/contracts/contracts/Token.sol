@@ -107,12 +107,16 @@ contract Token is IToken, Ownable, ERC721Checkpointable {
    * until 183 founder tokens have been minted (5 years w/ 24 hour auctions).
    * @dev Call _mintTo with the to address(es).
    */
-  function mint() public override onlyMinter returns (uint256) {
-    if (_currentTokenId <= 1820 && _currentTokenId % 10 == 0) {
+  function mint() public override onlyMinter returns (uint256, bool) {
+    bool isInsentive = checkInsentive(_currentTokenId);
+
+    if (isInsentive) {
       _mintTo(foundersDAO, _currentTokenId++);
       _mintTo(foundersDAO2, _currentTokenId++);
     }
-    return _mintTo(minter, _currentTokenId++);
+
+    uint newTokenId = _mintTo(minter, _currentTokenId++);
+    return (newTokenId, isInsentive);
   }
 
   /**
@@ -215,5 +219,13 @@ contract Token is IToken, Ownable, ERC721Checkpointable {
     emit TokenCreated(tokenId);
 
     return tokenId;
+  }
+
+  function getCurrentTokenId() external view returns (uint256) {
+    return _currentTokenId;
+  }
+
+  function checkInsentive(uint256 tokenId) public pure returns (bool) {
+    return tokenId <= 1820 && tokenId % 10 == 0;
   }
 }

@@ -27,7 +27,7 @@ interface IToken is IERC721 {
 
   event DescriptorLocked();
 
-  function mint() external returns (uint256);
+  function mint() external returns (uint256, bool);
 
   function burn(uint256 tokenId) external;
 
@@ -42,4 +42,8 @@ interface IToken is IERC721 {
   function setDescriptor(IDescriptorMinimal descriptor) external;
 
   function lockDescriptor() external;
+
+  function getCurrentTokenId() external view returns (uint256);
+
+  function checkInsentive(uint256 tokenId) external pure returns (bool);
 }

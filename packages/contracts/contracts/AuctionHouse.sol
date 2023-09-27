@@ -70,6 +70,16 @@ contract AuctionHouse is
     reservePrice = _reservePrice;
     minBidIncrementPercentage = _minBidIncrementPercentage;
     duration = _duration;
+    auctions.push(
+      Auction({
+        tokenId: 0,
+        amounts: new uint256[](0),
+        startTime: 0,
+        endTime: 0,
+        bidders: new address payable[](0),
+        settled: true
+      })
+    );
   }
 
   /**
@@ -130,7 +140,7 @@ contract AuctionHouse is
   function unpause() external override onlyOwner {
     _unpause();
 
-    if (auction.startTime == 0 || auction.settled) {
+    if (auctions[0].startTime == 0 || auctions[auctions.length - 1].settled) {
       _createAuction();
     }
   }
@@ -174,18 +184,43 @@ contract AuctionHouse is
    * catch the revert and pause this contract.
    */
   function _createAuction() internal {
-    try nft.mint() returns (uint256 tokenId) {
+    try nft.mint() returns (uint256 tokenId, bool isInsentive) {
+      if (isInsentive) {
+        auctions.push(
+          Auction({
+            tokenId: tokenId - 2,
+            amounts: new uint256[](0),
+            startTime: 0,
+            endTime: 0,
+            bidders: new address payable[](0),
+            settled: true
+          })
+        );
+        auctions.push(
+          Auction({
+            tokenId: tokenId - 1,
+            amounts: new uint256[](0),
+            startTime: 0,
+            endTime: 0,
+            bidders: new address payable[](0),
+            settled: true
+          })
+        );
+      }
+
       uint256 startTime = block.timestamp;
       uint256 endTime = startTime + duration;
 
-      auction = Auction({
-        tokenId: tokenId,
-        amount: 0,
-        startTime: startTime,
-        endTime: endTime,
-        bidder: payable(0),
-        settled: false
-      });
+      auctions.push(
+        Auction({
+          tokenId: tokenId,
+          amounts: new uint256[](0),
+          startTime: startTime,
+          endTime: endTime,
+          bidders: new address payable[](0),
+          settled: false
+        })
+      );
 
       emit AuctionCreated(tokenId, startTime, endTime);
     } catch Error(string memory) {
@@ -198,25 +233,28 @@ contract AuctionHouse is
    * @dev If there are no bids, the token is burned.
    */
   function _settleAuction() internal {
-    IAuctionHouse.Auction memory _auction = auction;
+    uint256 tokenId = nft.getCurrentTokenId();
+    IAuctionHouse.Auction memory _auction = auctions[tokenId];
 
     require(_auction.startTime != 0, "Auction hasn't begun");
     require(!_auction.settled, "Auction has already been settled");
     require(block.timestamp >= _auction.endTime, "Auction hasn't completed");
 
-    auction.settled = true;
+    auctions[tokenId].settled = true;
+    uint lastAmount = _auction.amounts[_auction.bidders.length - 1];
+    address payable lastBidder = _auction.bidders[_auction.bidders.length - 1];
 
-    if (_auction.bidder == address(0)) {
+    if (_auction.bidders[0] == address(0)) {
       nft.burn(_auction.tokenId);
     } else {
-      nft.transferFrom(address(this), _auction.bidder, _auction.tokenId);
+      nft.transferFrom(address(this), lastBidder, _auction.tokenId);
     }
 
-    if (_auction.amount > 0) {
-      _safeTransferETHWithFallback(owner(), _auction.amount);
+    if (lastAmount > 0) {
+      _safeTransferETHWithFallback(owner(), lastAmount);
     }
 
-    emit AuctionSettled(_auction.tokenId, _auction.bidder, _auction.amount);
+    emit AuctionSettled(_auction.tokenId, lastBidder, lastAmount);
   }
 
   /**
@@ -224,31 +262,34 @@ contract AuctionHouse is
    * @dev This contract only accepts payment in ETH.
    */
   function _createBid(uint256 tokenId) internal {
-    IAuctionHouse.Auction memory _auction = auction;
+    IAuctionHouse.Auction memory _auction = auctions[tokenId];
+    uint lastAmount = _auction.amounts[_auction.bidders.length - 1];
 
     require(_auction.tokenId == tokenId, "Token not up for auction");
     require(block.timestamp < _auction.endTime, "Auction expired");
     require(msg.value >= reservePrice, "Must send at least reservePrice");
     require(
       msg.value >=
-        _auction.amount + ((_auction.amount * minBidIncrementPercentage) / 100),
+        lastAmount + ((lastAmount * minBidIncrementPercentage) / 100),
       "Must send more than last bid by minBidIncrementPercentage amount"
     );
 
-    address payable lastBidder = _auction.bidder;
+    address payable lastBidder = _auction.bidders[_auction.bidders.length - 1];
 
     // Refund the last bidder, if applicable
     if (lastBidder != address(0)) {
-      _safeTransferETHWithFallback(lastBidder, _auction.amount);
+      _safeTransferETHWithFallback(lastBidder, lastAmount);
     }
 
-    auction.amount = msg.value;
-    auction.bidder = payable(msg.sender);
+    auctions[tokenId].amounts.push(msg.value);
+    auctions[tokenId].bidders.push(payable(msg.sender));
 
     // Extend the auction if the bid was received within `timeBuffer` of the auction end time
     bool extended = _auction.endTime - block.timestamp < timeBuffer;
     if (extended) {
-      auction.endTime = _auction.endTime = block.timestamp + timeBuffer;
+      auctions[tokenId].endTime = _auction.endTime =
+        block.timestamp +
+        timeBuffer;
     }
 
     emit AuctionBid(_auction.tokenId, msg.sender, msg.value, extended);
