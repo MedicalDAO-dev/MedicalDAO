@@ -13,7 +13,7 @@
 
 1. `Descriptor.sol` のデプロイ
 
-2. `Token.sol` のデプロイ  
+2. `MedicalDAONFT.sol` のデプロイ  
    コンストラクタの引数
 
    - \_foundersDAO: Founder の EOA アドレス No.1
@@ -25,14 +25,14 @@
 
    コンストラクタの引数
 
-   - \_nft: `Token.sol` のアドレス
+   - \_nft: `MedicalDAONFT.sol` のアドレス
    - \_weth: WETH のコントラクトアドレス
    - \_timeBuffer: 300
    - \_reservePrice: 1
    - \_minBidIncrementPercentage: 2
    - \_duration: 86400
 
-4. `setMinter()` を実行して `AuctionHouse.sol` の Proxy のアドレスを `Token.sol` の `minter` にセットする
+4. `setMinter()` を実行して `AuctionHouse.sol` の Proxy のアドレスを `MedicalDAONFT.sol` の `minter` にセットする
    `setMinter()` の引数
    - \_minter: `AuctionHouse.sol` の Proxy のアドレス
 
@@ -44,14 +44,14 @@ https://github.com/UnyteDAO/MedicalDAO/issues/7
 ### 1. Descriptor.sol
 
 NFT のメタデータを作成するコントラクト。
-`Token.sol` から読み込まれ、切り替えの権限は `Token.sol` の ` owner` である DAO の Executor コントラクトが持つ。
+`MedicalDAONFT.sol` から読み込まれ、切り替えの権限は `MedicalDAONFT.sol` の ` owner` である DAO の Executor コントラクトが持つ。
 今回は Founder の EOA アドレスとする。
 
 **owner**: Founder の EOA アドレス No.3 ( DAO の Executor コントラクトの代替)
 
 - `baseURI` とオンチェーンメタデータの切り替え
 
-### 2. Token.sol
+### 2. MedicalDAONFT.sol
 
 NFT のコントラクト。
 

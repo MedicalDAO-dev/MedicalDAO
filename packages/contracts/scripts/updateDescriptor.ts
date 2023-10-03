@@ -15,13 +15,13 @@ async function main() {
 
   console.log(`New Descriptor address: ${descriptor.address}`);
 
-  const Token = await ethers.getContractFactory("Token");
-  const token = Token.attach(TOKEN_ADDRESS);
+  const MedicalDAONFT = await ethers.getContractFactory("MedicalDAONFT");
+  const medicalDAONFT = MedicalDAONFT.attach(TOKEN_ADDRESS);
 
-  console.log(`Token address: ${token.address}`);
+  console.log(`MedicalDAONFT address: ${medicalDAONFT.address}`);
 
   try {
-    await (await token.setDescriptor(descriptor.address)).wait();
+    await (await medicalDAONFT.setDescriptor(descriptor.address)).wait();
     console.log("Descriptor set successfully");
   } catch (e) {
     console.log("Descriptor set failed");

@@ -1,6 +1,6 @@
 import { deployAuctionHouseProxy } from "./helpers/deployAuctionHouseProxy";
 import { deployDescriptor } from "./helpers/deployDescriptor";
-import { deployToken } from "./helpers/deployToken";
+import { deployMedicalDAONFT } from "./helpers/deployMedicalDAONFT";
 import "dotenv/config";
 import { ethers, run } from "hardhat";
 
@@ -10,7 +10,7 @@ async function main() {
   console.log("Deployer account: ", deployer.address);
 
   const descriptor = await deployDescriptor();
-  const token = await deployToken(
+  const medicalDAONFT = await deployMedicalDAONFT(
     deployer.address,
     deployer.address,
     deployer.address,
@@ -21,7 +21,7 @@ async function main() {
     auctionHouseImplementationAddress,
     auctionHouseDeployArgs,
   } = await deployAuctionHouseProxy(
-    token.address,
+    medicalDAONFT.address,
     "0x4200000000000000000000000000000000000006", // optimism-goerli weth
     300,
     1,
@@ -30,9 +30,9 @@ async function main() {
   );
 
   try {
-    await (await token.setMinter(auctionHouseProxy.address)).wait();
-    const minterAddress: string = await token.minter();
-    console.log(`Token minter address: ${minterAddress}`);
+    await (await medicalDAONFT.setMinter(auctionHouseProxy.address)).wait();
+    const minterAddress: string = await medicalDAONFT.minter();
+    console.log(`MedicalDAONFT minter address: ${minterAddress}`);
   } catch (e) {
     console.log(e);
   }
@@ -46,7 +46,11 @@ async function main() {
 
     await verify("Descriptor", descriptor.address, []);
 
-    await verify("Token", token.address, auctionHouseDeployArgs);
+    await verify(
+      "MedicalDAONFT",
+      medicalDAONFT.address,
+      auctionHouseDeployArgs,
+    );
 
     await verify(
       "AuctionHouse implementation",

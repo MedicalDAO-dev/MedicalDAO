@@ -2,7 +2,7 @@
 
 // LICENSE
 // This is a modified version of NounsDAO's NounsToken.sol
-// Token.sol source code Copyright NounsDAO licensed under the GPL-3.0 license.
+// MedicalDAONFT.sol source code Copyright NounsDAO licensed under the GPL-3.0 license.
 // With modifications by Medical DAO.
 
 pragma solidity ^0.8.19;
@@ -10,11 +10,11 @@ pragma solidity ^0.8.19;
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {ERC721Checkpointable} from "./base/ERC721Checkpointable.sol";
 import {IDescriptorMinimal} from "./interfaces/IDescriptorMinimal.sol";
-import {IToken} from "./interfaces/IToken.sol";
+import {IMedicalDAONFT} from "./interfaces/IMedicalDAONFT.sol";
 import {ERC721} from "./base/ERC721.sol";
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
-contract Token is IToken, Ownable, ERC721Checkpointable {
+contract MedicalDAONFT is IMedicalDAONFT, Ownable, ERC721Checkpointable {
   // The founders DAO address (creators org)
   address public foundersDAO;
 
@@ -77,7 +77,7 @@ contract Token is IToken, Ownable, ERC721Checkpointable {
     address _foundersDAO2,
     address _minter,
     IDescriptorMinimal _descriptor
-  ) ERC721("MedicalDAONFT", "MDNFT") {
+  ) ERC721("MedicalDAO NFT", "MD NFT") {
     foundersDAO = _foundersDAO;
     foundersDAO2 = _foundersDAO2;
     minter = _minter;
