@@ -9,10 +9,10 @@
     "lint": "next lint",
     "format": "prettier --write '**/*.js' '**/*.ts' '**/*.tsx' '**/*.json' --ignore-path .gitignore && npm run lint",
     "premove-abi": "cd ../contracts && npm run compile",
-    "move-abi": "cd artifacts/ && rm -rf * && cd .. && npm run move-abi-auction-house && npm run move-abi-descriptor && npm run move-abi-token",
+    "move-abi": "cd artifacts/ && rm -rf * && cd .. && npm run move-abi-auction-house && npm run move-abi-descriptor && npm run move-abi-medical-dao-nft",
     "move-abi-auction-house": "cd ../contracts && cp -rf artifacts/contracts/AuctionHouse.sol/AuctionHouse.json ../interface/artifacts/AuctionHouse.json",
     "move-abi-descriptor": "cd ../contracts && cp -rf artifacts/contracts/Descriptor.sol/Descriptor.json ../interface/artifacts/Descriptor.json",
-    "move-abi-token": "cd ../contracts && cp -rf artifacts/contracts/Token.sol/Token.json ../interface/artifacts/Token.json"
+    "move-abi-medical-dao-nft": "cd ../contracts && cp -rf artifacts/contracts/MedicalDAONFT.sol/MedicalDAONFT.json ../interface/artifacts/MedicalDAONFT.json"
   },
   "dependencies": {
     "@types/node": "20.2.5",
