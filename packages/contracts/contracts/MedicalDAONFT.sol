@@ -77,7 +77,7 @@ contract MedicalDAONFT is IMedicalDAONFT, Ownable, ERC721Checkpointable {
     address _foundersDAO2,
     address _minter,
     IDescriptorMinimal _descriptor
-  ) ERC721("MedicalDAONFT", "MDNFT") {
+  ) ERC721("MedicalDAO NFT", "MD NFT") {
     foundersDAO = _foundersDAO;
     foundersDAO2 = _foundersDAO2;
     minter = _minter;
