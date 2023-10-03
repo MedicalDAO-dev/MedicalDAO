@@ -1,14 +1,14 @@
 import "dotenv/config";
 import { ethers } from "hardhat";
 
-export async function deployToken(
+export async function deployMedicalDAONFT(
   foundersDAO: string,
   foundersDAO2: string,
   minter: string,
   descriptor: string,
 ) {
-  const Token = await ethers.getContractFactory("Token");
-  const token = await Token.deploy(
+  const MedicalDAONFT = await ethers.getContractFactory("MedicalDAONFT");
+  const medicalDAONFT = await MedicalDAONFT.deploy(
     foundersDAO,
     foundersDAO2,
     minter,
@@ -18,7 +18,7 @@ export async function deployToken(
       maxPriorityFeePerGas: ethers.BigNumber.from(1000000000),
     },
   );
-  await token.deployed();
-  console.log(`Token address: ${token.address}`);
-  return token;
+  await medicalDAONFT.deployed();
+  console.log(`MedicalDAONFT address: ${medicalDAONFT.address}`);
+  return medicalDAONFT;
 }

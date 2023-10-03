@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0
 
 // LICENSE
-// IToken.sol is a modified version of NounsDAO's INounsToken.sol
+// IMedicalDAONFT.sol is a modified version of NounsDAO's INounsToken.sol
 // INounsToken.sol source code Copyright NounsDAO licensed under the GPL-3.0 license.
 // With modifications by Medical DAO.
 
@@ -10,7 +10,7 @@ pragma solidity ^0.8.19;
 import {IDescriptorMinimal} from "./IDescriptorMinimal.sol";
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
-interface IToken is IERC721 {
+interface IMedicalDAONFT is IERC721 {
   event TokenCreated(uint256 indexed tokenId);
 
   event TokenBurned(uint256 indexed tokenId);

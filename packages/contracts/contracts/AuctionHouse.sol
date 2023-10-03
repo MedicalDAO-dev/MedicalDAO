@@ -13,7 +13,7 @@ import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/Own
 import {UUPSUpgradeable} from "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {IAuctionHouse} from "./interfaces/IAuctionHouse.sol";
-import {IToken} from "./interfaces/IToken.sol";
+import {IMedicalDAONFT} from "./interfaces/IMedicalDAONFT.sol";
 import {IWETH} from "./interfaces/IWETH.sol";
 
 contract AuctionHouse is
@@ -24,7 +24,7 @@ contract AuctionHouse is
   UUPSUpgradeable
 {
   // The ERC721 token contract
-  IToken public nft;
+  IMedicalDAONFT public nft;
 
   // The address of the WETH contract
   address public weth;
@@ -50,7 +50,7 @@ contract AuctionHouse is
    * @dev This function can only be called once.
    */
   function initialize(
-    IToken _nft,
+    IMedicalDAONFT _nft,
     address _weth,
     uint256 _timeBuffer,
     uint256 _reservePrice,
@@ -265,7 +265,7 @@ contract AuctionHouse is
     IAuctionHouse.Auction memory _auction = auctions[tokenId];
     uint lastAmount = _auction.amounts[_auction.bidders.length - 1];
 
-    require(_auction.tokenId == tokenId, "Token not up for auction");
+    require(_auction.tokenId == tokenId, "MedicalDAONFT not up for auction");
     require(block.timestamp < _auction.endTime, "Auction expired");
     require(msg.value >= reservePrice, "Must send at least reservePrice");
     require(
