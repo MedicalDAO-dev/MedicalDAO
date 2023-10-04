@@ -140,7 +140,7 @@ contract AuctionHouse is
   function unpause() external override onlyOwner {
     _unpause();
 
-    if (auctions[0].startTime == 0 || auctions[auctions.length - 1].settled) {
+    if (auctions[auctions.length - 1].settled) {
       _createAuction();
     }
   }
@@ -241,7 +241,7 @@ contract AuctionHouse is
     require(block.timestamp >= _auction.endTime, "Auction hasn't completed");
 
     auctions[tokenId].settled = true;
-    uint lastAmount = _auction.amounts[_auction.bidders.length - 1];
+    uint lastAmount = _auction.amounts[_auction.amounts.length - 1];
     address payable lastBidder = _auction.bidders[_auction.bidders.length - 1];
 
     if (_auction.bidders[0] == address(0)) {
@@ -263,7 +263,7 @@ contract AuctionHouse is
    */
   function _createBid(uint256 tokenId) internal {
     IAuctionHouse.Auction memory _auction = auctions[tokenId];
-    uint lastAmount = _auction.amounts[_auction.bidders.length - 1];
+    uint lastAmount = _auction.amounts[_auction.amounts.length - 1];
 
     require(_auction.tokenId == tokenId, "Token not up for auction");
     require(block.timestamp < _auction.endTime, "Auction expired");
