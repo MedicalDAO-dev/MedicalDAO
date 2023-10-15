@@ -184,8 +184,8 @@ contract AuctionHouse is
    * catch the revert and pause this contract.
    */
   function _createAuction() internal {
-    try nft.mint() returns (uint256 tokenId, bool isInsentive) {
-      if (isInsentive) {
+    try nft.mint() returns (uint256 tokenId, bool isIncentive) {
+      if (isIncentive) {
         auctions.push(
           Auction({
             tokenId: tokenId - 2,

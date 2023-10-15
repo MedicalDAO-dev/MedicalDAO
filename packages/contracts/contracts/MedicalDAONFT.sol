@@ -82,6 +82,8 @@ contract MedicalDAONFT is IMedicalDAONFT, Ownable, ERC721Checkpointable {
     foundersDAO2 = _foundersDAO2;
     minter = _minter;
     descriptor = _descriptor;
+    _mintTo(foundersDAO, _currentTokenId);
+    _currentTokenId++;
   }
 
   /**
@@ -99,6 +101,8 @@ contract MedicalDAONFT is IMedicalDAONFT, Ownable, ERC721Checkpointable {
     string memory newContractURIHash
   ) external onlyOwner {
     _contractURIHash = newContractURIHash;
+
+    emit ContractUriUpdated(newContractURIHash);
   }
 
   /**
@@ -108,15 +112,15 @@ contract MedicalDAONFT is IMedicalDAONFT, Ownable, ERC721Checkpointable {
    * @dev Call _mintTo with the to address(es).
    */
   function mint() public override onlyMinter returns (uint256, bool) {
-    bool isInsentive = checkInsentive(_currentTokenId);
+    bool isIncentive = checkIncentive(_currentTokenId);
 
-    if (isInsentive) {
+    if (isIncentive) {
       _mintTo(foundersDAO, _currentTokenId++);
       _mintTo(foundersDAO2, _currentTokenId++);
     }
 
     uint newTokenId = _mintTo(minter, _currentTokenId++);
-    return (newTokenId, isInsentive);
+    return (newTokenId, isIncentive);
   }
 
   /**
@@ -225,7 +229,7 @@ contract MedicalDAONFT is IMedicalDAONFT, Ownable, ERC721Checkpointable {
     return _currentTokenId;
   }
 
-  function checkInsentive(uint256 tokenId) public pure returns (bool) {
+  function checkIncentive(uint256 tokenId) public pure returns (bool) {
     return tokenId <= 1820 && tokenId % 10 == 0;
   }
 }

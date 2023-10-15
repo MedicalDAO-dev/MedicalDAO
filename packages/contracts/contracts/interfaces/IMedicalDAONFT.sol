@@ -15,6 +15,8 @@ interface IMedicalDAONFT is IERC721 {
 
   event TokenBurned(uint256 indexed tokenId);
 
+  event ContractUriUpdated(string contractUri);
+
   event FoundersDAOUpdated(address foundersDAO);
 
   event FoundersDAOUpdated2(address foundersDAO2);
@@ -31,6 +33,10 @@ interface IMedicalDAONFT is IERC721 {
 
   function burn(uint256 tokenId) external;
 
+  function contractURI() external view returns (string memory);
+
+  function setContractURIHash(string memory contractURIHash) external;
+
   function setFoundersDAO(address foundersDAO) external;
 
   function setFoundersDAO2(address foundersDAO2) external;
@@ -45,5 +51,5 @@ interface IMedicalDAONFT is IERC721 {
 
   function getCurrentTokenId() external view returns (uint256);
 
-  function checkInsentive(uint256 tokenId) external pure returns (bool);
+  function checkIncentive(uint256 tokenId) external pure returns (bool);
 }
