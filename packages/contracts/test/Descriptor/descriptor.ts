@@ -45,12 +45,6 @@ describe("Descriptor", () => {
 
   describe("tokenURI", () => {
     it("should return the correct token uri", async () => {
-      interface Params {
-        name: string;
-        description: string;
-        image: string;
-      }
-
       const calcEncodedMetadata = (tokenId: number): string => {
         const jsonString = `{"name":"Medical DAO NFT ${tokenId}", "description":"Medical DAO NFT ${tokenId} is a member of the Medical DAO", "image": "${getImage(
           tokenId,
@@ -75,9 +69,7 @@ describe("Descriptor", () => {
     });
 
     it("should return the correct image url", async () => {
-      expect(await descriptor.getImage(0)).to.equal(
-        "ipfs://QmWdcHRNaEEFbpexkJCJSL26KL6abKYzAVWQiwWE73DM2n/0.png",
-      );
+      expect(await descriptor.getImage(0)).to.equal(`ipfs://${cid}/0.png`);
     });
   });
 });
