@@ -20,5 +20,11 @@ describe("Descriptor", () => {
         "QmWdcHRNaEEFbpexkJCJSL26KL6abKYzAVWQiwWE73DM2n",
       );
     });
+
+    it("should return the correct image url", async () => {
+      expect(await descriptor.getImage(0)).to.equal(
+        "ipfs://QmWdcHRNaEEFbpexkJCJSL26KL6abKYzAVWQiwWE73DM2n/0.png",
+      );
+    });
   });
 });
