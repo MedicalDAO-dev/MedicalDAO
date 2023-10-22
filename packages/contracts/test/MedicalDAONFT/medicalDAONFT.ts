@@ -82,7 +82,7 @@ describe("MedicalDAONFT", () => {
     });
 
     it("should return the correct currentTokenId", async () => {
-      expect(await medicalDAONFT.getCurrentTokenId()).to.equal(1);
+      expect(await medicalDAONFT.getCurrentTokenId()).to.equal(0);
     });
 
     it("should return the correct owner of tokenId 0", async () => {
@@ -296,17 +296,17 @@ describe("MedicalDAONFT", () => {
     });
 
     it("should mint with no incentive", async () => {
-      expect(await medicalDAONFT.getCurrentTokenId()).to.equal(1);
-      expect(await descriptor.tokenURI(1)).to.equal(calcEncodedMetadata(1));
+      expect(await medicalDAONFT.getCurrentTokenId()).to.equal(0);
+      expect(await descriptor.tokenURI(0)).to.equal(calcEncodedMetadata(0));
       await expect(await medicalDAONFT.connect(minter).mint())
         .to.emit(medicalDAONFT, "TokenCreated")
         .withArgs(1);
-      expect(await medicalDAONFT.getCurrentTokenId()).to.equal(2);
-      expect(await descriptor.tokenURI(2)).to.equal(calcEncodedMetadata(2));
+      expect(await medicalDAONFT.getCurrentTokenId()).to.equal(1);
+      expect(await descriptor.tokenURI(1)).to.equal(calcEncodedMetadata(1));
     });
 
     it("should mint with incentive", async () => {
-      for (let i = 1; i < 10; i++) {
+      for (let i = 0; i < 9; i++) {
         expect(await medicalDAONFT.getCurrentTokenId()).to.equal(i);
         await expect(await medicalDAONFT.connect(minter).mint()).not.to.be
           .reverted;
@@ -317,10 +317,10 @@ describe("MedicalDAONFT", () => {
       expect(await medicalDAONFT.balanceOf(foundersDAO2.address)).to.equal(0);
       expect(await medicalDAONFT.balanceOf(minter.address)).to.equal(9);
 
-      expect(await medicalDAONFT.getCurrentTokenId()).to.equal(10);
+      expect(await medicalDAONFT.getCurrentTokenId()).to.equal(9);
       await expect(await medicalDAONFT.connect(minter).mint()).not.to.be
         .reverted;
-      expect(await medicalDAONFT.getCurrentTokenId()).to.equal(13);
+      expect(await medicalDAONFT.getCurrentTokenId()).to.equal(12);
 
       expect(await medicalDAONFT.balanceOf(foundersDAO.address)).to.equal(2);
       expect(await medicalDAONFT.balanceOf(foundersDAO2.address)).to.equal(1);

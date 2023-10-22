@@ -264,7 +264,7 @@ contract AuctionHouse is
    * @dev If there are no bids, the token is burned.
    */
   function _settleAuction() internal {
-    uint256 tokenId = nft.getCurrentTokenId() - 1;
+    uint256 tokenId = nft.getCurrentTokenId();
     IAuctionHouse.Auction memory _auction = auctions[tokenId];
 
     require(_auction.startTime != 0, "Auction hasn't begun");
