@@ -75,8 +75,8 @@ contract AuctionHouse is
       Auction({
         tokenId: 0,
         amounts: new uint256[](0),
-        startTime: 1,
-        endTime: 1,
+        startTime: 0,
+        endTime: 0,
         bidders: new address payable[](0),
         settled: true
       })
@@ -217,8 +217,8 @@ contract AuctionHouse is
           Auction({
             tokenId: tokenId - 2,
             amounts: new uint256[](0),
-            startTime: 1,
-            endTime: 1,
+            startTime: 0,
+            endTime: 0,
             bidders: new address payable[](0),
             settled: true
           })
@@ -227,8 +227,8 @@ contract AuctionHouse is
           Auction({
             tokenId: tokenId - 1,
             amounts: new uint256[](0),
-            startTime: 1,
-            endTime: 1,
+            startTime: 0,
+            endTime: 0,
             bidders: new address payable[](0),
             settled: true
           })
