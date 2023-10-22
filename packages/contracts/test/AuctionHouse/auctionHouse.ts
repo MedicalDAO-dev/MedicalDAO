@@ -58,10 +58,10 @@ describe("Descriptor", () => {
       const auctions = await auctionHouse.getAuctions();
       expect(auctions.length).to.equal(1);
       expect(auctions[0].tokenId).to.equal(0);
-      expect(auctions[0].amounts).to.deep.equal([0]);
+      expect(auctions[0].amounts).to.deep.equal([]);
       expect(auctions[0].tokenId).to.equal(0);
       expect(auctions[0].tokenId).to.equal(0);
-      expect(auctions[0].amounts).to.deep.equal([ethers.constants.AddressZero]);
+      expect(auctions[0].amounts).to.deep.equal([]);
       expect(auctions[0].settled).to.equal(true);
     });
 
@@ -69,10 +69,10 @@ describe("Descriptor", () => {
       const auctions = await auctionHouse.getAuctionsByIds([0]);
       expect(auctions.length).to.equal(1);
       expect(auctions[0].tokenId).to.equal(0);
-      expect(auctions[0].amounts).to.deep.equal([0]);
+      expect(auctions[0].amounts).to.deep.equal([]);
       expect(auctions[0].tokenId).to.equal(0);
       expect(auctions[0].tokenId).to.equal(0);
-      expect(auctions[0].amounts).to.deep.equal([ethers.constants.AddressZero]);
+      expect(auctions[0].amounts).to.deep.equal([]);
       expect(auctions[0].settled).to.equal(true);
     });
   });

@@ -71,15 +71,13 @@ contract AuctionHouse is
     minBidIncrementPercentage = _minBidIncrementPercentage;
     duration = _duration;
 
-    (uint[] memory arrZero, address payable[] memory arrZeroAddr) = _createZeroArrs();
-
     auctions.push(
       Auction({
         tokenId: 0,
-        amounts: arrZero,
+        amounts: new uint256[](0),
         startTime: 1,
         endTime: 1,
-        bidders: arrZeroAddr,
+        bidders: new address payable[](0),
         settled: true
       })
     );
@@ -216,26 +214,24 @@ contract AuctionHouse is
   function _createAuction() internal {
     try nft.mint() returns (uint256 tokenId, bool isIncentive) {
 
-    (uint[] memory arrZero, address payable[] memory arrZeroAddr) = _createZeroArrs();
-
       if (isIncentive) {
         auctions.push(
           Auction({
             tokenId: tokenId - 2,
-            amounts: arrZero,
+            amounts: new uint256[](0),
             startTime: 1,
             endTime: 1,
-            bidders: arrZeroAddr,
+            bidders: new address payable[](0),
             settled: true
           })
         );
         auctions.push(
           Auction({
             tokenId: tokenId - 1,
-            amounts: arrZero,
+            amounts: new uint256[](0),
             startTime: 1,
             endTime: 1,
-            bidders: arrZeroAddr,
+            bidders: new address payable[](0),
             settled: true
           })
         );
@@ -247,10 +243,10 @@ contract AuctionHouse is
       auctions.push(
         Auction({
           tokenId: tokenId,
-          amounts: arrZero,
+          amounts: new uint256[](0),
           startTime: startTime,
           endTime: endTime,
-          bidders: arrZeroAddr,
+          bidders: new address payable[](0),
           settled: false
         })
       );
@@ -274,13 +270,20 @@ contract AuctionHouse is
     require(block.timestamp >= _auction.endTime, "Auction hasn't completed");
 
     auctions[tokenId].settled = true;
-    uint lastAmount = _auction.amounts[_auction.amounts.length - 1];
-    address payable lastBidder = _auction.bidders[_auction.bidders.length - 1];
 
-    if (_auction.bidders[0] == address(0)) {
+    uint256 lastAmount;
+    address payable lastBidder;
+
+    uint256 biddersLength = _auction.bidders.length;
+
+    if (biddersLength == 0) {
       nft.burn(_auction.tokenId);
     } else {
+      uint256 lastBidderIndex = biddersLength - 1;
+      lastBidder = _auction.bidders[lastBidderIndex];
       nft.transferFrom(address(this), lastBidder, _auction.tokenId);
+
+      lastAmount = _auction.amounts[lastBidderIndex];
     }
 
     if (lastAmount > 0) {
@@ -296,18 +299,27 @@ contract AuctionHouse is
    */
   function _createBid(uint256 tokenId) internal {
     IAuctionHouse.Auction memory _auction = auctions[tokenId];
-    uint lastAmount = _auction.amounts[_auction.amounts.length - 1];
 
     require(_auction.tokenId == tokenId, "MedicalDAONFT not up for auction");
     require(block.timestamp < _auction.endTime, "Auction expired");
     require(msg.value >= reservePrice, "Must send at least reservePrice");
+
+    uint256 biddersLength = _auction.bidders.length;
+    uint256 lastAmount;
+    address payable lastBidder;
+
+    if (biddersLength > 0) {
+      uint256 lastBidderIndex = biddersLength - 1;
+
+      lastAmount = _auction.amounts[lastBidderIndex];
+
+      lastBidder = _auction.bidders[lastBidderIndex];
+    }
     require(
       msg.value >=
         lastAmount + ((lastAmount * minBidIncrementPercentage) / 100),
       "Must send more than last bid by minBidIncrementPercentage amount"
     );
-
-    address payable lastBidder = _auction.bidders[_auction.bidders.length - 1];
 
     // Refund the last bidder, if applicable
     if (lastBidder != address(0)) {
@@ -349,16 +361,6 @@ contract AuctionHouse is
   function _safeTransferETH(address to, uint256 value) internal returns (bool) {
     (bool success, ) = to.call{value: value, gas: 30_000}(new bytes(0));
     return success;
-  }
-
-  function _createZeroArrs() internal pure returns(uint[] memory, address payable[] memory) {
-    uint[] memory arrZero = new uint[](1);
-    address payable[] memory arrZeroAddr = new address payable[](1);
-
-    arrZero[0] = 0;
-    arrZeroAddr[0] = payable(0);
-
-    return (arrZero, arrZeroAddr);
   }
 
   function _authorizeUpgrade(
