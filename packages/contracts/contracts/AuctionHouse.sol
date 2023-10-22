@@ -126,11 +126,9 @@ contract AuctionHouse is
   /**
    * @notice Settle the current auction, mint a new token, and put it up for auction.
    */
-  function settleCurrentAndCreateNewAuctionAndCreateBid(
-    uint256 tokenId
-  ) external payable override nonReentrant whenNotPaused {
+  function settleCurrentAndCreateNewAuctionAndCreateBid() external payable override nonReentrant whenNotPaused {
     _settleAuction();
-    _createAuction();
+    uint256 tokenId = _createAuction();
     _createBid(tokenId);
   }
 
@@ -211,7 +209,7 @@ contract AuctionHouse is
    * If the mint reverts, the minter was updated without pausing this contract first. To remedy this,
    * catch the revert and pause this contract.
    */
-  function _createAuction() internal {
+  function _createAuction() internal returns (uint256) {
     try nft.mint() returns (uint256 tokenId, bool isIncentive) {
 
       if (isIncentive) {
@@ -252,8 +250,12 @@ contract AuctionHouse is
       );
 
       emit AuctionCreated(tokenId, startTime, endTime);
+
+      return tokenId;
     } catch Error(string memory) {
       _pause();
+
+      return 0;
     }
   }
 
@@ -297,8 +299,8 @@ contract AuctionHouse is
    * @notice Create a bid for a token, with a given amount.
    * @dev This contract only accepts payment in ETH.
    */
-  function _createBid(uint256 tokenId) internal {
-    IAuctionHouse.Auction memory _auction = auctions[tokenId];
+  function _createBid(uint256 tokenId) internal whenNotPaused {
+    IAuctionHouse.Auction memory _auction = auctions[auctions.length - 1];
 
     require(_auction.tokenId == tokenId, "MedicalDAONFT not up for auction");
     require(block.timestamp < _auction.endTime, "Auction expired");
