@@ -70,18 +70,48 @@ contract AuctionHouse is
     reservePrice = _reservePrice;
     minBidIncrementPercentage = _minBidIncrementPercentage;
     duration = _duration;
+
+    (uint[] memory arrZero, address payable[] memory arrZeroAddr) = _createZeroArrs();
+
     auctions.push(
       Auction({
         tokenId: 0,
-        amounts: new uint256[](0),
-        startTime: 0,
-        endTime: 0,
-        bidders: new address payable[](0),
+        amounts: arrZero,
+        startTime: 1,
+        endTime: 1,
+        bidders: arrZeroAddr,
         settled: true
       })
     );
   }
 
+  /**
+   * @notice Return all auctions.
+   */
+
+  function getAuctions()
+    external
+    view
+    override
+    returns (IAuctionHouse.Auction[] memory) {
+    return auctions;
+  }
+
+  /**
+   * @notice Return the auction with the given IDs.
+   */
+
+  function getAuctionsByIds(uint256[] memory tokenIds)
+    external
+    view
+    override
+    returns (IAuctionHouse.Auction[] memory) {
+    IAuctionHouse.Auction[] memory _auctions = new IAuctionHouse.Auction[](tokenIds.length);
+    for (uint256 i = 0; i < tokenIds.length; i++) {
+      _auctions[i] = auctions[tokenIds[i]];
+    }
+    return _auctions;
+  }
   /**
    * @notice Settle the current auction, mint a new token, and put it up for auction.
    */
@@ -185,24 +215,27 @@ contract AuctionHouse is
    */
   function _createAuction() internal {
     try nft.mint() returns (uint256 tokenId, bool isIncentive) {
+
+    (uint[] memory arrZero, address payable[] memory arrZeroAddr) = _createZeroArrs();
+
       if (isIncentive) {
         auctions.push(
           Auction({
             tokenId: tokenId - 2,
-            amounts: new uint256[](0),
-            startTime: 0,
-            endTime: 0,
-            bidders: new address payable[](0),
+            amounts: arrZero,
+            startTime: 1,
+            endTime: 1,
+            bidders: arrZeroAddr,
             settled: true
           })
         );
         auctions.push(
           Auction({
             tokenId: tokenId - 1,
-            amounts: new uint256[](0),
-            startTime: 0,
-            endTime: 0,
-            bidders: new address payable[](0),
+            amounts: arrZero,
+            startTime: 1,
+            endTime: 1,
+            bidders: arrZeroAddr,
             settled: true
           })
         );
@@ -214,10 +247,10 @@ contract AuctionHouse is
       auctions.push(
         Auction({
           tokenId: tokenId,
-          amounts: new uint256[](0),
+          amounts: arrZero,
           startTime: startTime,
           endTime: endTime,
-          bidders: new address payable[](0),
+          bidders: arrZeroAddr,
           settled: false
         })
       );
@@ -233,7 +266,7 @@ contract AuctionHouse is
    * @dev If there are no bids, the token is burned.
    */
   function _settleAuction() internal {
-    uint256 tokenId = nft.getCurrentTokenId();
+    uint256 tokenId = nft.getCurrentTokenId() - 1;
     IAuctionHouse.Auction memory _auction = auctions[tokenId];
 
     require(_auction.startTime != 0, "Auction hasn't begun");
@@ -316,6 +349,16 @@ contract AuctionHouse is
   function _safeTransferETH(address to, uint256 value) internal returns (bool) {
     (bool success, ) = to.call{value: value, gas: 30_000}(new bytes(0));
     return success;
+  }
+
+  function _createZeroArrs() internal pure returns(uint[] memory, address payable[] memory) {
+    uint[] memory arrZero = new uint[](1);
+    address payable[] memory arrZeroAddr = new address payable[](1);
+
+    arrZero[0] = 0;
+    arrZeroAddr[0] = payable(0);
+
+    return (arrZero, arrZeroAddr);
   }
 
   function _authorizeUpgrade(

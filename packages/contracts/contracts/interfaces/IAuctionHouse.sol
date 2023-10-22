@@ -48,6 +48,10 @@ interface IAuctionHouse {
     uint256 minBidIncrementPercentage
   );
 
+  function getAuctions() external view returns (Auction[] memory);
+
+  function getAuctionsByIds(uint256[] memory) external view returns (Auction[] memory);
+
   function settleAuction() external;
 
   function settleCurrentAndCreateNewAuction() external;

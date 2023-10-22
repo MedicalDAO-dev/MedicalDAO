@@ -22,9 +22,9 @@ export const deploy = async (
     medicalDAONFT.address,
     "0x4200000000000000000000000000000000000006", // optimism-goerli weth
     5, // 終了時刻5秒後以内にBidがなければ落札
-    1, // 最小Bidは1wei
+    2, // 最小Bidは1wei
     2, // 2%以上でBid
-    30, // テスト用にオークションは30秒に1回に設定
+    10, // テスト用にオークションは30秒に1回に設定
   );
   await (await medicalDAONFT.setMinter(auctionHouse.address)).wait();
   return { descriptor, medicalDAONFT, auctionHouse };
