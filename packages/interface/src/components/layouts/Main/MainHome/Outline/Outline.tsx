@@ -17,7 +17,7 @@ export const Outline = ({ className }: OutlineProps) => {
           "mb-4 tracking-wider",
         )}
       >
-        What's MedicalDAO about?
+        What&apos;s MedicalDAO about?
       </div>
       <div className={clsx("font-['PT_Root_UI',sans-serif] text-xl")}>
         <div className={clsx("mb-12")}>
@@ -38,7 +38,7 @@ export const Outline = ({ className }: OutlineProps) => {
           "mb-4 tracking-wider",
         )}
       >
-        What's our auction about?
+        What&apos;s our auction about?
       </div>
       <div className={clsx("font-['PT_Root_UI',sans-serif] text-xl")}>
         <div className={clsx("mb-2")}>

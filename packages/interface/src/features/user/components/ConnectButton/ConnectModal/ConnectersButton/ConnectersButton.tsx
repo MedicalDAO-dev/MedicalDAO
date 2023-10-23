@@ -3,7 +3,7 @@ import { Button } from "@/components/elements/Button";
 import { useIsConnectModalOpenController } from "@/hooks/useIsConnectModalOpen";
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
-import { verifyMessage } from "ethers/lib/utils";
+// import { verifyMessage } from "ethers/lib/utils";
 import { Connector, useConnect, useSwitchNetwork } from "wagmi";
 import { useSignMessage } from "wagmi";
 
@@ -24,8 +24,9 @@ export const ConnectersButton = ({ className }: ConnectersButtonProps) => {
   const recoveredAddress = React.useRef<string>();
   const { data, error, isLoading, signMessage } = useSignMessage({
     onSuccess(data, variables) {
-      const address = verifyMessage(variables.message, data);
-      recoveredAddress.current = address;
+      // const address = verifyMessage(variables.message, data);
+      // recoveredAddress.current = address;
+      console.log("退避中");
     },
   });
 
