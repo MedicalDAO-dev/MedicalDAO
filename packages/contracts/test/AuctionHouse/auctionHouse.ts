@@ -59,9 +59,9 @@ describe("Descriptor", () => {
       expect(auctions.length).to.equal(1);
       expect(auctions[0].tokenId).to.equal(0);
       expect(auctions[0].amounts).to.deep.equal([]);
-      expect(auctions[0].tokenId).to.equal(0);
-      expect(auctions[0].tokenId).to.equal(0);
-      expect(auctions[0].amounts).to.deep.equal([]);
+      expect(auctions[0].startTime).to.equal(0);
+      expect(auctions[0].endTime).to.equal(0);
+      expect(auctions[0].bidders).to.deep.equal([]);
       expect(auctions[0].settled).to.equal(true);
     });
 
@@ -70,9 +70,9 @@ describe("Descriptor", () => {
       expect(auctions.length).to.equal(1);
       expect(auctions[0].tokenId).to.equal(0);
       expect(auctions[0].amounts).to.deep.equal([]);
-      expect(auctions[0].tokenId).to.equal(0);
-      expect(auctions[0].tokenId).to.equal(0);
-      expect(auctions[0].amounts).to.deep.equal([]);
+      expect(auctions[0].startTime).to.equal(0);
+      expect(auctions[0].endTime).to.equal(0);
+      expect(auctions[0].bidders).to.deep.equal([]);
       expect(auctions[0].settled).to.equal(true);
     });
   });
