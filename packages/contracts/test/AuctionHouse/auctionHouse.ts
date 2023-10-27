@@ -27,6 +27,30 @@ describe("Descriptor", () => {
     ));
   });
 
+  describe("init auction", () => {
+    it("should revert if a second initialization is attempted", async () => {
+      const tx = auctionHouse.initialize(
+        medicalDAONFT.address,
+        "0x4200000000000000000000000000000000000006", // optimism-goerli weth
+        5, // 終了時刻5秒後以内にBidがなければ落札
+        2, // 最小Bidは1wei
+        2, // 2%以上でBid
+        10, // テスト用にオークションは10秒に1回に設定
+      );
+      await expect(tx).to.be.revertedWith(
+        "Initializable: contract is already initialized",
+      );
+    });
+
+    it("should allow the deployer to unpause the contract and create the first auction", async () => {
+      const tx = await auctionHouse.connect(deployer).unpause();
+      await tx.wait();
+
+      const auctions = await auctionHouse.getAuctions();
+      expect(auctions[1].startTime.toNumber()).to.be.greaterThan(0);
+    });
+  });
+
   describe("init variables", () => {
     it("should return the correct medicalDAONFT address", async () => {
       expect(await auctionHouse.nft()).to.equal(medicalDAONFT.address);
@@ -420,6 +444,9 @@ describe("Descriptor", () => {
         const settleCurrentAndCreateNewAuction =
           await auctionHouse.settleCurrentAndCreateNewAuction();
 
+        const auctions = await auctionHouse.getAuctionsByIds([1]);
+        expect(auctions[0].settled).to.equal(true);
+
         const startTime = (await ethers.provider.getBlock("latest")).timestamp;
 
         const duration = await auctionHouse.duration();
@@ -427,6 +454,9 @@ describe("Descriptor", () => {
         await expect(settleCurrentAndCreateNewAuction)
           .to.emit(auctionHouse, "AuctionCreated")
           .withArgs(2, startTime, startTime + duration.toNumber());
+
+        const auctions2 = await auctionHouse.getAuctionsByIds([2]);
+        expect(auctions2[0].settled).to.equal(false);
       });
     });
 
@@ -477,6 +507,9 @@ describe("Descriptor", () => {
             value: 2,
           });
 
+        const auctions = await auctionHouse.getAuctionsByIds([1]);
+        expect(auctions[0].settled).to.equal(true);
+
         const startTime = (await ethers.provider.getBlock("latest")).timestamp;
 
         const duration = await auctionHouse.duration();
@@ -509,6 +542,9 @@ describe("Descriptor", () => {
           }),
       ).not.to.be.reverted;
 
+      const auctions = await auctionHouse.getAuctionsByIds([1]);
+      expect(auctions[0].settled).to.equal(true);
+
       await new Promise((resolve) => setTimeout(resolve, 10000));
 
       const settleCurrentAndCreateNewAuctionAndCreateBid2 = await auctionHouse
@@ -516,6 +552,9 @@ describe("Descriptor", () => {
         .settleCurrentAndCreateNewAuctionAndCreateBid({
           value: 3,
         });
+
+      const auctions2 = await auctionHouse.getAuctionsByIds([2]);
+      expect(auctions2[0].settled).to.equal(true);
 
       await expect(settleCurrentAndCreateNewAuctionAndCreateBid2)
         .to.emit(auctionHouse, "AuctionBid")
