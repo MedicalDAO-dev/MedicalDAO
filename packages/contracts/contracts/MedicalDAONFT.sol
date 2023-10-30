@@ -38,7 +38,7 @@ contract MedicalDAONFT is IMedicalDAONFT, Ownable, ERC721Checkpointable {
 
   // IPFS content hash of contract-level metadata
   string private _contractURIHash =
-    "QmZi1n79FqWt2tTLwCqiy6nLM6xLGRsEPQ5JmReJQKNNzX";
+    "QmdASQp88n46GvzFjLAe9xFdYb1UV71btmVt2hcCMNWRMk";
 
   /**
    * @notice Require that the minter has not been locked.
