@@ -13,6 +13,8 @@ const contract = (functionName: string) => {
   };
 };
 
+type AuctionStruct = [bigint, bigint[], bigint, bigint, Address[], boolean];
+
 export class AuctionHouse {
   // ---------------------------------------------------------
   // read
@@ -23,15 +25,16 @@ export class AuctionHouse {
    * @return {Promise<Auction>} オークション情報
    */
   public static auction = async (): Promise<Auction> => {
-    const tmp = (await readContract({
-      ...contract("auction"),
-    })) as [bigint, bigint, bigint, bigint, Address, boolean];
+    const tmps = (await readContract({
+      ...contract("getAuctions"),
+    })) as AuctionStruct[];
+    const tmp = tmps[tmps.length - 1];
     const data: Auction = {
       tokenId: tmp[0],
-      amount: tmp[1],
+      amounts: tmp[1],
       startTime: tmp[2],
       endTime: tmp[3],
-      bidder: tmp[4],
+      bidders: tmp[4],
       settled: tmp[5],
     };
     return data;
