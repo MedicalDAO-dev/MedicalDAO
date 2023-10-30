@@ -210,7 +210,7 @@ contract AuctionHouse is
    * catch the revert and pause this contract.
    */
   function _createAuction() internal returns (uint256) {
-    try nft.mint() returns (uint256 tokenId, bool isIncentive) {
+    try nft.mint() returns (uint256 tokenId, bool isIncentive, bool isIncentive2) {
 
       if (isIncentive) {
         auctions.push(
@@ -223,6 +223,9 @@ contract AuctionHouse is
             settled: true
           })
         );
+      }
+
+      if (isIncentive2) {
         auctions.push(
           Auction({
             tokenId: tokenId - 1,

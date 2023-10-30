@@ -29,7 +29,7 @@ interface IMedicalDAONFT is IERC721 {
 
   event DescriptorLocked();
 
-  function mint() external returns (uint256, bool);
+  function mint() external returns (uint256, bool, bool);
 
   function burn(uint256 tokenId) external;
 
@@ -52,4 +52,6 @@ interface IMedicalDAONFT is IERC721 {
   function getCurrentTokenId() external view returns (uint256);
 
   function checkIncentive(uint256 tokenId) external pure returns (bool);
+
+  function checkIncentive2(uint256 tokenId) external pure returns (bool);
 }
