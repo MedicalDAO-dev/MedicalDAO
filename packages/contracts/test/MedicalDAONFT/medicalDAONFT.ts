@@ -77,7 +77,7 @@ describe("MedicalDAONFT", () => {
 
     it("should return the correct contractURI", async () => {
       expect(await medicalDAONFT.contractURI()).to.equal(
-        "ipfs://QmZi1n79FqWt2tTLwCqiy6nLM6xLGRsEPQ5JmReJQKNNzX",
+        "ipfs://QmdASQp88n46GvzFjLAe9xFdYb1UV71btmVt2hcCMNWRMk",
       );
     });
 

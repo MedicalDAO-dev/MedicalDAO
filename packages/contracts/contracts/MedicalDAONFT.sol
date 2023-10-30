@@ -111,16 +111,20 @@ contract MedicalDAONFT is IMedicalDAONFT, Ownable, ERC721Checkpointable {
    * until 183 founder tokens have been minted (5 years w/ 24 hour auctions).
    * @dev Call _mintTo with the to address(es).
    */
-  function mint() public override onlyMinter returns (uint256, bool) {
+  function mint() public override onlyMinter returns (uint256, bool, bool) {
     bool isIncentive = checkIncentive(_tokenIds);
+    bool isIncentive2 = checkIncentive2(_tokenIds);
 
     if (isIncentive) {
       _mintTo(foundersDAO, _tokenIds++);
+    }
+
+    if (isIncentive2) {
       _mintTo(foundersDAO2, _tokenIds++);
     }
 
     uint newTokenId = _mintTo(minter, _tokenIds++);
-    return (newTokenId, isIncentive);
+    return (newTokenId, isIncentive, isIncentive2);
   }
 
   /**
@@ -231,5 +235,9 @@ contract MedicalDAONFT is IMedicalDAONFT, Ownable, ERC721Checkpointable {
 
   function checkIncentive(uint256 tokenId) public pure returns (bool) {
     return tokenId <= 1820 && tokenId % 10 == 0;
+  }
+
+  function checkIncentive2(uint256 tokenId) public pure returns (bool) {
+    return tokenId % 10 == 0;
   }
 }
