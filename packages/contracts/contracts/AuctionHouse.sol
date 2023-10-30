@@ -70,6 +70,7 @@ contract AuctionHouse is
     reservePrice = _reservePrice;
     minBidIncrementPercentage = _minBidIncrementPercentage;
     duration = _duration;
+
     auctions.push(
       Auction({
         tokenId: 0,
@@ -82,6 +83,33 @@ contract AuctionHouse is
     );
   }
 
+  /**
+   * @notice Return all auctions.
+   */
+
+  function getAuctions()
+    external
+    view
+    override
+    returns (IAuctionHouse.Auction[] memory) {
+    return auctions;
+  }
+
+  /**
+   * @notice Return the auction with the given IDs.
+   */
+
+  function getAuctionsByIds(uint256[] memory tokenIds)
+    external
+    view
+    override
+    returns (IAuctionHouse.Auction[] memory) {
+    IAuctionHouse.Auction[] memory _auctions = new IAuctionHouse.Auction[](tokenIds.length);
+    for (uint256 i = 0; i < tokenIds.length; i++) {
+      _auctions[i] = auctions[tokenIds[i]];
+    }
+    return _auctions;
+  }
   /**
    * @notice Settle the current auction, mint a new token, and put it up for auction.
    */
@@ -98,11 +126,9 @@ contract AuctionHouse is
   /**
    * @notice Settle the current auction, mint a new token, and put it up for auction.
    */
-  function settleCurrentAndCreateNewAuctionAndCreateBid(
-    uint256 tokenId
-  ) external payable override nonReentrant whenNotPaused {
+  function settleCurrentAndCreateNewAuctionAndCreateBid() external payable override nonReentrant whenNotPaused {
     _settleAuction();
-    _createAuction();
+    uint256 tokenId = _createAuction();
     _createBid(tokenId);
   }
 
@@ -183,8 +209,9 @@ contract AuctionHouse is
    * If the mint reverts, the minter was updated without pausing this contract first. To remedy this,
    * catch the revert and pause this contract.
    */
-  function _createAuction() internal {
+  function _createAuction() internal returns (uint256) {
     try nft.mint() returns (uint256 tokenId, bool isIncentive) {
+
       if (isIncentive) {
         auctions.push(
           Auction({
@@ -223,8 +250,12 @@ contract AuctionHouse is
       );
 
       emit AuctionCreated(tokenId, startTime, endTime);
+
+      return tokenId;
     } catch Error(string memory) {
       _pause();
+
+      return 0;
     }
   }
 
@@ -241,13 +272,20 @@ contract AuctionHouse is
     require(block.timestamp >= _auction.endTime, "Auction hasn't completed");
 
     auctions[tokenId].settled = true;
-    uint lastAmount = _auction.amounts[_auction.amounts.length - 1];
-    address payable lastBidder = _auction.bidders[_auction.bidders.length - 1];
 
-    if (_auction.bidders[0] == address(0)) {
+    uint256 lastAmount;
+    address payable lastBidder;
+
+    uint256 biddersLength = _auction.bidders.length;
+
+    if (biddersLength == 0) {
       nft.burn(_auction.tokenId);
     } else {
+      uint256 lastBidderIndex = biddersLength - 1;
+      lastBidder = _auction.bidders[lastBidderIndex];
       nft.transferFrom(address(this), lastBidder, _auction.tokenId);
+
+      lastAmount = _auction.amounts[lastBidderIndex];
     }
 
     if (lastAmount > 0) {
@@ -261,20 +299,29 @@ contract AuctionHouse is
    * @notice Create a bid for a token, with a given amount.
    * @dev This contract only accepts payment in ETH.
    */
-  function _createBid(uint256 tokenId) internal {
-    IAuctionHouse.Auction memory _auction = auctions[tokenId];
-    uint lastAmount = _auction.amounts[_auction.amounts.length - 1];
+  function _createBid(uint256 tokenId) internal whenNotPaused {
+    IAuctionHouse.Auction memory _auction = auctions[auctions.length - 1];
 
     require(_auction.tokenId == tokenId, "MedicalDAONFT not up for auction");
     require(block.timestamp < _auction.endTime, "Auction expired");
     require(msg.value >= reservePrice, "Must send at least reservePrice");
+
+    uint256 biddersLength = _auction.bidders.length;
+    uint256 lastAmount;
+    address payable lastBidder;
+
+    if (biddersLength > 0) {
+      uint256 lastBidderIndex = biddersLength - 1;
+
+      lastAmount = _auction.amounts[lastBidderIndex];
+
+      lastBidder = _auction.bidders[lastBidderIndex];
+    }
     require(
       msg.value >=
         lastAmount + ((lastAmount * minBidIncrementPercentage) / 100),
       "Must send more than last bid by minBidIncrementPercentage amount"
     );
-
-    address payable lastBidder = _auction.bidders[_auction.bidders.length - 1];
 
     // Refund the last bidder, if applicable
     if (lastBidder != address(0)) {
