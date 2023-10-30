@@ -34,7 +34,7 @@ contract MedicalDAONFT is IMedicalDAONFT, Ownable, ERC721Checkpointable {
   bool public isDescriptorLocked;
 
   // The internal token ID tracker
-  uint256 private _currentTokenId;
+  uint256 private _tokenIds;
 
   // IPFS content hash of contract-level metadata
   string private _contractURIHash =
@@ -82,8 +82,8 @@ contract MedicalDAONFT is IMedicalDAONFT, Ownable, ERC721Checkpointable {
     foundersDAO2 = _foundersDAO2;
     minter = _minter;
     descriptor = _descriptor;
-    _mintTo(foundersDAO, _currentTokenId);
-    _currentTokenId++;
+    _mintTo(foundersDAO, _tokenIds);
+    _tokenIds++;
   }
 
   /**
@@ -112,14 +112,14 @@ contract MedicalDAONFT is IMedicalDAONFT, Ownable, ERC721Checkpointable {
    * @dev Call _mintTo with the to address(es).
    */
   function mint() public override onlyMinter returns (uint256, bool) {
-    bool isIncentive = checkIncentive(_currentTokenId);
+    bool isIncentive = checkIncentive(_tokenIds);
 
     if (isIncentive) {
-      _mintTo(foundersDAO, _currentTokenId++);
-      _mintTo(foundersDAO2, _currentTokenId++);
+      _mintTo(foundersDAO, _tokenIds++);
+      _mintTo(foundersDAO2, _tokenIds++);
     }
 
-    uint newTokenId = _mintTo(minter, _currentTokenId++);
+    uint newTokenId = _mintTo(minter, _tokenIds++);
     return (newTokenId, isIncentive);
   }
 
@@ -226,7 +226,7 @@ contract MedicalDAONFT is IMedicalDAONFT, Ownable, ERC721Checkpointable {
   }
 
   function getCurrentTokenId() external view returns (uint256) {
-    return _currentTokenId;
+    return _tokenIds - 1;
   }
 
   function checkIncentive(uint256 tokenId) public pure returns (bool) {
