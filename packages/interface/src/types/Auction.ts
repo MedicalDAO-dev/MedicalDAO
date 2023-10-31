@@ -2,9 +2,9 @@ import { Address } from "wagmi";
 
 export type Auction = {
   tokenId: bigint;
-  amount: bigint;
+  amounts: bigint[];
   startTime: bigint;
   endTime: bigint;
-  bidder: Address;
+  bidders: Address[];
   settled: boolean;
 };

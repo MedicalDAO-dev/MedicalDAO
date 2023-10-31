@@ -27,14 +27,21 @@ export const useAuctionController = (): AuctionController => {
       auctionContractState.tokenId,
     )}.png`;
 
+    const bidders = auctionContractState.bidders
+      ? auctionContractState.bidders
+      : [];
+    const amounts = auctionContractState.amounts
+      ? auctionContractState.amounts
+      : [];
+
     setAuction(
       AuctionModel.create({
         startTime: auctionContractState.startTime,
         endTime: auctionContractState.endTime,
         bids: [
           {
-            bidder: auctionContractState.bidder,
-            amount: auctionContractState.amount,
+            bidder: bidders[bidders.length - 1],
+            amount: amounts[amounts.length - 1],
             hash: "0x934e6bb9b4a8d78d87a98c30b807567ea88a6a363a14e6824072c21ad82d2921",
           },
         ],
