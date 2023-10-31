@@ -37,9 +37,19 @@ export class AuctionHouse {
     })) as Auction[];
 
     const tmp: Auction = tmps[tmps.length - 1];
+
+    let isDefinedAmounts = tmp.amounts[0] !== undefined;
+    let isDefinedBidders = tmp.bidders[0] !== undefined;
+
     let amounts: bigint[];
     let bidders: Address[];
-    if (tmp.amounts[0] !== undefined || tmp.bidders[0] !== undefined) {
+
+    if (isDefinedAmounts || isDefinedBidders) {
+      if(!isDefinedAmounts || !isDefinedBidders){
+        console.log("error : One of the two variables is undefined.");
+        console.log("tmp.amounts[0] : "+tmp.amounts[0]);
+        console.log("tmp.bidders[0] : "+tmp.bidders[0]);        
+      }
       amounts = tmp.amounts;
       bidders = tmp.bidders;
     } else {
