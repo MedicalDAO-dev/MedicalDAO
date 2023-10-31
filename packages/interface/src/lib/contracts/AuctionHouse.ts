@@ -13,7 +13,14 @@ const contract = (functionName: string) => {
   };
 };
 
-type AuctionStruct = [bigint, bigint[], bigint, bigint, Address[], boolean];
+type AuctionStruct = {
+  tokenId: bigint;
+  amounts: bigint[] | undefined[];
+  startTime: bigint;
+  endTime: bigint;
+  bidders: Address[] | undefined[];
+  settled: boolean;
+};
 
 export class AuctionHouse {
   // ---------------------------------------------------------
@@ -27,15 +34,26 @@ export class AuctionHouse {
   public static auction = async (): Promise<Auction> => {
     const tmps = (await readContract({
       ...contract("getAuctions"),
-    })) as AuctionStruct[];
-    const tmp = tmps[tmps.length - 1];
+    })) as Auction[];
+
+    const tmp: Auction = tmps[tmps.length - 1];
+    let amounts: bigint[];
+    let bidders: Address[];
+    if (tmp.amounts[0] !== undefined || tmp.bidders[0] !== undefined) {
+      amounts = tmp.amounts;
+      bidders = tmp.bidders;
+    } else {
+      amounts = [0n];
+      bidders = ["0x0000000000000000000000000000000000000000"]
+    }
+    
     const data: Auction = {
-      tokenId: tmp[0],
-      amounts: tmp[1],
-      startTime: tmp[2],
-      endTime: tmp[3],
-      bidders: tmp[4],
-      settled: tmp[5],
+      tokenId: tmp.tokenId,
+      amounts: amounts,
+      startTime: tmp.startTime,
+      endTime: tmp.endTime,
+      bidders: bidders,
+      settled: tmp.settled,
     };
     return data;
   };
