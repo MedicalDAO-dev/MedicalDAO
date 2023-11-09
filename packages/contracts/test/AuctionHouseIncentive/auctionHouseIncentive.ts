@@ -37,29 +37,33 @@ describe("Descriptor", () => {
       let auctions;
       let arrayIndex = 0;
       let coefficient = 1;
-      let array = [];
+      let arrayMultipleOften = [];
 
-      for (let l = 1; l <= 2000; l++) {
-        if (l % 10 === 0) {
-          array.push(l);
+      for (let j = 1; j <= 2000; j++) {
+        if (j % 10 === 0) {
+          arrayMultipleOften.push(j);
         }
       }
 
-      for (let i = 1; i <= 1449; i++) {
+      for (let i = 1; i <= 1500; i++) {
         settleCurrentAndCreateNewAuction =
           await auctionHouse.settleCurrentAndCreateNewAuction();
-
         auctions = await auctionHouse.getAuctionsByIds([i]);
         expect(auctions[0].settled).to.equal(true);
-        if (i === array[arrayIndex] - coefficient) {
+
+        if (i === arrayMultipleOften[arrayIndex] - coefficient) {
           arrayIndex++;
-          coefficient += 2;
-          for (let m = 1; m <= coefficient; m++) {
-            if (m !== coefficient) {
-              auctions = await auctionHouse.getAuctionsByIds([i + m]);
+          if (i <= 1464) {
+            coefficient += 2;
+          } else {
+            coefficient += 1;
+          }
+          for (let k = coefficient - 2; k <= coefficient; k++) {
+            if (k !== coefficient) {
+              auctions = await auctionHouse.getAuctionsByIds([i + k]);
               expect(auctions[0].settled).to.equal(true);
             } else {
-              auctions = await auctionHouse.getAuctionsByIds([i + m]);
+              auctions = await auctionHouse.getAuctionsByIds([i + k]);
               expect(auctions[0].settled).to.equal(false);
             }
           }
@@ -67,44 +71,4 @@ describe("Descriptor", () => {
       }
     });
   });
-
-  // describe("incentive test", () => {
-  //   it("should succeed", async () => {
-  //     await expect(await auctionHouse.connect(deployer).unpause()).not.to.be
-  //       .reverted;
-
-  //     let settleCurrentAndCreateNewAuction;
-  //     let auctions;
-  //     let arrayIndex = 0;
-  //     let coefficient = 1;
-  //     let array = [];
-
-  //     for (let l = 1; l <= 2000; l++) {
-  //       if (l % 10 === 0) {
-  //         array.push(l);
-  //       }
-  //     }
-
-  //     for (let i = 1; i <= 100; i++) {
-  //       settleCurrentAndCreateNewAuction =
-  //         await auctionHouse.settleCurrentAndCreateNewAuction();
-
-  //       auctions = await auctionHouse.getAuctionsByIds([i]);
-  //       expect(auctions[0].settled).to.equal(true);
-  //       if (i === array[arrayIndex] - coefficient) {
-  //         arrayIndex++;
-  //         coefficient += 2;
-  //         for (let m = 1; m <= coefficient; m++) {
-  //           if (m !== coefficient) {
-  //             auctions = await auctionHouse.getAuctionsByIds([i + m]);
-  //             expect(auctions[0].settled).to.equal(true);
-  //           } else {
-  //             auctions = await auctionHouse.getAuctionsByIds([i + m]);
-  //             expect(auctions[0].settled).to.equal(false);
-  //           }
-  //         }
-  //       }
-  //     }
-  //   });
-  // });
 });
