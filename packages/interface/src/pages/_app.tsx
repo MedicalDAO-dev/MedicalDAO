@@ -248,14 +248,20 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="manifest" href="/assets/favicons/manifest.json" />
         <meta charSet="utf-8" />
         <title>MedicalDAO</title>
-        <meta name="description" content="This is MedicalDAO." />
+        <meta
+          name="description"
+          content="MedicalDAOは「分散型医療」の実現を目指すプラットフォームです。DAO(Decentralized Autonomous Organization) の金字塔、Nounsのコンセプトを基に構築されています。新しい医療コミュニティを形成し、全ての決定はコミュニティが主導します。 医療者と非医療者が共創するプロジェクトを通じて、個人の医療データ所有と公平な医療アクセスを提供することが私たちのビジョンです。"
+        />
         <meta name="thumbnail" content="/assets/images/logo.webp" />
         <meta
           property="og:title"
-          content="日本最大級ブロックチェーンゲーム(NFTゲーム)「クリプトスペルズ」"
+          content="MedicalDAOは「分散型医療」の実現を目指すプラットフォームです。DAO(Decentralized Autonomous Organization) の金字塔、Nounsのコンセプトを基に構築されています。新しい医療コミュニティを形成し、全ての決定はコミュニティが主導します。 医療者と非医療者が共創するプロジェクトを通じて、個人の医療データ所有と公平な医療アクセスを提供することが私たちのビジョンです。"
         />
         <meta property="og:url" content="https://example.com/" />
-        <meta property="og:description" content="This is MedicalDAO." />
+        <meta
+          property="og:description"
+          content="MedicalDAOは「分散型医療」の実現を目指すプラットフォームです。DAO(Decentralized Autonomous Organization) の金字塔、Nounsのコンセプトを基に構築されています。新しい医療コミュニティを形成し、全ての決定はコミュニティが主導します。 医療者と非医療者が共創するプロジェクトを通じて、個人の医療データ所有と公平な医療アクセスを提供することが私たちのビジョンです。"
+        />
         <meta property="og:image" content="/assets/images/logo.webp" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@medicaldaoweb3" />
