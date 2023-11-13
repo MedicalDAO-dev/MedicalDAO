@@ -1,12 +1,10 @@
 import { Button } from "@/components/elements/Button";
 import { Divider } from "@/components/elements/Divider";
-import { Link } from "@/components/elements/Link";
 import { MAX_BID_LIST } from "@/const/const";
 import { useAuctionValue } from "@/hooks/useAuction";
 import { BaseProps } from "@/types/BaseProps";
 import { abbreviateAddress, toFixedBigint } from "@/utils/util";
 import clsx from "clsx";
-import { FiExternalLink } from "react-icons/fi";
 import { v4 as uuidv4 } from "uuid";
 
 export type BidListProps = {} & BaseProps;
@@ -32,7 +30,7 @@ export const BidList = ({ className }: BidListProps) => {
           .reverse()
           .map((bid, i) => {
             if (i >= MAX_BID_LIST) return <div key={uuidv4()}></div>;
-            const { bidder, amount, hash } = bid;
+            const { bidder, amount } = bid;
             return (
               <div key={uuidv4()}>
                 <div className={clsx("flex justify-between", "my-4")}>
@@ -43,16 +41,6 @@ export const BidList = ({ className }: BidListProps) => {
                     <div className={clsx("mr-4")}>
                       Ξ {toFixedBigint(amount, 2)}
                     </div>
-                    <Link
-                      href={`https://goerli-optimism.etherscan.io/tx/${hash}`}
-                      theme="none"
-                      isExternal={true}
-                    >
-                      <FiExternalLink
-                        className={clsx("w-5 h-5")}
-                        color="gray"
-                      />
-                    </Link>
                   </div>
                 </div>
                 <Divider />

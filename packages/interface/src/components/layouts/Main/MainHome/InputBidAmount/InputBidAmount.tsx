@@ -6,6 +6,7 @@ import { useUserController } from "@/hooks/useUser";
 import { BaseProps } from "@/types/BaseProps";
 import { toFixedBigint } from "@/utils/util";
 import clsx from "clsx";
+import { parseEther } from "viem";
 
 export type InputBidAmountProps = {} & BaseProps;
 
@@ -14,11 +15,12 @@ export type InputBidAmountProps = {} & BaseProps;
  * @YosukeMiyata
  */
 export const InputBidAmount = ({ className }: InputBidAmountProps) => {
-  const currentBit = useAuctionValue().getCurrentBid();
+  const auction = useAuctionValue();
   const { update } = useUserController();
+  const currentBit = auction.getCurrentBid();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    update({ bidAmount: BigInt(e.target.value) });
+    update({ bidAmount: parseEther(e.target.value) });
   };
 
   return (

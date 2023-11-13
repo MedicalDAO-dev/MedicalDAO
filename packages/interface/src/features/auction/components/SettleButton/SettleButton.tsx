@@ -7,15 +7,15 @@ import { BaseProps } from "@/types/BaseProps";
 import { toFixedBigint } from "@/utils/util";
 import clsx from "clsx";
 
-export type BidButtonProps = {} & BaseProps;
+export type SettleButtonProps = {} & BaseProps;
 
 /**
- * BidButton
+ * SettleButton
  * @keit0728
  */
-export const BidButton = ({ className }: BidButtonProps) => {
+export const SettleButton = ({ className }: SettleButtonProps) => {
   const bidder = useUserValue();
-  const [auction, { bid, settleAndCreateNewAuctionAndBid }] = useAuctionState();
+  const [auction, { settleAndCreateNewAuction }] = useAuctionState();
   const isDisabledController = useIsDisableController();
   const currentBidAmount = auction.getCurrentBid()
     ? auction.getCurrentBid()?.amount ?? 0n
@@ -26,7 +26,7 @@ export const BidButton = ({ className }: BidButtonProps) => {
       alert("ウォレットを接続してください");
       return;
     }
-    if (auction.isBelowMinimumBidAmount(bidder.bidAmount)) {
+    if (auction.isBelowMinimumBidAmount(currentBidAmount)) {
       alert(
         `最低入札価格 ${toFixedBigint(
           currentBidAmount + MIN_BID_AMOUNT,
@@ -37,11 +37,7 @@ export const BidButton = ({ className }: BidButtonProps) => {
     }
     try {
       isDisabledController.on();
-      if (auction.isEndAuction()) {
-        await settleAndCreateNewAuctionAndBid(bidder.bidAmount, bidder.address);
-      } else {
-        await bid(bidder.bidAmount, bidder.address);
-      }
+      await settleAndCreateNewAuction();
     } catch (e) {
       console.error(e);
       if (e instanceof Error) {
@@ -55,7 +51,7 @@ export const BidButton = ({ className }: BidButtonProps) => {
 
   return (
     <Button className={clsx(className)} theme="secondary" onClick={handleClick}>
-      入札する
+      落札する
     </Button>
   );
 };

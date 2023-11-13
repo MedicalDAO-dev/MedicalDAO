@@ -2,6 +2,7 @@ import { MIN_BID_AMOUNT } from "@/const/const";
 import { BaseModel } from "@/models/BaseModel";
 import { NFTModel } from "@/models/NFTModel";
 import { Bid } from "@/types/Bid";
+import { Address } from "wagmi";
 
 export class AuctionModel extends BaseModel {
   constructor(
@@ -30,6 +31,27 @@ export class AuctionModel extends BaseModel {
   isBelowMinimumBidAmount(bidAmount: bigint): boolean {
     const currentBid = this.getCurrentBid();
     const currentBidAmount = currentBid ? currentBid.amount : 0n;
-    return bidAmount <= currentBidAmount + MIN_BID_AMOUNT;
+    return bidAmount < currentBidAmount + MIN_BID_AMOUNT;
+  }
+
+  /**
+   * オークションが終了しているかどうか
+   * @returns {boolean} オークションが終了しているかどうか
+   */
+  isEndAuction(): boolean {
+    const now = BigInt(Math.floor(Date.now() / 1000));
+    return this.endTime <= now;
+  }
+
+  /**
+   * 落札者かどうか
+   * @param address アドレス
+   * @returns {boolean} 落札者かどうか
+   */
+  isSuccessfulBidder(address: Address): boolean {
+    if (!this.isEndAuction()) return false;
+    const currentBid = this.getCurrentBid();
+    if (!currentBid) return false;
+    return currentBid.bidder === address;
   }
 }
