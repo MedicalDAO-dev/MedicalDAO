@@ -26,14 +26,26 @@ export const BidButton = ({ className }: BidButtonProps) => {
       alert("ウォレットを接続してください");
       return;
     }
-    if (auction.isBelowMinimumBidAmount(bidder.bidAmount)) {
-      alert(
-        `最低入札価格 ${toFixedBigint(
-          currentBidAmount + MIN_BID_AMOUNT,
-          2,
-        )} 以上にしてください。`,
-      );
-      return;
+    if (auction.isEndAuction() && !auction.isSuccessfulBidder(bidder.address)) {
+      if (bidder.bidAmount < MIN_BID_AMOUNT) {
+        alert(
+          `最低入札価格 ${toFixedBigint(
+            MIN_BID_AMOUNT,
+            2,
+          )} 以上にしてください。`,
+        );
+        return;
+      }
+    } else {
+      if (auction.isBelowMinimumBidAmount(bidder.bidAmount)) {
+        alert(
+          `最低入札価格 ${toFixedBigint(
+            currentBidAmount + MIN_BID_AMOUNT,
+            2,
+          )} 以上にしてください。`,
+        );
+        return;
+      }
     }
     try {
       isDisabledController.on();

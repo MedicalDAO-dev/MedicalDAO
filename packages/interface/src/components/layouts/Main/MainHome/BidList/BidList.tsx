@@ -2,6 +2,7 @@ import { Button } from "@/components/elements/Button";
 import { Divider } from "@/components/elements/Divider";
 import { MAX_BID_LIST } from "@/const/const";
 import { useAuctionValue } from "@/hooks/useAuction";
+import { useUserValue } from "@/hooks/useUser";
 import { BaseProps } from "@/types/BaseProps";
 import { abbreviateAddress, toFixedBigint } from "@/utils/util";
 import clsx from "clsx";
@@ -14,7 +15,12 @@ export type BidListProps = {} & BaseProps;
  * @YosukeMiyata
  */
 export const BidList = ({ className }: BidListProps) => {
-  const { bids } = useAuctionValue();
+  const { address } = useUserValue();
+  const auction = useAuctionValue();
+  const { bids } = auction;
+
+  if (auction.isEndAuction() && !auction.isSuccessfulBidder(address))
+    return <></>;
   return (
     <div
       className={clsx(
@@ -48,7 +54,7 @@ export const BidList = ({ className }: BidListProps) => {
             );
           })}
       </div>
-      <div className={clsx("flex justify-center")}>
+      {bids.length > MAX_BID_LIST && (
         <Button
           className={clsx(
             "flex justify-center",
@@ -58,7 +64,7 @@ export const BidList = ({ className }: BidListProps) => {
         >
           すべての入札を表示
         </Button>
-      </div>
+      )}
     </div>
   );
 };

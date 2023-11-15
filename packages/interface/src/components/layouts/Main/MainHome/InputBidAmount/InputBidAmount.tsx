@@ -2,7 +2,7 @@ import { ChangeEvent } from "react";
 import { MIN_BID_AMOUNT } from "@/const/const";
 import { BidButton } from "@/features/auction/components/BidButton";
 import { useAuctionValue } from "@/hooks/useAuction";
-import { useUserController } from "@/hooks/useUser";
+import { useUserController, useUserValue } from "@/hooks/useUser";
 import { BaseProps } from "@/types/BaseProps";
 import { toFixedBigint } from "@/utils/util";
 import clsx from "clsx";
@@ -15,6 +15,7 @@ export type InputBidAmountProps = {} & BaseProps;
  * @YosukeMiyata
  */
 export const InputBidAmount = ({ className }: InputBidAmountProps) => {
+  const { address } = useUserValue();
   const auction = useAuctionValue();
   const { update } = useUserController();
   const currentBit = auction.getCurrentBid();
@@ -33,9 +34,10 @@ export const InputBidAmount = ({ className }: InputBidAmountProps) => {
           "font-['PT_Root_UI'] font-bold text-[20px]",
         )}
         placeholder={`Ξ ${
-          currentBit
-            ? toFixedBigint(currentBit?.amount + MIN_BID_AMOUNT, 2)
-            : toFixedBigint(MIN_BID_AMOUNT, 2)
+          (auction.isEndAuction() && !auction.isSuccessfulBidder(address)) ||
+          !currentBit
+            ? toFixedBigint(MIN_BID_AMOUNT, 2)
+            : toFixedBigint(currentBit?.amount + MIN_BID_AMOUNT, 2)
         } 以上`}
         onChange={handleChange}
       />
