@@ -1,7 +1,8 @@
+import { useState } from "react";
 import { Button } from "@/components/elements/Button";
 import { MIN_BID_AMOUNT } from "@/const/const";
 import { useAuctionState } from "@/hooks/useAuction";
-import { useIsDisableController } from "@/hooks/useIsDisable";
+import { useIsDisableState } from "@/hooks/useIsDisable";
 import { useUserValue } from "@/hooks/useUser";
 import { BaseProps } from "@/types/BaseProps";
 import { toFixedBigint } from "@/utils/util";
@@ -15,8 +16,9 @@ export type BidButtonProps = {} & BaseProps;
  */
 export const BidButton = ({ className }: BidButtonProps) => {
   const bidder = useUserValue();
+  const [disabled, { on: onDisabled, off: offDisabled }] = useIsDisableState();
+  const [loading, setLoading] = useState(false);
   const [auction, { bid, settleAndCreateNewAuctionAndBid }] = useAuctionState();
-  const isDisabledController = useIsDisableController();
   const currentBidAmount = auction.getCurrentBid()
     ? auction.getCurrentBid()?.amount ?? 0n
     : 0n;
@@ -48,25 +50,34 @@ export const BidButton = ({ className }: BidButtonProps) => {
       }
     }
     try {
-      isDisabledController.on();
+      onDisabled();
+      setLoading(true);
       if (auction.isEndAuction()) {
-        await settleAndCreateNewAuctionAndBid(bidder.bidAmount, bidder.address);
+        await settleAndCreateNewAuctionAndBid(bidder.bidAmount);
       } else {
-        await bid(bidder.bidAmount, bidder.address);
+        await bid(bidder.bidAmount);
       }
     } catch (e) {
       console.error(e);
       if (e instanceof Error) {
         alert("エラー\n理由: " + e.message);
       } else alert("エラー\n理由: " + e);
-      isDisabledController.off();
+      offDisabled();
+      setLoading(false);
       return;
     }
-    isDisabledController.off();
+    offDisabled();
+    setLoading(false);
   };
 
   return (
-    <Button className={clsx(className)} theme="secondary" onClick={handleClick}>
+    <Button
+      className={clsx(className)}
+      disabled={disabled}
+      loading={loading}
+      theme="secondary"
+      onClick={handleClick}
+    >
       入札する
     </Button>
   );

@@ -26,7 +26,7 @@ export const TimeLimit = ({ className }: TimeLimitProps) => {
       setUnixTime(Number(endTime) - currentDateTime);
     }, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [endTime]);
 
   return (
     <div className={clsx(className, "font-bold")}>

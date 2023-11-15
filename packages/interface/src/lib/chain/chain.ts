@@ -1,13 +1,14 @@
 import { STAGE, WALLET_CONNECT_API_KEY } from "@/config/config";
 import { PRODUCTION } from "@/const/const";
 import { configureChains, createConfig } from "wagmi";
-import { optimism, optimismGoerli } from "wagmi/chains";
+import { optimism, sepolia } from "wagmi/chains";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { publicProvider } from "wagmi/providers/public";
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [STAGE === PRODUCTION ? optimism : optimismGoerli],
+  // [STAGE === PRODUCTION ? optimism : optimismGoerli],
+  [STAGE === PRODUCTION ? optimism : sepolia],
   [publicProvider()],
 );
 

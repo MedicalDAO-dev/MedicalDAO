@@ -6,15 +6,13 @@ import { AuctionState, auctionState } from "@/stores/auctionState";
 import { Bid } from "@/types/Bid";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { TransactionReceipt } from "viem";
-import { Address } from "wagmi";
 
 export interface AuctionController {
-  init: () => Promise<void>;
-  bid: (bidAmount: bigint, bidder: Address) => Promise<TransactionReceipt>;
+  setLatest: () => Promise<void>;
+  bid: (bidAmount: bigint) => Promise<TransactionReceipt>;
   settleAndCreateNewAuction: () => Promise<TransactionReceipt>;
   settleAndCreateNewAuctionAndBid: (
     bidAmount: bigint,
-    bidder: Address,
   ) => Promise<TransactionReceipt>;
 }
 
@@ -28,7 +26,7 @@ export const useAuctionController = (): AuctionController => {
   /**
    * 初期化
    */
-  const init = async (): Promise<void> => {
+  const setLatest = async (): Promise<void> => {
     const auction = await AuctionHouse.getLastAuction();
     const imageURL = `${BASE_NFT_IMAGE_URL}/${Number(auction.tokenId)}.png`;
 
@@ -55,14 +53,9 @@ export const useAuctionController = (): AuctionController => {
    * @param bidAmount 入札額
    * @return {Promise<TransactionReceipt>} トランザクションレシピ
    */
-  const bid = async (
-    bidAmount: bigint,
-    bidder: Address,
-  ): Promise<TransactionReceipt> => {
+  const bid = async (bidAmount: bigint): Promise<TransactionReceipt> => {
     const data = await AuctionHouse.createBid(bidAmount);
-    setAuction((prev) =>
-      prev.copyWith({ bids: [...prev.bids, { bidder, amount: bidAmount }] }),
-    );
+    await setLatest();
     return data;
   };
 
@@ -71,7 +64,9 @@ export const useAuctionController = (): AuctionController => {
    * @return {Promise<TransactionReceipt>} トランザクションレシピ
    */
   const settleAndCreateNewAuction = async (): Promise<TransactionReceipt> => {
-    return await AuctionHouse.settleCurrentAndCreateNewAuction();
+    const receipt = await AuctionHouse.settleCurrentAndCreateNewAuction();
+    await setLatest();
+    return receipt;
   };
 
   /**
@@ -81,20 +76,17 @@ export const useAuctionController = (): AuctionController => {
    */
   const settleAndCreateNewAuctionAndBid = async (
     bidAmount: bigint,
-    bidder: Address,
   ): Promise<TransactionReceipt> => {
     const data =
       await AuctionHouse.settleCurrentAndCreateNewAuctionAndCreateBid(
         bidAmount,
       );
-    setAuction((prev) =>
-      prev.copyWith({ bids: [...prev.bids, { bidder, amount: bidAmount }] }),
-    );
+    await setLatest();
     return data;
   };
 
   const controller: AuctionController = {
-    init,
+    setLatest,
     bid,
     settleAndCreateNewAuction,
     settleAndCreateNewAuctionAndBid,
