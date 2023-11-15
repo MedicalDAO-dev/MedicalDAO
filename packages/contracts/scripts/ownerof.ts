@@ -1,15 +1,17 @@
-import { AUCTION_HOUSE_PROXY_ADDRESS } from "./helpers/const";
+import { AUCTION_HOUSE_PROXY_ADDRESS, TOKEN_ADDRESS } from "./helpers/const";
 import { ethers } from "hardhat";
 
 async function main() {
   const [signer] = await ethers.getSigners();
   console.log("Signer account: ", signer.address);
 
-  const AuctionHouse = await ethers.getContractFactory("AuctionHouse");
-  const auctionHouse = AuctionHouse.attach(AUCTION_HOUSE_PROXY_ADDRESS);
+  const Token = await ethers.getContractFactory("MedicalDAONFT");
+  const token = Token.attach(TOKEN_ADDRESS);
 
   try {
-    console.log(await auctionHouse.getAuctions());
+    for (let i = 0; i < 10; i++) {
+      console.log(await token.ownerOf(2));
+    }
   } catch (e) {
     console.log(e);
   }

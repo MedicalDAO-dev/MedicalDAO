@@ -26,9 +26,9 @@ const useUserInit = (): void => {
  */
 const useAuctionInit = (): void => {
   //TODO: オークションの初期化処理
-  const { init } = useAuctionController();
+  const { setLatest } = useAuctionController();
 
   useEffect(() => {
-    init();
+    setLatest();
   }, []);
 };

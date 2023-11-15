@@ -1,14 +1,19 @@
+import { BASE_NFT_IMAGE_URL } from "@/const/const";
 import { AuctionHouse } from "@/lib/contracts/AuctionHouse";
 import { AuctionModel } from "@/models/AuctionModel";
 import { NFTModel } from "@/models/NFTModel";
 import { AuctionState, auctionState } from "@/stores/auctionState";
-import { Auction } from "@/types/Auction";
-import { Hash } from "@wagmi/core";
+import { Bid } from "@/types/Bid";
 import { useRecoilValue, useSetRecoilState } from "recoil";
+import { TransactionReceipt } from "viem";
 
 export interface AuctionController {
-  init: () => Promise<void>;
-  bid: (bidAmount: bigint) => Promise<Hash>;
+  setLatest: () => Promise<void>;
+  bid: (bidAmount: bigint) => Promise<TransactionReceipt>;
+  settleAndCreateNewAuction: () => Promise<TransactionReceipt>;
+  settleAndCreateNewAuctionAndBid: (
+    bidAmount: bigint,
+  ) => Promise<TransactionReceipt>;
 }
 
 export const useAuctionValue = (): AuctionState => {
@@ -21,31 +26,24 @@ export const useAuctionController = (): AuctionController => {
   /**
    * 初期化
    */
-  const init = async (): Promise<void> => {
-    const auctionContractState: Auction = await AuctionHouse.auction();
-    const imageURL: string = `https://ipfs.io/ipfs/QmWdcHRNaEEFbpexkJCJSL26KL6abKYzAVWQiwWE73DM2n/${Number(
-      auctionContractState.tokenId,
-    )}.png`;
+  const setLatest = async (): Promise<void> => {
+    const auction = await AuctionHouse.getLastAuction();
+    const imageURL = `${BASE_NFT_IMAGE_URL}/${Number(auction.tokenId)}.png`;
 
-    const bidders = auctionContractState.bidders
-      ? auctionContractState.bidders
-      : [];
-    const amounts = auctionContractState.amounts
-      ? auctionContractState.amounts
-      : [];
+    const newBids: Bid[] = [];
+    for (let i = 0; i < auction.bidders.length; i++) {
+      newBids.push({
+        bidder: auction.bidders[i],
+        amount: auction.amounts[i],
+      });
+    }
 
     setAuction(
       AuctionModel.create({
-        startTime: auctionContractState.startTime,
-        endTime: auctionContractState.endTime,
-        bids: [
-          {
-            bidder: bidders[bidders.length - 1],
-            amount: amounts[amounts.length - 1],
-            hash: "0x934e6bb9b4a8d78d87a98c30b807567ea88a6a363a14e6824072c21ad82d2921",
-          },
-        ],
-        nft: new NFTModel(auctionContractState.tokenId, imageURL),
+        startTime: auction.startTime,
+        endTime: auction.endTime,
+        bids: newBids,
+        nft: NFTModel.create({ tokenId: auction.tokenId, imageURL }),
       }),
     );
   };
@@ -53,15 +51,45 @@ export const useAuctionController = (): AuctionController => {
   /**
    * 入札
    * @param bidAmount 入札額
-   * @returns {Promise<Hash>} トランザクションハッシュ
+   * @return {Promise<TransactionReceipt>} トランザクションレシピ
    */
-  const bid = async (bidAmount: bigint): Promise<Hash> => {
-    return await AuctionHouse.createBid(bidAmount);
+  const bid = async (bidAmount: bigint): Promise<TransactionReceipt> => {
+    const data = await AuctionHouse.createBid(bidAmount);
+    await setLatest();
+    return data;
+  };
+
+  /**
+   * 落札処理を実行して次のオークションを開始する
+   * @return {Promise<TransactionReceipt>} トランザクションレシピ
+   */
+  const settleAndCreateNewAuction = async (): Promise<TransactionReceipt> => {
+    const receipt = await AuctionHouse.settleCurrentAndCreateNewAuction();
+    await setLatest();
+    return receipt;
+  };
+
+  /**
+   * 落札処理を実行して次のオークションを開始して入札する
+   * @param bidAmount 入札額
+   * @return {Promise<TransactionReceipt>} トランザクションレシピ
+   */
+  const settleAndCreateNewAuctionAndBid = async (
+    bidAmount: bigint,
+  ): Promise<TransactionReceipt> => {
+    const data =
+      await AuctionHouse.settleCurrentAndCreateNewAuctionAndCreateBid(
+        bidAmount,
+      );
+    await setLatest();
+    return data;
   };
 
   const controller: AuctionController = {
-    init,
+    setLatest,
     bid,
+    settleAndCreateNewAuction,
+    settleAndCreateNewAuctionAndBid,
   };
 
   return controller;

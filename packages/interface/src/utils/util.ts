@@ -34,3 +34,18 @@ export const toFixedBigint = (num: bigint, fractionDigits: number): string => {
     10 ** fractionDigits
   ).toFixed(fractionDigits);
 };
+
+/**
+ * 残り時間を出力する
+ * @param unixTime 時間
+ * @returns {string} フォーマット後の文字列
+ */
+export const remainUnixTime = (unixTime: number): string => {
+  const hours = Math.floor(unixTime / 3600);
+  const minutes = Math.floor((unixTime % 3600) / 60);
+  const seconds = unixTime % 60;
+  const formattedTime = `${hours.toString().padStart(2, "0")}時間 ${minutes
+    .toString()
+    .padStart(2, "0")}分 ${seconds.toString().padStart(2, "0")}秒`;
+  return formattedTime;
+};
