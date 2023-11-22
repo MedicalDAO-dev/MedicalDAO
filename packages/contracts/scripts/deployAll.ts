@@ -26,7 +26,7 @@ async function main() {
     300,
     1,
     2,
-    86400,
+    120,
   );
 
   try {
@@ -37,7 +37,7 @@ async function main() {
     console.log(e);
   }
 
-  if (network.chainId !== 31337) {
+  if (network.chainId !== 11155111) {
     console.log("====================================");
     console.log("Start verifying contracts");
 
