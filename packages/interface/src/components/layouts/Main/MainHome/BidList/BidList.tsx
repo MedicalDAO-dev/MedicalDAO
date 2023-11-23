@@ -19,10 +19,6 @@ export const BidList = ({ className }: BidListProps) => {
   const auction = useAuctionValue();
   const { bids } = auction;
 
-  const handleClick = async () => {
-    alert("click!");
-  };
-
   if (auction.isEndAuction() && !auction.isSuccessfulBidder(address))
     return <></>;
   return (
