@@ -19,6 +19,10 @@ export const BidList = ({ className }: BidListProps) => {
   const auction = useAuctionValue();
   const { bids } = auction;
 
+  const handleClick = async () => {
+    alert("click!");
+  };
+
   if (auction.isEndAuction() && !auction.isSuccessfulBidder(address))
     return <></>;
   return (
@@ -61,6 +65,7 @@ export const BidList = ({ className }: BidListProps) => {
             "font-['PT_Root_UI'] font-bold text-[#79809c] hover:text-[#4965f0]",
           )}
           theme="none"
+          onClick={handleClick}
         >
           すべての入札を表示
         </Button>
