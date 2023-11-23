@@ -1,6 +1,6 @@
-import { Button } from "@/components/elements/Button";
 import { Divider } from "@/components/elements/Divider";
 import { MAX_BID_LIST } from "@/const/const";
+import { MoreBidListsButton } from "@/features/auction/components/MoreBidListsButton";
 import { useAuctionValue } from "@/hooks/useAuction";
 import { useUserValue } from "@/hooks/useUser";
 import { BaseProps } from "@/types/BaseProps";
@@ -58,18 +58,7 @@ export const BidList = ({ className }: BidListProps) => {
             );
           })}
       </div>
-      {bids.length > MAX_BID_LIST && (
-        <Button
-          className={clsx(
-            "flex justify-center",
-            "font-['PT_Root_UI'] font-bold text-[#79809c] hover:text-[#4965f0]",
-          )}
-          theme="none"
-          onClick={handleClick}
-        >
-          すべての入札を表示
-        </Button>
-      )}
+      {bids.length > MAX_BID_LIST && <MoreBidListsButton />}
     </div>
   );
 };
