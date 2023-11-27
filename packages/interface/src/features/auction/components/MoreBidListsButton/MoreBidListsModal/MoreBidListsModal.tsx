@@ -69,6 +69,8 @@ export const MoreBidListsModal = ({ className }: MoreBidListsModalProps) => {
             "px-2",
             "flex flex-col",
             "rounded-[10px]",
+            "h-[250px]",
+            "overflow-y-scroll",
           )}
         >
           <div className={clsx("mb-1")}>
