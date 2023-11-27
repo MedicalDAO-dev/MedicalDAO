@@ -21,22 +21,22 @@ export const AuctionImage = ({ className }: AuctionImageProps) => {
   if (!auction.isEndAuction() || auction.isSuccessfulBidder(address))
     return (
       <Image
-        className={clsx(className)}
         src={imageURL}
         alt="auctionImage"
         width={512}
         height={512}
         priority
+        className={clsx(className)}
       />
     );
   return (
     <Image
-      className={clsx(className)}
       src={`${BASE_NFT_IMAGE_URL}/${Number(tokenId + 1n)}.png`}
       alt="auctionImage"
       width={512}
       height={512}
       priority
+      className={clsx(className)}
     />
   );
 };
